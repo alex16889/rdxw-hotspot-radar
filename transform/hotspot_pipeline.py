@@ -300,14 +300,14 @@ def summary_hint(topic, topic_type, title):
         return "热搜事件适合观察传播速度和讨论点。"
     if topic == "github":
         if topic_type == "github_ai":
-            return "AI 项目热度较高，适合关注功能落地、模型生态和可复用性。"
+            return "适合关注模型/Agent能力、生态适配、是否能接入内容或自动化工作流。"
         if topic_type == "github_devtool":
-            return "开发工具属性明显，适合评估能否接入现有工作流。"
+            return "适合评估开发效率、部署难度、能否接入现有项目。"
         if topic_type == "github_automation":
-            return "自动化方向明确，适合关注爬取、发布、工作流替代价值。"
+            return "适合关注自动化替代价值、触发流程、爬取/发布/运维场景。"
         if topic_type == "github_app":
-            return "应用形态清晰，适合关注界面、部署和用户场景。"
-        return "项目热度上升，适合继续观察 stars、更新频率和社区讨论。"
+            return "适合关注产品形态、界面体验、部署门槛和用户场景。"
+        return "适合观察 stars 增长、维护频率和社区讨论。"
     return "热点可继续观察。"
 
 
@@ -508,7 +508,7 @@ def build_ranked(items, top):
         topic = infer_topic(item)
         topic_type = infer_topic_type(topic, item)
 
-        dup_threshold = {"sports": 0.96, "ai": 0.88, "entertainment": 0.90}.get(topic, 0.90)
+        dup_threshold = {"sports": 0.96, "ai": 0.88, "entertainment": 0.90, "github": 0.90}.get(topic, 0.90)
         is_dup = False
         for prev in seen_by_topic[topic]:
             if normalize_title(prev["title"]) == normalize_title(item["title"]):
@@ -543,6 +543,9 @@ def build_ranked(items, top):
             out["forks"] = int(item.get("forks") or 0)
             out["language"] = item.get("language")
             out["latest_published_at"] = item.get("latest_published_at") or item.get("published_at")
+            out["summary"] = item.get("summary") or ""
+            if item.get("summary"):
+                out["description"] = item.get("summary")
         if topic == "entertainment" and topic_type == "entertainment_controversy":
             out["event_key"] = ent_event_key(item["title"])
         ranked.append(out)
@@ -590,6 +593,16 @@ def display_title(title, limit=60):
     return text
 
 
+def github_display_usage(item):
+    summary = (item.get("summary") or item.get("description") or "").strip()
+    if summary:
+        return summary
+    title = item.get("title") or ""
+    if "｜" in title:
+        return title.split("｜", 1)[1].strip()
+    return title.strip()
+
+
 def render_markdown(items, markdown_top=10):
     lines = ["# 今日热点候选", ""]
     grouped = defaultdict(list)
@@ -605,6 +618,19 @@ def render_markdown(items, markdown_top=10):
             lines.append("")
             continue
         for i, item in enumerate(arr, 1):
+            if topic == "github":
+                repo = item.get("repo") or item.get("title", "")
+                lines.append(f"### {i}. {repo}")
+                lines.append(f"- 类型：{item.get('topic_type', '')}")
+                lines.append(f"- 语言：{item.get('language') or '未知'}")
+                lines.append(f"- Stars：{item.get('stars', 0)}")
+                lines.append(f"- Forks：{item.get('forks', 0)}")
+                lines.append(f"- 用途：{github_display_usage(item)}")
+                lines.append(f"- 选题角度：{item.get('summary_hint', '')}")
+                lines.append(f"- 链接：{item.get('url', '')}")
+                lines.append("")
+                continue
+
             title = display_title(item['title'])
             lines.append(f"### {i}. {title}")
             lines.append(f"- topic：{item['topic']}")
