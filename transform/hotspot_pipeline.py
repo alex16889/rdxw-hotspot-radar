@@ -106,6 +106,7 @@ def normalize_item(item):
     url = pick(item, "url", "link")
     published_at = pick(item, "published_at", "published", "pubDate", "date", "time")
     latest_published_at = pick(item, "latest_published_at", "latestPublishedAt", default=published_at)
+    created_at = pick(item, "created_at", "createdAt", default=published_at)
     topic = item.get("topic")
     keywords = item.get("keywords") or item.get("keywords_hit") or []
     if isinstance(keywords, str):
@@ -121,6 +122,7 @@ def normalize_item(item):
         "url": url.strip(),
         "published_at": published_at,
         "latest_published_at": latest_published_at,
+        "created_at": created_at,
         "topic": topic,
         "keywords": keywords,
         "stars": stars,
@@ -432,6 +434,7 @@ def score_item(topic, topic_type, item):
         forks = int(item.get("forks") or 0)
         language = item.get("language")
         pushed_at = parse_iso_datetime(item.get("latest_published_at") or item.get("published_at"))
+        created_at = parse_iso_datetime(item.get("created_at") or item.get("published_at"))
         if stars >= 10000:
             score += 3.0
         elif stars >= 3000:
@@ -444,14 +447,26 @@ def score_item(topic, topic_type, item):
             score += 0.3
         if pushed_at is not None:
             age_days = (datetime.now(pushed_at.tzinfo) - pushed_at).days if pushed_at.tzinfo else (datetime.now() - pushed_at).days
-            if age_days <= 14:
+            if age_days <= 7:
+                score += 1.0
+            elif age_days <= 30:
                 score += 0.5
+        if created_at is not None:
+            created_age_days = (datetime.now(created_at.tzinfo) - created_at).days if created_at.tzinfo else (datetime.now() - created_at).days
+            if created_age_days <= 30:
+                score += 1.2
+            elif created_age_days <= 90:
+                score += 0.7
+            if stars > 100000 and created_age_days > 365 * 2:
+                score -= 1.0
+            elif stars > 50000 and created_age_days > 365 * 3:
+                score -= 0.8
         if topic_type == "github_ai":
-            score += 1.0
+            score += 0.8
         elif topic_type == "github_devtool":
-            score += 0.7
+            score += 0.8
         elif topic_type == "github_automation":
-            score += 0.6
+            score += 1.0
         elif topic_type == "github_app":
             score += 0.5
     else:
@@ -595,12 +610,15 @@ def display_title(title, limit=60):
 
 def github_display_usage(item):
     summary = (item.get("summary") or item.get("description") or "").strip()
-    if summary:
-        return summary
-    title = item.get("title") or ""
-    if "｜" in title:
-        return title.split("｜", 1)[1].strip()
-    return title.strip()
+    if not summary:
+        title = item.get("title") or ""
+        if "｜" in title:
+            summary = title.split("｜", 1)[1].strip()
+        else:
+            summary = title.strip()
+    if len(summary) > 90:
+        return summary[:90] + "..."
+    return summary
 
 
 def render_markdown(items, markdown_top=10):
