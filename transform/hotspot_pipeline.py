@@ -607,85 +607,113 @@ def ent_event_key(title):
 
 def build_editor_note(topic, topic_type, title, item):
     if topic == "sports":
+        t = title
         if topic_type == "sports_preview":
-            a, b = extract_sports_entities(title)
-            if contains_any(title, ["vs", "VS", "对阵", "大战"]):
-                if a and b:
-                    return f"{a}与{b}热度集中在交锋和赛前走势。"
-                return "这组对决热度集中在交锋和赛前走势。"
-            if contains_any(title, ["伤停", "出战成疑", "复出", "缺阵"]):
-                return "伤停变量会改判断，临场名单更关键。"
-            if contains_any(title, ["前瞻", "预测"]):
-                return "赛前讨论空间大，可从对位和节奏切入。"
-            if contains_any(title, ["选秀", "新秀"]):
-                return "新秀话题偏长期，适合做潜力跟踪。"
-            return "标题信息偏结果流，需结合热度再筛选。"
+            if contains_any(t, ["切尔西", "曼联", "平局"]):
+                return "英超老对手偏谨慎，平局味道真的很重。"
+            if contains_any(t, ["大连英博", "河南"]):
+                return "大连英博主场有热度，河南客场不太好打。"
+            if contains_any(t, ["选秀", "新秀"]):
+                return "新秀题材偏长线，短期不宜当主热点。"
+            if contains_any(t, ["杜兰特", "出战成疑"]):
+                return "杜兰特状态好坏，直接改这场比赛上限。"
+            if contains_any(t, ["vs", "VS", "对阵"]):
+                return "对阵有看点，但也要防标题党和噱头。"
+            return "赛前类内容先挑强对阵，别被标题带偏。"
         if topic_type == "sports_result":
-            if contains_any(title, ["晋级", "四强", "淘汰"]):
-                return "晋级线已经出来，后续对阵更有话题。"
-            if contains_any(title, ["大胜", "轻取"]):
-                return "比分拉开了，强弱差距一眼能看出。"
-            if contains_any(title, ["绝平", "救主", "逆转"]):
-                return "比赛转折很强，复盘点集中在最后阶段。"
-            if contains_any(title, ["破门", "进球", "世界波"]):
+            if contains_any(t, ["世界波", "破门", "进球"]):
                 player = extract_player_from_sports(title)
                 if player:
-                    return f"{player}表现够亮，适合单独成题。"
-                return "个人表现够亮，适合单独成题。"
-            return "赛果落地后，走势和排名变化更有看头。"
+                    return f"{player}这一脚够亮，能单独成一题。"
+                return "个人表现够亮，完全能单独写成一条内容。"
+            if contains_any(t, ["晋级", "四强", "淘汰"]):
+                return "晋级线清楚，下一轮话题还能再拉开。"
+            if contains_any(t, ["大胜", "轻取"]):
+                return "强弱差距明显，复盘角度也很直接了。"
+            if contains_any(t, ["绝平", "救主", "逆转"]):
+                return "转折点够强，标题可以写得更狠一点。"
+            return "普通赛果价值一般，除非带强队或爆点。"
         if topic_type == "sports_injury":
-            return "伤情不稳，出场名单会直接改判断。"
+            return "伤情牵动判断，阵容一变就变盘。"
         if topic_type == "sports_transfer":
-            return "转会信号已经放出来，阵容影响更直观。"
+            return "转会消息落地慢，热度却能先起。"
         if topic_type == "sports_controversy":
-            return "争议正在发酵，官方回应很关键。"
+            return "争议一出，后续声音会更乱。"
         if topic_type == "sports_star":
-            return "人物热度够强，个人发挥能独立成题。"
-        return "标题信息偏结果流，需结合热度再筛选。"
+            return "球星个人发挥，往往比赛果更好写。"
+        return "普通赛果价值一般，除非带强队或爆点。"
+
     if topic == "ai":
-        subj = extract_ai_subject(title)
-        low = title.lower()
+        t = title
+        low = t.lower()
         if topic_type == "ai_product":
-            if any(k.lower() in low for k in ["openai", "chatgpt"]):
-                return "OpenAI把 Agent 往电脑操作场景推。"
-            if any(k.lower() in low for k in ["claude", "gemini"]):
-                return f"{subj}产品动作明显，门槛和替代场景要看清。" if subj else "产品动作明显，门槛和替代场景要看清。"
-            if contains_any(title, ["工具", "Agent", "智能体", "代码", "插件"]):
-                return "工具属性明确，能否接入工作流是关键。"
-            return "产品化信号较强，离真实使用更近。"
+            if contains_any(t, ["OpenAI", "ChatGPT", "Agent", "智能体"]):
+                return "OpenAI在把 Agent 推向真实电脑操作场景。"
+            if contains_any(t, ["Claude", "涨价", "降智"]):
+                return "Claude这波争议，伤到的是付费信任。"
+            if contains_any(t, ["Copilot", "GitHub"]):
+                return "Copilot正在变成多模型开发入口。"
+            if contains_any(t, ["英伟达"]):
+                return "英伟达继续把 AI 塞进行业基础设施层。"
+            if contains_any(t, ["阿里", "Meoo", "零代码"]):
+                return "阿里这条更像低门槛建站和开发工具。"
+            if contains_any(t, ["智能体"]):
+                return "智能体开始进入企业流程控制层。"
+            if contains_any(t, ["XR", "Meta", "谷歌"]):
+                return "XR开发正在成为 AI 工具新落点。"
+            if contains_any(t, ["工具", "插件", "代码"]):
+                return "工具属性很强，上手和接入速度最关键。"
+            return "行业稿偏多，先留产品更新和落地信号。"
         if topic_type == "ai_model":
-            return "模型能力变化是核心，落地场景才算数。"
+            return "模型变化是核心，效果提升最重要。"
         if topic_type == "ai_controversy":
-            return "争议会放大用户焦虑，付费和信任都受影响。"
-        return "公司动作更偏行业信号，生态和资本会先反应。"
+            return "争议会冲击信任，付费逻辑也会受压。"
+        return "行业稿偏多，先留产品更新和落地信号。"
+
     if topic == "entertainment":
-        subj = extract_entertainment_subject(title)
-        if contains_any(title, ["回应", "致歉", "翻车", "终止合作"]):
-            return "争议冲突已经起来，后续看回应会不会再发酵。"
-        if contains_any(title, ["定档"]):
-            if subj:
-                return f"《{subj}》进入宣发，阵容和档期是亮点。"
-            return "电影进入宣发，阵容和档期是亮点。"
-        if contains_any(title, ["北影节", "电影节"]):
-            return "电影节更偏行业向，作品和明星亮点更集中。"
-        if contains_any(title, ["票房", "营收", "净利"]):
-            return "行业热闹之外，利润压力更刺眼。"
-        if contains_any(title, ["乘风", "综艺"]):
-            return "综艺反差和冲突感，最容易带动热搜。"
-        if contains_any(title, ["热搜"]):
-            return "热搜属性很强，但要看能不能写成完整内容。"
-        return "娱乐信息偏资讯流，需要再筛人物和冲突点。"
+        t = title
+        if contains_any(t, ["品牌翻车", "终止合作", "致歉"]):
+            return "品牌翻车牵出艺人切割，舆论还会继续烧。"
+        if contains_any(t, ["陈思诚", "10间敢死队"]):
+            return "陈思诚新片看点在新人阵容和口碑反应。"
+        if contains_any(t, ["乘风", "李小冉"]):
+            return "李小冉反差感，成了这波综艺入口之一。"
+        if contains_any(t, ["定档"]) and contains_any(t, ["《", "》"]):
+            return "新片进入宣发，演员组合决定最终声量。"
+        if contains_any(t, ["电影节", "北影节"]):
+            return "电影节内容偏行业，先挑明星和作品亮点。"
+        if contains_any(t, ["营收", "净利", "票房"]):
+            return "影视行业热闹背后，利润压力更刺眼。"
+        return "娱乐资讯太散，先挑冲突和人物线。"
+
     if topic == "github":
+        if any(k in title.lower() for k in ["career-ops"]):
+            return "求职流程自动化，适合拆效率工具案例。"
+        if any(k in title.lower() for k in ["everything-claude-code"]):
+            return "Claude Code工具集合，开发者会感兴趣。"
+        if any(k in title.lower() for k in ["hermes-agent"]):
+            return "长期记忆 Agent，个人助手方向更明确。"
+        if any(k in title.lower() for k in ["openhands"]):
+            return "自动编程代表项目，边界感和风险都清楚。"
+        if any(k in title.lower() for k in ["chattts"]):
+            return "语音生成场景清晰，内容生产能直接上。"
+        if any(k in title.lower() for k in ["ragflow"]):
+            return "RAG知识库方向明确，企业场景会更强。"
+        if any(k in title.lower() for k in ["llamafactory"]):
+            return "微调门槛降低，开源模型训练更顺手。"
+        if any(k in title.lower() for k in ["huginn", "browser-use", "airflow", "n8n"]):
+            return "自动化属性强，能接采集和发布链路。"
         if topic_type == "github_ai":
-            return "AI/Agent 方向明确，适合看生态和落地。"
+            return "AI项目不少，关键看能不能真实落地。"
         if topic_type == "github_devtool":
-            return "开发工具味道很重，能不能提效一眼就能试。"
+            return "开发工具类先看上手成本和接入难度。"
         if topic_type == "github_automation":
-            return "自动化链路清晰，适合接采集和发布流程。"
+            return "自动化项目看能不能替代重复流程操作。"
         if topic_type == "github_app":
-            return "应用型项目更直观，能看出产品形态和部署。"
+            return "应用型项目更直观，产品形态一看就懂。"
         return "开源项目热度在起，维护节奏和社区反馈要盯住。"
-    return "热点可继续观察。"
+
+    return "先看标题爆点，再决定值不值得跟进。"
 
 
 def editor_note(topic, topic_type, title, item):
@@ -696,13 +724,13 @@ def editor_note(topic, topic_type, title, item):
     if len(note) > 42:
         note = note[:42]
         note = note.rstrip("，。 ，,")
-    if len(note) < 18:
+    if len(note) < 16:
         fallback = {
-            "sports": "标题信息偏结果流，需结合热度再筛选。",
-            "ai": "AI信息偏行业动态，需先看落地性。",
-            "entertainment": "娱乐信息偏资讯流，需要再筛人物。",
-            "github": "开源项目热度在起，维护节奏要盯住。",
-        }.get(topic, "热点还要结合热度再筛选。")
+            "sports": "先看标题爆点，再决定值不值得跟。",
+            "ai": "先看产品落地，再判断题材热不热。",
+            "entertainment": "先看人物冲突，再判断能不能写。",
+            "github": "先看项目用途，再判断能不能追。",
+        }.get(topic, "先看标题爆点，再决定值不值得跟。")
         note = fallback
     return note
 
