@@ -276,59 +276,77 @@ def infer_topic_type(topic, item):
     return infer_sports_type(title)
 
 
+def sports_summary_hint(topic_type, title):
+    if topic_type == "sports_preview":
+        if contains_any(title, ["vs", "VS", "对阵", "大战"]):
+            return "双方关注度高，赛前热度集中在状态、阵容和临场变化。"
+        if contains_any(title, ["伤停", "出战成疑", "复出", "缺阵"]):
+            return "伤停变量会影响判断，临场名单比早盘信息更关键。"
+        if contains_any(title, ["前瞻", "预测"]):
+            return "赛前讨论空间大，可以从对位和节奏切入。"
+        if contains_any(title, ["选秀", "新秀"]):
+            return "人物潜力话题更强，适合做长期观察型内容。"
+        return "赛前信息较集中，适合提炼一条明确判断。"
+    if topic_type == "sports_result":
+        if contains_any(title, ["晋级", "淘汰", "出局"]):
+            return "结果影响后续对阵，适合围绕晋级路径做复盘。"
+        if contains_any(title, ["大胜", "轻取"]):
+            return "强弱差距被拉开，重点看状态延续和对手短板。"
+        if contains_any(title, ["绝平", "救主", "逆转"]):
+            return "比赛转折明显，关键节点很适合做复盘标题。"
+        if contains_any(title, ["破门", "进球", "世界波"]):
+            return "个人表现突出，可围绕核心球员做切入。"
+        return "赛果已落地，重点看结果对排名和走势的影响。"
+    if topic_type == "sports_injury":
+        return "伤情不确定，重点看能否出战和替代方案。"
+    if topic_type == "sports_transfer":
+        return "转会进展值得跟进，重点看官宣概率和阵容影响。"
+    if topic_type == "sports_controversy":
+        return "争议正在发酵，重点看官方回应和后续处罚。"
+    if topic_type == "sports_star":
+        return "人物热度突出，重点看个人表现和外溢话题。"
+    return "体育资讯热度一般，适合作为补充观察。"
+
+
 def summary_hint(topic, topic_type, title):
     if topic == "sports":
-        if topic_type == "sports_preview":
-            return "赛前对位明确，阵容、盘口和临场变化更值得关注。"
-        if topic_type == "sports_result":
-            if contains_any(title, ["积分榜", "领跑", "前四", "排名"]):
-                return "排名变化是主要看点，后续争冠/争四/保级走势值得跟进。"
-            if contains_any(title, ["晋级", "淘汰", "出局", "四强"]):
-                return "晋级结果明确，下一轮对阵和淘汰赛走势是传播点。"
-            if contains_any(title, ["逆转", "绝平", "制胜", "救主"]):
-                return "比赛转折明显，关键球员和临场节点适合复盘。"
-            if contains_any(title, ["大胜", "轻取"]):
-                return "胜负差距拉开，强弱对比和状态延续是重点。"
-            return "赛果和关键回合值得继续复盘。"
-        if topic_type == "sports_injury":
-            return "伤情不确定，重点看能否出战和替代方案。"
-        if topic_type == "sports_transfer":
-            return "转会进展值得跟进，重点看官宣概率和阵容影响。"
-        if topic_type == "sports_controversy":
-            return "争议正在发酵，重点看官方回应和后续处罚。"
-        if topic_type == "sports_star":
-            return "人物热度突出，重点看个人表现和外溢话题。"
-        return "体育资讯热度一般，适合作为补充观察。"
+        return sports_summary_hint(topic_type, title)
     if topic == "ai":
         if topic_type == "ai_product":
-            return "工具或产品发布更看重实际使用价值和上手体验。"
+            if contains_any(title, ["OpenAI", "ChatGPT", "Claude", "Gemini"]):
+                return "大厂产品动作明显，重点看实际使用门槛和替代场景。"
+            if contains_any(title, ["工具", "Agent", "智能体", "代码", "插件"]):
+                return "工具属性明确，适合评估能否直接接入日常工作流。"
+            return "产品化信号较强，重点看能否从概念走向实际使用。"
         if topic_type == "ai_model":
-            return "模型更新会直接影响能力表现和用户体验。"
+            return "模型能力变化是核心，重点看效果提升是否能落到具体场景。"
         if topic_type == "ai_controversy":
-            return "争议或监管信号值得继续跟进。"
-        return "公司动态可能影响行业预期和产品节奏。"
+            return "争议会放大用户焦虑，重点看是否影响付费和使用信任。"
+        return "公司动作更偏行业信号，适合观察资本和生态变化。"
     if topic == "entertainment":
-        if topic_type == "entertainment_movie":
-            return "电影相关信息适合看票房、定档和市场反馈。"
-        if topic_type == "entertainment_tv":
-            return "剧集热度适合观察口碑和播放表现。"
-        if topic_type == "entertainment_star":
-            return "人物动态适合观察舆论扩散和粉丝反馈。"
         if topic_type == "entertainment_controversy":
-            return "争议和舆论走向值得继续跟进。"
+            return "舆论冲突已经形成，重点看当事人回应和后续反转。"
+        if topic_type == "entertainment_movie":
+            return "电影信息明确，重点看阵容、档期和票房预期。"
+        if topic_type == "entertainment_tv":
+            return "剧综话题适合观察开播表现、嘉宾阵容和讨论度。"
+        if topic_type == "entertainment_star":
+            return "人物话题自带流量，重点看粉丝反应和舆论扩散。"
+        if topic_type == "entertainment_hotsearch":
+            return "热搜属性强，但要判断是否能延展成完整内容。"
         if topic_type == "entertainment_low_value":
-            return "更适合作为补充信息，不宜放高优先级。"
+            return "娱乐属性一般，适合作为补充观察。"
         return "热搜事件适合观察传播速度和讨论点。"
     if topic == "github":
         if topic_type == "github_ai":
-            return "适合关注模型/Agent能力、生态适配、是否能接入内容或自动化工作流。"
+            return "AI/Agent 方向明确，适合关注模型生态和工作流接入。"
         if topic_type == "github_devtool":
-            return "适合评估开发效率、部署难度、能否接入现有项目。"
+            return "开发工具项目，适合评估是否能提升开发效率。"
         if topic_type == "github_automation":
-            return "适合关注自动化替代价值、触发流程、爬取/发布/运维场景。"
+            return "自动化项目，适合评估是否能替代重复操作和流程编排。"
         if topic_type == "github_app":
-            return "适合关注产品形态、界面体验、部署门槛和用户场景。"
-        return "适合观察 stars 增长、维护频率和社区讨论。"
+            return "应用型项目，适合观察产品形态和部署方式。"
+        return "开源项目热度上升，适合继续观察维护频率和社区反馈。"
     return "热点可继续观察。"
 
 
@@ -582,6 +600,9 @@ def build_ranked(items, top):
             if item.get("summary"):
                 out["description"] = item.get("summary")
             out["recommend_reason"] = build_github_recommend_reason(out)
+            out["zh_summary"] = build_github_zh_summary(out)
+            out["raw_summary"] = item.get("summary") or item.get("description") or ""
+            out["summary"] = out["zh_summary"]
         if topic == "entertainment" and topic_type == "entertainment_controversy":
             out["event_key"] = ent_event_key(item["title"])
         ranked.append(out)
@@ -626,18 +647,16 @@ def build_github_recommend_reason(item):
     parts = []
     stars = int(item.get("stars") or 0)
     topic_type = item.get("topic_type") or "github_other"
-    title = item.get("title") or ""
-
     if stars >= 100000:
-        parts.append("高星成熟项目，社区验证强")
+        parts.append("社区规模大")
     elif stars >= 3000:
         parts.append("已有稳定社区关注")
     if topic_type == "github_automation":
         parts.append("自动化属性强")
     elif topic_type == "github_devtool":
-        parts.append("开发工具属性强")
+        parts.append("开发效率导向明显")
     elif topic_type == "github_ai":
-        parts.append("AI/Agent 属性强")
+        parts.append("AI/Agent 方向明确")
     elif topic_type == "github_app":
         parts.append("应用形态清晰")
     if item.get("created_at"):
@@ -653,11 +672,59 @@ def build_github_recommend_reason(item):
             if pushed_age_days <= 7:
                 parts.append("近期仍活跃")
     if not parts:
-        parts.append("适合继续观察")
+        parts.append("值得继续观察")
     reason = "，".join(parts) + "。"
     if len(reason) > 50:
         reason = reason[:50].rstrip("，。") + "。"
     return reason
+
+
+def build_github_zh_summary(item):
+    repo = (item.get("repo") or "").lower()
+    text = " ".join([
+        repo,
+        (item.get("title") or "").lower(),
+        (item.get("raw_summary") or item.get("summary") or "").lower(),
+        (item.get("topic_type") or "").lower(),
+    ])
+
+    if any(k in text for k in ["langchain"]):
+        return "Agent 和 LLM 应用开发框架，适合搭建复杂 AI 工作流。"
+    if any(k in text for k in ["hermes-agent"]):
+        return "面向个人和团队的 AI Agent 项目，强调长期记忆和协作能力。"
+    if any(k in text for k in ["openhands"]):
+        return "AI 编程代理，主打自动完成开发任务和代码协作。"
+    if any(k in text for k in ["chattts"]):
+        return "文本转语音模型，适合语音生成和对话音频场景。"
+    if any(k in text for k in ["llms-from-scratch"]):
+        return "从零实现大模型的教程项目，适合学习 LLM 底层原理。"
+    if any(k in text for k in ["ragflow"]):
+        return "RAG 检索增强生成引擎，适合知识库问答和企业文档场景。"
+    if any(k in text for k in ["llamafactory"]):
+        return "大模型微调工具，适合训练和适配开源模型。"
+    if any(k in text for k in ["huginn"]):
+        return "自动化代理工具，可监控网页事件并触发任务流程。"
+    if any(k in text for k in ["browser-use"]):
+        return "浏览器自动化工具，适合网页操作、采集和自动任务。"
+    if any(k in text for k in ["airflow"]):
+        return "任务编排平台，适合数据流、定时任务和自动化管道。"
+    if any(k in text for k in ["n8n"]):
+        return "低代码自动化平台，适合连接 API、表格和多平台发布流程。"
+    if any(k in text for k in ["puppeteer"]):
+        return "浏览器控制工具，适合网页截图、爬取和自动化测试。"
+    if any(k in text for k in ["gemini-cli"]):
+        return "Gemini 命令行工具，适合在终端中调用 AI 能力。"
+    if any(k in text for k in ["qwen-code"]):
+        return "通义千问代码 Agent，适合代码生成、重构和开发辅助。"
+    if item.get("topic_type") == "github_ai":
+        return "AI/Agent 相关项目，适合观察模型生态和应用落地。"
+    if item.get("topic_type") == "github_devtool":
+        return "开发工具项目，适合评估是否能提升开发效率。"
+    if item.get("topic_type") == "github_automation":
+        return "自动化项目，适合评估是否能替代重复操作和流程编排。"
+    if item.get("topic_type") == "github_app":
+        return "应用型项目，适合观察产品形态和部署方式。"
+    return "开源项目热度上升，适合继续观察维护频率和社区反馈。"
 
 
 def display_title(title, limit=60):
@@ -704,7 +771,6 @@ def render_markdown(items, markdown_top=10):
                 lines.append(f"- Forks：{item.get('forks', 0)}")
                 lines.append(f"- 用途：{github_display_usage(item)}")
                 lines.append(f"- 推荐理由：{item.get('recommend_reason', '')}")
-                lines.append(f"- 选题角度：{item.get('summary_hint', '')}")
                 lines.append(f"- 链接：{item.get('url', '')}")
                 lines.append("")
                 continue
@@ -714,7 +780,7 @@ def render_markdown(items, markdown_top=10):
             lines.append(f"- topic：{item['topic']}")
             lines.append(f"- topic_type：{item['topic_type']}")
             lines.append(f"- score：{item['score']}")
-            lines.append(f"- 摘要：{item['summary_hint']}")
+            lines.append(f"- 概述：{item['summary_hint']}")
             if item.get("event_key"):
                 lines.append(f"- event_key：{item['event_key']}")
             lines.append("- 来源：")
