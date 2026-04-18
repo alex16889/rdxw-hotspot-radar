@@ -8,6 +8,7 @@ import json
 import re
 from collections import Counter, defaultdict
 from difflib import SequenceMatcher
+from datetime import datetime
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -15,8 +16,9 @@ TOPIC_LABELS = {
     "sports": "体育热点",
     "ai": "AI科技热点",
     "entertainment": "泛娱乐热点",
+    "github": "GitHub热点项目",
 }
-TOPIC_ORDER = ["sports", "ai", "entertainment"]
+TOPIC_ORDER = ["sports", "ai", "entertainment", "github"]
 
 SPORTS_WORDS = [
     "英超", "NBA", "欧冠", "中超", "意甲", "德甲", "法甲", "亚冠", "梅西", "C罗",
@@ -35,16 +37,20 @@ ENT_WORDS = [
 
 SPORTS_HIGH_VALUE_SOURCES = ["懂球帝", "直播吧", "体坛周报", "虎扑", "ESPN", "Sky Sports", "The Athletic", "Reuters", "AP"]
 SPORTS_LOW_VALUE_PATTERNS = ["集锦", "录像", "回放", "直播安排", "赛程表", "节目表"]
-SPORTS_PREVIEW_FORCE = ["前瞻", "赛前", "vs", "VS", "对阵", "天王山", "明晚打响", "今晚打响", "首发", "名单", "预测"]
+SPORTS_PREVIEW_FORCE = ["前瞻", "赛前", "vs", "VS", "对阵", "天王山", "明晚打响", "今晚打响", "首发", "名单", "预测", "看点"]
 SPORTS_RESULT_EXPLICIT = ["战报", "已晋级", "已淘汰", "出局", "赛后"]
+SPORTS_RESULT_STRICT = ["晋级", "淘汰", "出局", "大胜", "轻取", "逆转", "绝平", "制胜", "破门", "领跑", "锁定", "战报"]
+SPORTS_COMMENTARY_LOW = ["此前三次", "历史第", "是否", "希望", "可能性", "观点", "认为", "专注于", "完美结局", "真正重创"]
 
 AI_HIGH_VALUE_SOURCES = ["OpenAI Blog", "Google Blog", "Anthropic", "The Verge", "TechCrunch", "量子位", "机器之心", "36氪", "新智元"]
 AI_LOW_VALUE_SOURCES = ["美通社", "财富号", "车家号", "新浪财经", "搜狐", "手机新浪网"]
 AI_HASH_LOW_RE = re.compile(r"^(?:#.*#){2,}.*$|^#")
-AI_PRODUCT_RE = re.compile(r"(?:工具|上线|发布|推出|开发工具|智能体|agent|零代码|应用|平台|产品|助手|插件)", re.IGNORECASE)
+AI_PRODUCT_RE = re.compile(r"(?:工具|上线|发布|推出|开发工具|智能体|agent|零代码|应用|平台|产品|助手|插件|开源|框架|代码)", re.IGNORECASE)
 AI_MODEL_RE = re.compile(r"(?:模型更新|推理|参数|跑分|Claude\s*Opus|GPT|Gemini|Sora|模型能力|大模型)", re.IGNORECASE)
 AI_CONTROVERSY_RE = re.compile(r"(?:泄露|曝光|版权|诉讼|监管|安全|崩了|降智|翻车)", re.IGNORECASE)
 AI_LOW_VALUE_PATTERNS = ["Claude Design", "Figma", "Adobe", "设计行业", "Claude Opus 4.7", "提示词曝光", "GPT-Rosalind", "药物研发"]
+AI_GOV_TRAINING_LOW = ["省属企业", "通识培训", "培训课程", "应用场景", "产业园", "示范区", "数字员工", "生态大会", "十周年", "赋能", "新范式", "联盟倡议"]
+AI_BREAKING_LOW = ["早报", "一夜蒸发", "多条新闻混合", "A股", "股价", "市值"]
 
 ENT_LOW_VALUE_PATTERNS = [
     "电影+消费", "消费市场", "市场活力", "经济图景", "集团战略", "产业发展", "多元体验", "新质赋能",
@@ -100,17 +106,29 @@ def normalize_item(item):
     source = pick(item, "source", "publisher", "site", "source_name")
     url = pick(item, "url", "link")
     published_at = pick(item, "published_at", "published", "pubDate", "date", "time")
+    latest_published_at = pick(item, "latest_published_at", "latestPublishedAt", default=published_at)
     topic = item.get("topic")
     keywords = item.get("keywords") or item.get("keywords_hit") or []
     if isinstance(keywords, str):
         keywords = [keywords]
+    stars = item.get("stars") or 0
+    forks = item.get("forks") or 0
+    language = item.get("language")
+    repo = item.get("repo") or ""
+    summary = item.get("summary") or item.get("description") or ""
     return {
         "title": title.strip(),
         "source": source.strip(),
         "url": url.strip(),
         "published_at": published_at,
+        "latest_published_at": latest_published_at,
         "topic": topic,
         "keywords": keywords,
+        "stars": stars,
+        "forks": forks,
+        "language": language,
+        "repo": repo,
+        "summary": summary,
         "raw": item,
     }
 
@@ -127,8 +145,13 @@ def infer_topic(item):
     text = " ".join([
         item.get("title", ""),
         item.get("source", ""),
+        item.get("url", ""),
+        item.get("repo", ""),
+        item.get("summary", ""),
         " ".join(item.get("keywords", [])),
     ])
+    if "github.com" in text.lower() or item.get("source") == "GitHub" or item.get("repo"):
+        return "github"
     if contains_any(text, AI_WORDS):
         return "ai"
     if contains_any(text, ENT_WORDS):
@@ -149,7 +172,7 @@ def infer_sports_type(title):
         return "sports_controversy"
     if any(k.lower() in t for k in ["transfer", "sign", "open talks", "转会", "签约", "报价", "合同", "谈判"]):
         return "sports_transfer"
-    if re.search(r"\d+\s*[-:比]\s*\d+", title) or contains_any(title, ["晋级", "出局", "逆转", "爆冷", "大胜", "绝杀", "夺冠", "领跑", "淘汰", "冠军", "eliminate", "eliminates", "clinch", "clinches", "comeback win"]):
+    if re.search(r"\d+\s*[-:比]\s*\d+", title) or contains_any(title, SPORTS_RESULT_STRICT):
         return "sports_result"
     if contains_any(title, ["lineups", "赛前", "名单", "抽签", "分档", "前瞻", "预测", "vs", "VS", "天王山"]):
         return "sports_preview"
@@ -201,11 +224,32 @@ def infer_ent_type(title):
     return "entertainment_hotsearch"
 
 
-def infer_topic_type(topic, title):
+def infer_github_type(item):
+    text = " ".join([
+        item.get("title", ""),
+        item.get("summary", ""),
+        item.get("repo", ""),
+        item.get("language", "") or "",
+    ])
+    if contains_any(text, ["ai", "llm", "agent", "chatgpt", "openai", "diffusion", "rag"]):
+        return "github_ai"
+    if contains_any(text, ["cli", "sdk", "framework", "developer", "code", "api", "tool"]):
+        return "github_devtool"
+    if contains_any(text, ["automation", "workflow", "bot", "scraper", "crawler"]):
+        return "github_automation"
+    if contains_any(text, ["app", "web", "ui", "dashboard"]):
+        return "github_app"
+    return "github_other"
+
+
+def infer_topic_type(topic, item):
+    title = item.get("title", "")
     if topic == "ai":
         return infer_ai_type(title)
     if topic == "entertainment":
         return infer_ent_type(title)
+    if topic == "github":
+        return infer_github_type(item)
     return infer_sports_type(title)
 
 
@@ -252,6 +296,16 @@ def summary_hint(topic, topic_type, title):
         if topic_type == "entertainment_low_value":
             return "更适合作为补充信息，不宜放高优先级。"
         return "热搜事件适合观察传播速度和讨论点。"
+    if topic == "github":
+        if topic_type == "github_ai":
+            return "AI 项目热度较高，适合关注功能落地、模型生态和可复用性。"
+        if topic_type == "github_devtool":
+            return "开发工具属性明显，适合评估能否接入现有工作流。"
+        if topic_type == "github_automation":
+            return "自动化方向明确，适合关注爬取、发布、工作流替代价值。"
+        if topic_type == "github_app":
+            return "应用形态清晰，适合关注界面、部署和用户场景。"
+        return "项目热度上升，适合继续观察 stars、更新频率和社区讨论。"
     return "热点可继续观察。"
 
 
@@ -300,12 +354,26 @@ def title_quality_score(topic, title):
     return round(max(score, 0.0), 2)
 
 
-def score_item(topic, topic_type, title, source):
+def parse_iso_datetime(value):
+    if not value:
+        return None
+    if isinstance(value, str):
+        v = value.replace("Z", "+00:00")
+        try:
+            return datetime.fromisoformat(v)
+        except ValueError:
+            return None
+    return None
+
+
+def score_item(topic, topic_type, item):
+    title = item.get("title", "")
+    source = item.get("source", "")
     score = 3.0
     if topic == "sports":
         boost = {
             "sports_result": 3.0,
-            "sports_preview": 2.0,
+            "sports_preview": 2.2,
             "sports_injury": 2.5,
             "sports_transfer": 2.2,
             "sports_controversy": 2.4,
@@ -314,6 +382,8 @@ def score_item(topic, topic_type, title, source):
         }
     elif topic == "ai":
         boost = {"ai_product": 3.3, "ai_model": 2.6, "ai_company": 1.6, "ai_controversy": 2.5}
+    elif topic == "github":
+        boost = {"github_ai": 1.0, "github_devtool": 0.7, "github_automation": 0.7, "github_app": 0.6, "github_other": 0.3}
     else:
         boost = {
             "entertainment_controversy": 3.4,
@@ -330,6 +400,12 @@ def score_item(topic, topic_type, title, source):
             score += 1.0
         if contains_any(title, SPORTS_LOW_VALUE_PATTERNS):
             score -= 1.2
+        if contains_any(title, SPORTS_COMMENTARY_LOW):
+            score -= 1.6
+        if contains_any(title, ["前瞻", "赛前", "vs", "VS", "对阵", "天王山", "明晚", "今晚", "首发", "名单", "预测", "看点"]):
+            score += 0.9
+        if contains_any(title, ["冠军", "前四", "领跑", "排名"]) and not re.search(r"\d+\s*[-:比]\s*\d+", title):
+            score -= 0.8
     elif topic == "ai":
         if contains_any(source, AI_HIGH_VALUE_SOURCES):
             score += 1.2
@@ -339,6 +415,43 @@ def score_item(topic, topic_type, title, source):
             score -= 3.0
         if contains_any(title, AI_LOW_VALUE_PATTERNS):
             score -= 1.0
+        if contains_any(title, AI_GOV_TRAINING_LOW):
+            score -= 1.8
+        if contains_any(title, AI_BREAKING_LOW):
+            score -= 1.5
+        if contains_any(title, ["OpenAI", "ChatGPT", "Gemini", "Sora", "Claude", "Anthropic"]):
+            score += 1.2
+        if contains_any(title, ["开源", "框架", "工具", "agent", "智能体", "代码", "插件", "零代码"]):
+            score += 0.9
+        if AI_CONTROVERSY_RE.search(title):
+            score += 0.8
+    elif topic == "github":
+        stars = int(item.get("stars") or 0)
+        forks = int(item.get("forks") or 0)
+        language = item.get("language")
+        pushed_at = parse_iso_datetime(item.get("latest_published_at") or item.get("published_at"))
+        if stars >= 10000:
+            score += 3.0
+        elif stars >= 3000:
+            score += 2.0
+        elif stars >= 1000:
+            score += 1.0
+        if forks >= 500:
+            score += 0.8
+        if language:
+            score += 0.3
+        if pushed_at is not None:
+            age_days = (datetime.now(pushed_at.tzinfo) - pushed_at).days if pushed_at.tzinfo else (datetime.now() - pushed_at).days
+            if age_days <= 14:
+                score += 0.5
+        if topic_type == "github_ai":
+            score += 1.0
+        elif topic_type == "github_devtool":
+            score += 0.7
+        elif topic_type == "github_automation":
+            score += 0.6
+        elif topic_type == "github_app":
+            score += 0.5
     else:
         if contains_any(title, ENT_LOW_VALUE_PATTERNS):
             score -= 2.8
@@ -375,17 +488,11 @@ def normalize_title(title):
 
 
 def ent_event_key(title):
-    t = title.lower()
-    core = []
-    if contains_any(title, ["品牌翻车", "翻车", "终止合作", "创始人致歉", "致歉", "男演员", "女演员"]):
-        core.append("brand_flop")
-    if contains_any(title, ["回应", "道歉", "争议", "塌房", "被曝", "封杀", "下架"]):
-        core.append("controversy")
-    if not core:
-        return ""
     if contains_any(title, ["品牌翻车", "终止合作", "创始人致歉", "男演员", "女演员"]):
         return "ent_brand_flop"
-    return "ent_controversy_generic"
+    if contains_any(title, ["回应", "道歉", "争议", "塌房", "被曝", "封杀", "下架"]):
+        return "ent_controversy_generic"
+    return ""
 
 
 def build_ranked(items, top):
@@ -397,7 +504,7 @@ def build_ranked(items, top):
         if not item["title"]:
             continue
         topic = infer_topic(item)
-        topic_type = infer_topic_type(topic, item["title"])
+        topic_type = infer_topic_type(topic, item)
 
         dup_threshold = {"sports": 0.96, "ai": 0.88, "entertainment": 0.90}.get(topic, 0.90)
         is_dup = False
@@ -412,7 +519,7 @@ def build_ranked(items, top):
             continue
         seen_by_topic[topic].append(item)
 
-        score = score_item(topic, topic_type, item["title"], item["source"])
+        score = score_item(topic, topic_type, item)
         out = {
             "title": item["title"],
             "source": item["source"],
@@ -428,6 +535,12 @@ def build_ranked(items, top):
                 "domain": domain(item["url"]),
             }],
         }
+        if topic == "github":
+            out["repo"] = item.get("repo") or ""
+            out["stars"] = int(item.get("stars") or 0)
+            out["forks"] = int(item.get("forks") or 0)
+            out["language"] = item.get("language")
+            out["latest_published_at"] = item.get("latest_published_at") or item.get("published_at")
         if topic == "entertainment" and topic_type == "entertainment_controversy":
             out["event_key"] = ent_event_key(item["title"])
         ranked.append(out)
@@ -457,7 +570,7 @@ def build_ranked(items, top):
         selected = []
         for item in grouped[topic]:
             source_name = item.get("source", "") or "未知来源"
-            if source_counts[source_name] >= 8:
+            if topic != "github" and source_counts[source_name] >= 8:
                 item["score"] = round(max(0.1, item["score"] - 1.0), 2)
                 continue
             source_counts[source_name] += 1

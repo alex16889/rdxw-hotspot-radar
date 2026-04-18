@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """Daily multi-topic hotspot runner.
 
-- Fetches Google News RSS for sports / ai / entertainment
+- Fetches Google News RSS for sports / ai / entertainment and GitHub Search API for github
 - Writes raw items with topic metadata
 - Invokes transform.hotspot_pipeline for ranking + Markdown rendering
 
@@ -280,6 +280,78 @@ def fetch_query(spec: dict) -> list[dict[str, object]]:
     return parse_feed(response.text, spec)
 
 
+def fetch_github_trending_like(date_stamp: str) -> list[dict[str, object]]:
+    """Fetch GitHub Search API results without a token.
+
+    date_stamp is YYYYMMDD; we use the previous 7 days for created/pushed queries.
+    """
+
+    try:
+        base_date = dt.datetime.strptime(date_stamp, "%Y%m%d").date()
+    except ValueError:
+        base_date = dt.date.today()
+    since_date = (base_date - dt.timedelta(days=7)).strftime("%Y-%m-%d")
+
+    specs = [
+        {"name": "created_stars_50", "q": f"created:>{since_date} stars:>50", "sort": "stars", "order": "desc"},
+        {"name": "pushed_stars_500", "q": f"pushed:>{since_date} stars:>500", "sort": "updated", "order": "desc"},
+        {"name": "topic_ai", "q": f"topic:ai stars:>100", "sort": "stars", "order": "desc"},
+        {"name": "topic_agent", "q": f"topic:agent stars:>50", "sort": "stars", "order": "desc"},
+        {"name": "topic_llm", "q": f"topic:llm stars:>50", "sort": "stars", "order": "desc"},
+        {"name": "topic_automation", "q": f"topic:automation stars:>50", "sort": "stars", "order": "desc"},
+    ]
+
+    headers = {
+        "User-Agent": "Mozilla/5.0 (GitHub hotspot runner)",
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+    }
+    seen = set()
+    items: list[dict[str, object]] = []
+    for spec in specs:
+        params = {
+            "q": spec["q"],
+            "sort": spec["sort"],
+            "order": spec["order"],
+            "per_page": 20,
+        }
+        try:
+            response = requests.get("https://api.github.com/search/repositories", params=params, headers=headers, timeout=20)
+            response.raise_for_status()
+            payload = response.json()
+        except Exception as exc:  # noqa: BLE001
+            print(f"[WARN] github fetch failed name={spec['name']} error={exc}", file=sys.stderr)
+            continue
+
+        for repo in payload.get("items", []):
+            full_name = repo.get("full_name") or repo.get("name")
+            if not full_name or full_name in seen:
+                continue
+            seen.add(full_name)
+            description = repo.get("description") or ""
+            html_url = repo.get("html_url") or ""
+            created_at = repo.get("created_at") or None
+            pushed_at = repo.get("pushed_at") or created_at
+            items.append(
+                {
+                    "title": f"{full_name}｜{description}" if description else str(full_name),
+                    "summary": description,
+                    "source": "GitHub",
+                    "url": html_url,
+                    "published_at": created_at,
+                    "latest_published_at": pushed_at,
+                    "topic": "github",
+                    "keyword": spec["name"],
+                    "stars": repo.get("stargazers_count", 0),
+                    "forks": repo.get("forks_count", 0),
+                    "language": repo.get("language"),
+                    "repo": full_name,
+                    "sources": [{"name": "GitHub", "url": html_url}],
+                }
+            )
+    return items
+
+
 def merge_items(items: list[dict[str, object]]) -> list[dict[str, object]]:
     merged: dict[tuple[str, str], dict[str, object]] = {}
     for item in items:
@@ -383,6 +455,13 @@ def main() -> int:
             query_stats.append({"topic": spec["topic"], "name": spec["name"], "count": len(fetched)})
         except Exception as exc:  # noqa: BLE001
             query_stats.append({"topic": spec["topic"], "name": spec["name"], "count": 0, "error": str(exc)})
+
+    try:
+        github_items = fetch_github_trending_like(stamp)
+        all_items.extend(github_items)
+        query_stats.append({"topic": "github", "name": "github_search_api", "count": len(github_items)})
+    except Exception as exc:  # noqa: BLE001
+        query_stats.append({"topic": "github", "name": "github_search_api", "count": 0, "error": str(exc)})
 
     merged_items = merge_items(all_items)
     ranked_items = rank_items(merged_items, args.top)
