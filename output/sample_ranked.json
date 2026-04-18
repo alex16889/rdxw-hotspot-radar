@@ -1,0 +1,109 @@
+{
+  "items": [
+    {
+      "title": "Warriors eliminate Rockets to clinch West semifinal spot",
+      "source": "ESPN",
+      "url": "https://example.com/warriors-rockets",
+      "topic": "sports",
+      "topic_type": "sports_result",
+      "score": 6.8,
+      "summary_hint": "赛果和关键回合值得继续复盘。",
+      "sources": [
+        {
+          "source": "ESPN",
+          "title": "Warriors eliminate Rockets to clinch West semifinal spot",
+          "url": "https://example.com/warriors-rockets",
+          "domain": "example.com"
+        }
+      ]
+    },
+    {
+      "title": "Shohei Ohtani belts two homers in Dodgers comeback win",
+      "source": "AP",
+      "url": "https://example.com/ohtani-dodgers",
+      "topic": "sports",
+      "topic_type": "sports_result",
+      "score": 6.8,
+      "summary_hint": "赛果和关键回合值得继续复盘。",
+      "sources": [
+        {
+          "source": "AP",
+          "title": "Shohei Ohtani belts two homers in Dodgers comeback win",
+          "url": "https://example.com/ohtani-dodgers",
+          "domain": "example.com"
+        }
+      ]
+    },
+    {
+      "title": "Mbappe leaves training early but France staff downplay injury concern",
+      "source": "Reuters",
+      "url": "https://example.com/mbappe-injury",
+      "topic": "sports",
+      "topic_type": "sports_injury",
+      "score": 6.3,
+      "summary_hint": "伤情不确定，重点看能否出战和替代方案。",
+      "sources": [
+        {
+          "source": "Reuters",
+          "title": "Mbappe leaves training early but France staff downplay injury concern",
+          "url": "https://example.com/mbappe-injury",
+          "domain": "example.com"
+        }
+      ]
+    },
+    {
+      "title": "Serie A refereeing row escalates after coach blast and federation review",
+      "source": "BBC Sport",
+      "url": "https://example.com/serie-a-row",
+      "topic": "sports",
+      "topic_type": "sports_controversy",
+      "score": 6.2,
+      "summary_hint": "争议正在发酵，重点看官方回应和后续处罚。",
+      "sources": [
+        {
+          "source": "BBC Sport",
+          "title": "Serie A refereeing row escalates after coach blast and federation review",
+          "url": "https://example.com/serie-a-row",
+          "domain": "example.com"
+        }
+      ]
+    },
+    {
+      "title": "Liverpool open formal talks to sign Benfica defender in summer window",
+      "source": "Fabrizio Romano",
+      "url": "https://example.com/liverpool-benfica-transfer",
+      "topic": "sports",
+      "topic_type": "sports_transfer",
+      "score": 5.0,
+      "summary_hint": "转会进展值得跟进，重点看官宣概率和阵容影响。",
+      "sources": [
+        {
+          "source": "Fabrizio Romano",
+          "title": "Liverpool open formal talks to sign Benfica defender in summer window",
+          "url": "https://example.com/liverpool-benfica-transfer",
+          "domain": "example.com"
+        }
+      ]
+    },
+    {
+      "title": "Inter vs Milan probable lineups as derby decides cup final place",
+      "source": "The Athletic",
+      "url": "https://example.com/inter-milan-preview",
+      "topic": "sports",
+      "topic_type": "sports_preview",
+      "score": 4.8,
+      "summary_hint": "赛前看点更强，重点看首发、对位和临场变化。",
+      "sources": [
+        {
+          "source": "The Athletic",
+          "title": "Inter vs Milan probable lineups as derby decides cup final place",
+          "url": "https://example.com/inter-milan-preview",
+          "domain": "example.com"
+        }
+      ]
+    }
+  ],
+  "topic_counts": {
+    "sports": 6
+  }
+}

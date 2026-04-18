@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Warriors eliminate Rockets to clinch West semifinal spot",
+    "summary": "Stephen Curry scored 38 and Golden State closed the series 4-2.",
+    "source": "ESPN",
+    "url": "https://example.com/warriors-rockets",
+    "published_at": "2026-04-18T16:30:00+07:00",
+    "entities": ["Warriors", "Rockets", "Stephen Curry"],
+    "league": "NBA"
+  },
+  {
+    "title": "Inter vs Milan probable lineups as derby decides cup final place",
+    "summary": "Both clubs are waiting on two late fitness checks before kickoff.",
+    "source": "The Athletic",
+    "url": "https://example.com/inter-milan-preview",
+    "published_at": "2026-04-18T15:00:00+07:00",
+    "entities": ["Inter", "Milan"],
+    "league": "Serie A"
+  },
+  {
+    "title": "Mbappe leaves training early but France staff downplay injury concern",
+    "summary": "The issue is described as minor ahead of the World Cup qualifier.",
+    "source": "Reuters",
+    "url": "https://example.com/mbappe-injury",
+    "published_at": "2026-04-18T14:40:00+07:00",
+    "entities": ["Mbappe", "France"],
+    "league": ["soccer", "national team"]
+  },
+  {
+    "title": "Shohei Ohtani belts two homers in Dodgers comeback win",
+    "summary": "The star slugger drove the late surge and pushed Los Angeles back on top.",
+    "source": "AP",
+    "url": "https://example.com/ohtani-dodgers",
+    "published_at": "2026-04-18T13:10:00+07:00",
+    "entities": ["Shohei Ohtani", "Dodgers"],
+    "league": "MLB"
+  },
+  {
+    "title": "Liverpool open formal talks to sign Benfica defender in summer window",
+    "summary": "The first-round proposal is in and contract terms are under discussion.",
+    "source": "Fabrizio Romano",
+    "url": "https://example.com/liverpool-benfica-transfer",
+    "published_at": "2026-04-18T12:50:00+07:00",
+    "entities": ["Liverpool", "Benfica"],
+    "league": "soccer"
+  },
+  {
+    "title": "Serie A refereeing row escalates after coach blast and federation review",
+    "summary": "The controversy is expected to dominate post-match coverage through the weekend.",
+    "source": "BBC Sport",
+    "url": "https://example.com/serie-a-row",
+    "published_at": "2026-04-18T11:20:00+07:00",
+    "entities": ["Serie A"],
+    "league": "Serie A"
+  }
+]

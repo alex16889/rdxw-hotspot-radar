@@ -1,0 +1,879 @@
+from __future__ import annotations
+
+import argparse
+import json
+import re
+from datetime import datetime, timezone
+from pathlib import Path
+from typing import Any
+
+
+STORYLINE_PATTERNS = {
+    "transfer": [
+        "transfer",
+        "trade",
+        "sign",
+        "signing",
+        "contract",
+        "loan",
+        "转会",
+        "加盟",
+        "签约",
+        "续约",
+        "离队",
+        "官宣",
+    ],
+    "injury": [
+        "injury",
+        "injured",
+        "ruled out",
+        "questionable",
+        "doubtful",
+        "returns",
+        "return",
+        "伤病",
+        "伤缺",
+        "伤停",
+        "伤退",
+        "报销",
+        "缺席",
+        "复出",
+        "回归",
+    ],
+    "controversy": [
+        "ban",
+        "suspension",
+        "scandal",
+        "controversy",
+        "criticism",
+        "争议",
+        "禁赛",
+        "处罚",
+        "罚单",
+        "冲突",
+        "质疑",
+        "回应",
+    ],
+    "lineup": [
+        "preview",
+        "lineup",
+        "lineups",
+        "kickoff",
+        "赛前",
+        "前瞻",
+        "对阵",
+        "迎战",
+        "首发",
+        "名单",
+        "抽签",
+        "分档",
+        "名单公布",
+        "今晚",
+        "明日",
+        "出战",
+    ],
+    "result": [
+        "beat",
+        "beats",
+        "defeat",
+        "defeats",
+        "win",
+        "wins",
+        "won",
+        "loss",
+        "eliminate",
+        "eliminated",
+        "comeback",
+        "clinch",
+        "final",
+        "semifinal",
+        "战胜",
+        "击败",
+        "不敌",
+        "险胜",
+        "大胜",
+        "战平",
+        "力克",
+        "破门",
+        "建功",
+        "救主",
+        "逆转",
+        "绝杀",
+        "晋级",
+        "淘汰",
+        "出局",
+        "无缘",
+        "夺冠",
+        "问鼎",
+        "冠军",
+        "收官",
+    ],
+    "star": [
+        "scores",
+        "scored",
+        "double-double",
+        "hat-trick",
+        "record",
+        "milestone",
+        "mvp",
+        "砍下",
+        "轰下",
+        "拿到",
+        "三双",
+        "双响",
+        "帽子戏法",
+        "纪录",
+        "里程碑",
+        "mvp",
+    ],
+    "business": [
+        "media rights",
+        "broadcast",
+        "sponsorship",
+        "revenue",
+        "ownership",
+        "赞助",
+        "版权",
+        "转播",
+        "收购",
+        "商业",
+    ],
+}
+
+STORYLINE_LABELS = {
+    "transfer": "转会",
+    "injury": "伤病",
+    "controversy": "争议",
+    "lineup": "赛前",
+    "result": "赛果",
+    "star": "球星",
+    "business": "商业",
+}
+
+TOPIC_LABELS = {
+    "sports_result": "赛果热点",
+    "sports_preview": "赛前热点",
+    "sports_star": "人物热点",
+    "sports_business": "商业热点",
+    "sports_low_value": "低优先级",
+}
+
+TOPIC_TYPES = list(TOPIC_LABELS)
+
+SOURCE_WEIGHTS = {
+    "央视网": 2.0,
+    "央视体育": 2.0,
+    "新华网": 1.9,
+    "人民网": 1.8,
+    "中国新闻网": 1.8,
+    "新浪网": 1.7,
+    "腾讯网": 1.7,
+    "腾讯体育": 1.8,
+    "网易体育": 1.7,
+    "搜狐体育": 1.6,
+    "懂球帝": 1.6,
+    "直播吧": 1.5,
+    "reuters": 2.0,
+    "associated press": 2.0,
+    "ap": 2.0,
+    "espn": 1.8,
+    "the athletic": 1.8,
+    "bbc sport": 1.7,
+    "sky sports": 1.7,
+    "nba.com": 1.7,
+    "mlb.com": 1.7,
+    "uefa": 1.7,
+}
+
+KEYWORD_RULES = [
+    {"label": "季后赛", "weight": 1.7, "patterns": ["季后赛", "playoff", "playoffs"]},
+    {"label": "附加赛", "weight": 1.6, "patterns": ["附加赛", "play-in"]},
+    {"label": "决赛", "weight": 1.6, "patterns": ["决赛", "final"]},
+    {"label": "半决赛", "weight": 1.5, "patterns": ["半决赛", "semifinal"]},
+    {"label": "夺冠", "weight": 1.6, "patterns": ["夺冠", "冠军", "问鼎", "获四冠"]},
+    {"label": "绝杀", "weight": 1.7, "patterns": ["绝杀", "buzzer-beater"]},
+    {"label": "逆转", "weight": 1.4, "patterns": ["逆转", "comeback"]},
+    {"label": "晋级", "weight": 1.8, "patterns": ["晋级", "advance", "advanced"]},
+    {"label": "淘汰", "weight": 1.8, "patterns": ["淘汰", "eliminate", "eliminated"]},
+    {"label": "出局", "weight": 1.6, "patterns": ["出局", "无缘"]},
+    {"label": "伤病", "weight": 1.5, "patterns": ["伤病", "伤缺", "伤退", "injury"]},
+    {"label": "复出", "weight": 1.3, "patterns": ["复出", "回归", "returns", "return"]},
+    {"label": "转会", "weight": 1.5, "patterns": ["转会", "加盟", "签约", "trade", "transfer"]},
+    {"label": "官宣", "weight": 1.3, "patterns": ["官宣", "official"]},
+    {"label": "争议", "weight": 1.4, "patterns": ["争议", "禁赛", "处罚", "controversy", "suspension"]},
+    {"label": "纪录", "weight": 1.2, "patterns": ["纪录", "record", "里程碑", "milestone"]},
+    {"label": "国足", "weight": 1.3, "patterns": ["国足"]},
+    {"label": "中超", "weight": 1.2, "patterns": ["中超"]},
+    {"label": "欧冠", "weight": 1.5, "patterns": ["欧冠", "champions league"]},
+    {"label": "CBA", "weight": 1.3, "patterns": ["cba", "cba季后赛"]},
+    {"label": "NBA", "weight": 1.3, "patterns": ["nba"]},
+    {"label": "中国女篮", "weight": 1.5, "patterns": ["中国女篮", "女篮世界杯"]},
+    {"label": "中国球员", "weight": 1.4, "patterns": ["中国球员", "中国选手"]},
+    {"label": "WTT", "weight": 1.4, "patterns": ["wtt", "太原站"]},
+    {"label": "斯诺克", "weight": 1.3, "patterns": ["斯诺克"]},
+    {"label": "入围", "weight": 1.2, "patterns": ["入围", "位列第二档", "名单公布", "选中"]},
+    {"label": "国乒", "weight": 1.4, "patterns": ["国乒", "wtt", "乒乓球"]},
+    {"label": "国羽", "weight": 1.3, "patterns": ["国羽", "羽毛球"]},
+]
+
+KEYWORD_WEIGHTS = {rule["label"]: rule["weight"] for rule in KEYWORD_RULES}
+STRONG_EVENT_KEYWORDS = {
+    "季后赛",
+    "附加赛",
+    "决赛",
+    "半决赛",
+    "夺冠",
+    "绝杀",
+    "晋级",
+    "淘汰",
+    "出局",
+    "伤病",
+    "转会",
+    "官宣",
+    "欧冠",
+    "中国女篮",
+    "中国球员",
+    "WTT",
+    "斯诺克",
+}
+
+LEAGUE_KEYWORDS = {
+    "NBA": ["nba", "勇士", "湖人", "火箭", "凯尔特人", "雷霆", "太阳", "尼克斯", "掘金", "黄蜂", "魔术", "快船"],
+    "CBA": ["cba", "辽宁男篮", "广东男篮", "北京男篮", "浙江男篮", "广厦", "上海久事", "北控", "山东"],
+    "WCBA": ["wcba", "山西女篮", "四川女篮", "中国女篮"],
+    "中超": ["中超", "泰山", "海港", "津门虎", "海牛", "成都蓉城", "北京国安", "韦世豪", "廖力生"],
+    "中国女篮": ["中国女篮", "女篮世界杯"],
+    "足球": ["足球", "中超", "英超", "西甲", "意甲", "德甲", "足协杯", "欧冠", "国足"],
+    "国乒": ["国乒", "wtt", "王楚钦", "孙颖莎", "樊振东", "黄友政", "石洵瑶", "太原站"],
+    "国羽": ["羽毛球", "国羽", "陈雨菲", "石宇奇", "雅思"],
+    "网球": ["网球", "atp", "wta", "郑钦文", "张帅", "德约科维奇", "阿尔卡拉斯", "斯图加特"],
+    "斯诺克": ["斯诺克", "周跃龙", "庞俊旭"],
+}
+
+ENTITY_PATTERNS = {
+    "勇士": ["勇士", "warriors"],
+    "湖人": ["湖人", "lakers"],
+    "火箭": ["火箭", "rockets"],
+    "凯尔特人": ["凯尔特人", "celtics"],
+    "太阳": ["太阳", "suns"],
+    "雷霆": ["雷霆", "thunder"],
+    "尼克斯": ["尼克斯", "knicks"],
+    "快船": ["快船", "clippers"],
+    "魔术": ["魔术", "magic"],
+    "黄蜂": ["黄蜂", "hornets"],
+    "詹姆斯": ["詹姆斯", "lebron james"],
+    "库里": ["库里", "stephen curry"],
+    "杰伦·格林": ["杰伦·格林", "jalen green"],
+    "班凯罗": ["班凯罗", "paolo banchero"],
+    "东契奇": ["东契奇", "luka doncic"],
+    "约基奇": ["约基奇", "nikola jokic"],
+    "国足": ["国足"],
+    "利物浦": ["利物浦", "liverpool"],
+    "拜仁": ["拜仁", "bayern"],
+    "阿森纳": ["阿森纳", "arsenal"],
+    "皇马": ["皇马", "皇家马德里", "real madrid"],
+    "巴萨": ["巴萨", "巴塞罗那", "barcelona"],
+    "姆巴佩": ["姆巴佩", "mbappe"],
+    "王楚钦": ["王楚钦"],
+    "孙颖莎": ["孙颖莎"],
+    "郑钦文": ["郑钦文"],
+    "张帅": ["张帅"],
+    "陈雨菲": ["陈雨菲"],
+    "中国女篮": ["中国女篮"],
+    "山西女篮": ["山西女篮"],
+    "四川女篮": ["四川女篮"],
+    "成都蓉城": ["成都蓉城"],
+    "北京国安": ["北京国安"],
+    "山东泰山": ["山东", "泰山"],
+    "上海海港": ["海港", "上海海港"],
+    "天津津门虎": ["津门虎"],
+    "青岛海牛": ["海牛"],
+    "赵继伟": ["赵继伟"],
+    "王哲林": ["王哲林"],
+    "程帅澎": ["程帅澎"],
+    "高诗岩": ["高诗岩"],
+    "韦世豪": ["韦世豪"],
+    "廖力生": ["廖力生"],
+    "黄友政": ["黄友政"],
+    "石洵瑶": ["石洵瑶"],
+    "周跃龙": ["周跃龙"],
+    "庞俊旭": ["庞俊旭"],
+    "冉珂嘉": ["冉珂嘉"],
+}
+
+DOMESTIC_PRIORITY_PATTERNS = [
+    "中国",
+    "中国女篮",
+    "中国男篮",
+    "中国球员",
+    "中国选手",
+    "国足",
+    "国乒",
+    "国羽",
+    "中超",
+    "足协杯",
+    "CBA",
+    "WCBA",
+    "女篮世界杯",
+    "WTT",
+    "太原站",
+    "斯诺克",
+    "郑钦文",
+    "张帅",
+    "赵继伟",
+    "韦世豪",
+    "周跃龙",
+    "庞俊旭",
+]
+
+DOMESTIC_PRIORITY_LEAGUES = {"CBA", "WCBA", "中超", "中国女篮", "国乒", "国羽", "斯诺克"}
+DOMESTIC_PRIORITY_ENTITIES = {
+    "中国女篮",
+    "山西女篮",
+    "四川女篮",
+    "成都蓉城",
+    "北京国安",
+    "山东泰山",
+    "上海海港",
+    "天津津门虎",
+    "青岛海牛",
+    "赵继伟",
+    "王哲林",
+    "程帅澎",
+    "高诗岩",
+    "韦世豪",
+    "廖力生",
+    "黄友政",
+    "石洵瑶",
+    "周跃龙",
+    "庞俊旭",
+    "冉珂嘉",
+    "王楚钦",
+    "孙颖莎",
+    "郑钦文",
+    "张帅",
+    "陈雨菲",
+}
+
+
+def parse_args() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Rank sports news items into hotspot candidates.")
+    parser.add_argument("--input", required=True, help="Path to a JSON array or JSONL file.")
+    parser.add_argument("--output-json", help="Optional path for enriched JSON output.")
+    parser.add_argument("--output-markdown", help="Optional path for markdown summary output.")
+    parser.add_argument("--top", type=int, default=10, help="How many ranked items to include in markdown output.")
+    parser.add_argument(
+        "--reference-time",
+        help="ISO-8601 reference timestamp used to compute freshness. Defaults to current UTC time.",
+    )
+    return parser.parse_args()
+
+
+def read_items(path: Path) -> list[dict[str, Any]]:
+    text = path.read_text(encoding="utf-8").strip()
+    if not text:
+        return []
+    if text.startswith("["):
+        payload = json.loads(text)
+        if not isinstance(payload, list):
+            raise ValueError("JSON input must be a list of objects.")
+        return [coerce_item(item) for item in payload]
+    return [coerce_item(json.loads(line)) for line in text.splitlines() if line.strip()]
+
+
+def coerce_item(item: Any) -> dict[str, Any]:
+    if not isinstance(item, dict):
+        raise ValueError("Each input item must be an object.")
+    return item
+
+
+def parse_timestamp(value: str | None) -> datetime | None:
+    if not value:
+        return None
+    normalized = value.replace("Z", "+00:00")
+    try:
+        parsed = datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+    if parsed.tzinfo is None:
+        return parsed.replace(tzinfo=timezone.utc)
+    return parsed
+
+
+def has_cjk(text: str) -> bool:
+    return any("\u4e00" <= char <= "\u9fff" for char in text)
+
+
+def slugify(title: str) -> str:
+    slug = re.sub(r"[^\w\u4e00-\u9fff]+", "-", title.lower(), flags=re.UNICODE).strip("-")
+    return slug or "untitled-item"
+
+
+def normalize_title(title: str) -> str:
+    normalized = re.sub(r"[^\w\u4e00-\u9fff]+", " ", title.lower(), flags=re.UNICODE)
+    return re.sub(r"\s+", " ", normalized).strip()
+
+
+def contains_pattern(text: str, pattern: str) -> bool:
+    haystack = text.lower()
+    needle = pattern.lower()
+    if has_cjk(needle):
+        return needle in haystack
+    escaped = re.escape(needle)
+    return re.search(rf"(?<![a-z0-9]){escaped}(?![a-z0-9])", haystack) is not None
+
+
+def lower_blob(item: dict[str, Any]) -> str:
+    summary = item.get("summary") or ""
+    return f"{item.get('title', '')} {summary}".lower()
+
+
+def unique_in_order(values: list[str]) -> list[str]:
+    ordered: list[str] = []
+    seen = set()
+    for value in values:
+        if value not in seen:
+            seen.add(value)
+            ordered.append(value)
+    return ordered
+
+
+def storyline_tags(title_text: str, full_text: str) -> list[str]:
+    combined_text = f"{title_text} {full_text}".strip()
+    tags = []
+    for tag, patterns in STORYLINE_PATTERNS.items():
+        if any(contains_pattern(combined_text, pattern) for pattern in patterns):
+            tags.append(tag)
+    if contains_pattern(combined_text, "vs") or contains_pattern(combined_text, "对阵"):
+        tags.append("lineup")
+    if re.search(r"\d+\s*-\s*\d+", combined_text):
+        tags.append("result")
+    return unique_in_order(tags)
+
+
+def classify_topic(title_text: str, full_text: str, story_tags: list[str]) -> tuple[str, float]:
+    preview_signal = sum(1 for pattern in STORYLINE_PATTERNS["lineup"] if contains_pattern(full_text, pattern))
+    result_signal = sum(1 for pattern in STORYLINE_PATTERNS["result"] if contains_pattern(full_text, pattern))
+    star_signal = sum(1 for pattern in STORYLINE_PATTERNS["star"] if contains_pattern(full_text, pattern))
+    business_signal = sum(1 for pattern in STORYLINE_PATTERNS["business"] if contains_pattern(full_text, pattern))
+
+    topic_scores = {
+        "sports_result": result_signal * 2.2 + (1.2 if "result" in story_tags else 0.0),
+        "sports_preview": preview_signal * 2.0 + (1.3 if "lineup" in story_tags else 0.0),
+        "sports_star": star_signal * 1.8 + sum(1.1 for tag in story_tags if tag in {"transfer", "injury", "star", "controversy"}),
+        "sports_business": business_signal * 2.2 + (1.0 if "business" in story_tags else 0.0),
+        "sports_low_value": 1.0,
+    }
+
+    if contains_pattern(title_text, "vs") or contains_pattern(title_text, "对阵"):
+        topic_scores["sports_preview"] += 1.4
+    if any(contains_pattern(full_text, marker) for marker in ["赛前", "首发", "名单", "前瞻", "迎战"]):
+        topic_scores["sports_preview"] += 1.2
+    if any(contains_pattern(full_text, marker) for marker in ["抽签", "分档", "名单公布"]):
+        topic_scores["sports_preview"] += 1.0
+    if any(contains_pattern(full_text, marker) for marker in ["战胜", "击败", "不敌", "晋级", "淘汰", "出局", "无缘", "绝杀"]):
+        topic_scores["sports_result"] += 1.4
+    if re.search(r"\d+\s*-\s*\d+", full_text):
+        topic_scores["sports_result"] += 1.2
+    if any(contains_pattern(full_text, marker) for marker in ["砍下", "三双", "纪录", "里程碑", "帽子戏法", "双响"]):
+        topic_scores["sports_star"] += 1.2
+
+    best_topic = max(topic_scores, key=topic_scores.get)
+    return best_topic, topic_scores[best_topic]
+
+
+def match_keywords(text: str) -> list[str]:
+    matches = []
+    for rule in KEYWORD_RULES:
+        if any(contains_pattern(text, pattern) for pattern in rule["patterns"]):
+            matches.append(rule["label"])
+    return sorted(matches, key=lambda keyword: (-KEYWORD_WEIGHTS[keyword], keyword))
+
+
+def display_text(value: str) -> str:
+    compact = re.sub(r"\s+", " ", value).strip()
+    if not compact:
+        return compact
+    if has_cjk(compact):
+        return compact
+    if compact.isupper():
+        return compact
+    return compact.title()
+
+
+def detect_tags(text: str, explicit: Any, mapping: dict[str, list[str]]) -> list[str]:
+    matches: list[str] = []
+    for label, patterns in mapping.items():
+        if any(contains_pattern(text, pattern) for pattern in patterns):
+            matches.append(label)
+    if isinstance(explicit, str) and explicit:
+        matches.append(display_text(explicit))
+    elif isinstance(explicit, list):
+        for value in explicit:
+            if isinstance(value, str) and value:
+                matches.append(display_text(value))
+    return unique_in_order(matches)
+
+
+def detect_entities(text: str, explicit: Any) -> list[str]:
+    matches: list[str] = []
+
+    if isinstance(explicit, str) and explicit:
+        matches.append(display_text(explicit))
+    elif isinstance(explicit, list):
+        for value in explicit:
+            if isinstance(value, str) and value:
+                matches.append(display_text(value))
+
+    for label, patterns in ENTITY_PATTERNS.items():
+        if any(contains_pattern(text, pattern) for pattern in patterns):
+            matches.append(label)
+
+    return unique_in_order(matches)
+
+
+def source_count(item: dict[str, Any]) -> int:
+    explicit_count = item.get("source_count")
+    if isinstance(explicit_count, int) and explicit_count > 0:
+        return explicit_count
+
+    sources = item.get("sources")
+    if isinstance(sources, list):
+        names = {
+            str(source.get("name", "")).strip().lower()
+            for source in sources
+            if isinstance(source, dict) and source.get("name")
+        }
+        if names:
+            return len(names)
+
+    return 1 if item.get("source") else 0
+
+
+def source_weight(source: str | None) -> float:
+    if not source:
+        return 2.5
+    lowered = source.lower()
+    for name, weight in SOURCE_WEIGHTS.items():
+        if name.lower() in lowered:
+            return weight * 3
+    return 3.5
+
+
+def freshness_score(published_at: datetime | None, reference_time: datetime) -> float:
+    if published_at is None:
+        return 3.0
+    age_hours = max(0.0, (reference_time - published_at).total_seconds() / 3600)
+    if age_hours <= 2:
+        score = 10.0 - age_hours * 0.4
+    elif age_hours <= 6:
+        score = 9.2 - (age_hours - 2) * 0.45
+    elif age_hours <= 12:
+        score = 7.4 - (age_hours - 6) * 0.35
+    elif age_hours <= 24:
+        score = 5.3 - (age_hours - 12) * 0.18
+    elif age_hours <= 48:
+        score = 3.1 - (age_hours - 24) * 0.08
+    else:
+        score = 1.0
+    return round(max(0.6, min(10.0, score)), 2)
+
+
+def keyword_score(keyword_hits: list[str]) -> float:
+    score = sum(KEYWORD_WEIGHTS[keyword] for keyword in keyword_hits)
+    return round(min(10.0, score * 1.35), 2)
+
+
+def topic_fit_score(topic_type: str, confidence: float) -> float:
+    baselines = {
+        "sports_result": 7.8,
+        "sports_preview": 7.2,
+        "sports_star": 7.0,
+        "sports_business": 6.8,
+        "sports_low_value": 2.0,
+    }
+    score = baselines[topic_type] + min(2.0, confidence * 0.35)
+    return round(min(10.0, max(0.5, score)), 2)
+
+
+def hotness_score(
+    freshness: float,
+    keyword_hits: list[str],
+    entity_tags: list[str],
+    story_tags: list[str],
+    source_total: int,
+) -> float:
+    strong_hits = sum(1 for keyword in keyword_hits if keyword in STRONG_EVENT_KEYWORDS)
+    event_strength = min(10.0, strong_hits * 1.8 + len(story_tags) * 1.0 + min(len(entity_tags), 3) * 0.8)
+    spread_bonus = min(2.0, max(0, source_total - 1) * 0.8)
+    score = freshness * 0.6 + event_strength * 0.3 + spread_bonus
+    return round(min(10.0, max(0.5, score)), 2)
+
+
+def source_score(source_name: str | None, source_total: int) -> float:
+    credibility = source_weight(source_name)
+    if source_total <= 1:
+        diversity = 0.5
+    elif source_total == 2:
+        diversity = 1.8
+    elif source_total == 3:
+        diversity = 2.8
+    else:
+        diversity = 3.8
+    return round(min(10.0, credibility + diversity), 2)
+
+
+def title_quality_score(title: str, keyword_hits: list[str], entity_tags: list[str]) -> float:
+    length = len(title.strip())
+    score = 5.0
+    if 18 <= length <= 52:
+        score += 2.0
+    elif length > 80 or length < 10:
+        score -= 1.5
+    if keyword_hits:
+        score += min(2.0, len(keyword_hits) * 0.5)
+    if entity_tags:
+        score += 1.0
+    generic_markers = ["最新", "资讯", "消息", "news", "latest", "report"]
+    if sum(1 for marker in generic_markers if contains_pattern(title.lower(), marker)) >= 2:
+        score -= 1.5
+    return round(min(10.0, max(1.0, score)), 2)
+
+
+def domestic_priority_bonus(text: str, league_tags: list[str], entity_tags: list[str], keyword_hits: list[str]) -> float:
+    matched_patterns = sum(1 for pattern in DOMESTIC_PRIORITY_PATTERNS if contains_pattern(text, pattern))
+    score = min(1.6, matched_patterns * 0.35)
+    if any(tag in DOMESTIC_PRIORITY_LEAGUES for tag in league_tags):
+        score += 0.85
+    if any(entity in DOMESTIC_PRIORITY_ENTITIES for entity in entity_tags):
+        score += 0.85
+    if any(keyword in {"中超", "CBA", "中国女篮", "中国球员", "WTT", "斯诺克", "国乒", "国羽"} for keyword in keyword_hits):
+        score += 0.45
+    return round(min(2.4, score), 2)
+
+
+def domestic_priority_reason(text: str, league_tags: list[str], entity_tags: list[str]) -> str | None:
+    if any(contains_pattern(text, pattern) for pattern in ["中国女篮", "中国男篮", "国足", "国乒", "国羽", "中国球员", "中国选手"]):
+        return "国字号/中国选手关注度高"
+    if any(tag in {"CBA", "WCBA", "中超"} for tag in league_tags):
+        return "本土联赛优先级更高"
+    if any(entity in DOMESTIC_PRIORITY_ENTITIES for entity in entity_tags):
+        return "本土球队和中国球员更易形成讨论"
+    return None
+
+
+def short_title_lead(title: str) -> str:
+    compact = title.strip().strip("。！!？? ")
+    for separator in ("：", ":", "，", ",", "｜", "|"):
+        head = compact.split(separator, 1)[0].strip()
+        if 8 <= len(head) <= 30:
+            return head
+    if len(compact) <= 28:
+        return compact
+    return compact[:24].rstrip("，,:： ") + "…"
+
+
+def summary_core(title: str) -> str:
+    compact = re.sub(r"\s+", " ", title).strip("。！!？? ")
+    for separator in ("：", ":"):
+        if separator in compact:
+            tail = compact.split(separator, 1)[1].strip()
+            if len(tail) >= 6:
+                return tail
+    return compact
+
+
+def build_summary_hint(
+    title: str,
+    topic_type: str,
+    league_tags: list[str],
+    entity_tags: list[str],
+    story_tags: list[str],
+    keyword_hits: list[str],
+) -> str:
+    core = summary_core(title)
+    lead = short_title_lead(title)
+    if "transfer" in story_tags:
+        return f"{core}，转会进展已经明朗，重点看官宣节奏、合同细节和阵容补强效果。"
+    if "injury" in story_tags:
+        return f"{core}，重点看伤情级别、复出时间和替代方案是否稳定。"
+    if "controversy" in story_tags:
+        return f"{core}，争议焦点已经形成，重点看官方回应和后续处理结果。"
+    if any(contains_pattern(title, marker) for marker in ["获四冠", "夺冠", "问鼎", "冠军"]):
+        return f"{core}，成绩已经兑现，重点看含金量、下一站签表和状态延续。"
+    if any(contains_pattern(title, marker) for marker in ["位列第二档", "名单公布", "入围", "选中"]):
+        return f"{core}，名单或分档已经落定，重点看签表位置、出场机会和后续赛程。"
+    if any(contains_pattern(title, marker) for marker in ["淘汰", "晋级", "出局", "无缘"]):
+        return f"{core}，胜负结果已经落地，重点看下一轮对手和后续走势变化。"
+    if any(contains_pattern(title, marker) for marker in ["大胜", "完胜", "险胜", "不敌", "战平", "绝杀", "逆转"]):
+        return f"{core}，比赛拐点已经明确，重点看核心表现和接下来一轮的影响。"
+    if contains_pattern(title, "附加赛"):
+        return f"{core}，席位争夺已经进入关键阶段，重点看落位变化和后续对阵。"
+    if any(keyword in keyword_hits for keyword in {"晋级", "淘汰", "出局", "决赛", "半决赛"}):
+        return f"{core}，关键结果已经产生，重点看晋级形势和下一阶段对阵。"
+    if any(keyword in keyword_hits for keyword in {"绝杀", "逆转", "季后赛", "附加赛"}):
+        return f"{core}，热度主要来自比赛转折，重点看核心球员表现和排名影响。"
+    if any(contains_pattern(title, marker) for marker in ["中国", "国乒", "国羽", "中超", "CBA", "WCBA", "斯诺克"]):
+        return f"{core}，国内关注度较高，重点看签表、排名或联赛走势的后续变化。"
+    if topic_type == "sports_preview":
+        return f"{core}，赛前变数仍在，重点看首发名单、伤病变化和临场调整。"
+    if topic_type == "sports_star":
+        focus = entity_tags[0] if entity_tags else (league_tags[0] if league_tags else "焦点人物")
+        return f"{core}，重点看{focus}的表现含金量以及对后续走势的带动作用。"
+    if topic_type == "sports_business":
+        return f"{core}，重点看合作细节、商业价值和联赛层面的延伸影响。"
+    return f"{lead}，重点看结果落地后的排名变化和后续连锁反应。"
+
+
+def build_why_hot(
+    item_source: str | None,
+    hotness: float,
+    topic_type: str,
+    keyword_hits: list[str],
+    entity_tags: list[str],
+    source_total: int,
+    raw_story_tags: list[str],
+    domestic_reason: str | None,
+) -> list[str]:
+    reasons = []
+    if hotness >= 8.0:
+        reasons.append("6小时内更新")
+    elif hotness >= 6.0:
+        reasons.append("当天持续发酵")
+
+    topic_reason = {
+        "sports_result": "赛果明确，传播面大",
+        "sports_preview": "赛前关注度高",
+        "sports_star": "人物带动讨论",
+        "sports_business": "商业话题延展性强",
+        "sports_low_value": "相关性存在但优先级偏低",
+    }
+    reasons.append(topic_reason[topic_type])
+    if domestic_reason:
+        reasons.append(domestic_reason)
+
+    if keyword_hits:
+        reasons.append(f"关键词：{'、'.join(keyword_hits[:3])}")
+    if entity_tags:
+        reasons.append(f"主体：{'、'.join(entity_tags[:3])}")
+    if raw_story_tags:
+        reasons.append(f"标签：{'、'.join(STORYLINE_LABELS[tag] for tag in raw_story_tags[:3])}")
+    if source_total > 1:
+        reasons.append(f"{source_total}个来源交叉出现")
+    if item_source:
+        reasons.append(f"来源：{item_source}")
+    return reasons
+
+
+def enrich_item(item: dict[str, Any], reference_time: datetime) -> dict[str, Any]:
+    title_text = item.get("title", "").lower()
+    text = lower_blob(item)
+    raw_story_tags = storyline_tags(title_text, text)
+    topic_type, topic_confidence = classify_topic(title_text, text, raw_story_tags)
+    keyword_hits = match_keywords(text)
+    league_tags = detect_tags(text, item.get("league"), LEAGUE_KEYWORDS)
+    entity_tags = detect_entities(text, item.get("entities"))
+    parsed_time = parse_timestamp(item.get("latest_published_at") or item.get("published_at"))
+    freshness = freshness_score(parsed_time, reference_time)
+    total_sources = source_count(item)
+    hotness = hotness_score(freshness, keyword_hits, entity_tags, raw_story_tags, total_sources)
+    topic = topic_fit_score(topic_type, topic_confidence)
+    source = source_score(item.get("source"), total_sources)
+    keywords = keyword_score(keyword_hits)
+    title_quality = title_quality_score(item.get("title", ""), keyword_hits, entity_tags)
+    domestic_bonus = domestic_priority_bonus(text, league_tags, entity_tags, keyword_hits)
+    domestic_reason = domestic_priority_reason(text, league_tags, entity_tags)
+    total = round(min(10.0, hotness * 0.35 + topic * 0.25 + source * 0.20 + keywords * 0.15 + title_quality * 0.05 + domestic_bonus), 2)
+
+    localized_story_tags = [STORYLINE_LABELS[tag] for tag in raw_story_tags]
+
+    return {
+        "item_id": slugify(item.get("title", "")),
+        "title": item.get("title", ""),
+        "summary": item.get("summary", ""),
+        "source": item.get("source"),
+        "source_count": total_sources,
+        "reference_url": item.get("url"),
+        "published_at": item.get("published_at"),
+        "latest_published_at": item.get("latest_published_at", item.get("published_at")),
+        "topic_type": topic_type,
+        "topic_label": TOPIC_LABELS[topic_type],
+        "storyline_tags": localized_story_tags,
+        "summary_hint": build_summary_hint(item.get("title", ""), topic_type, league_tags, entity_tags, raw_story_tags, keyword_hits),
+        "keyword_hits": keyword_hits,
+        "league_tags": league_tags,
+        "entity_tags": entity_tags,
+        "score_breakdown": {
+            "hotness_score": hotness,
+            "topic_fit_score": topic,
+            "source_score": source,
+            "keyword_score": keywords,
+            "title_quality_score": title_quality,
+            "domestic_bonus": domestic_bonus,
+        },
+        "total_score": total,
+        "why_hot": build_why_hot(item.get("source"), hotness, topic_type, keyword_hits, entity_tags, total_sources, raw_story_tags, domestic_reason),
+        "domestic_priority": domestic_bonus >= 0.8,
+        "raw": item,
+    }
+
+
+def rank_items(items: list[dict[str, Any]], reference_time: datetime) -> list[dict[str, Any]]:
+    enriched = [enrich_item(item, reference_time) for item in items]
+    enriched.sort(
+        key=lambda item: (
+            item["total_score"],
+            item["score_breakdown"]["hotness_score"],
+            item["latest_published_at"] or "",
+        ),
+        reverse=True,
+    )
+    return enriched
+
+
+def build_markdown(items: list[dict[str, Any]], top_n: int) -> str:
+    lines = [
+        "# 体育热点排序",
+        "",
+        "| 排名 | 分数 | 分类 | 标题 | 摘要 |",
+        "| --- | ---: | --- | --- | --- |",
+    ]
+    for index, item in enumerate(items[:top_n], start=1):
+        title = item["title"].replace("|", "\\|")
+        hint = item["summary_hint"].replace("|", "\\|")
+        lines.append(f"| {index} | {item['total_score']:.2f} | {item['topic_label']} | {title} | {hint} |")
+    return "\n".join(lines) + "\n"
+
+
+def write_text(path: Path, content: str) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(content, encoding="utf-8")
+
+
+def write_json(path: Path, payload: Any) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def main() -> int:
+    args = parse_args()
+    input_path = Path(args.input)
+    reference_time = parse_timestamp(args.reference_time) if args.reference_time else datetime.now(timezone.utc)
+    if reference_time is None:
+        raise ValueError("Invalid --reference-time value.")
+
+    items = read_items(input_path)
+    enriched = rank_items(items, reference_time)
+
+    if args.output_json:
+        write_json(Path(args.output_json), enriched)
+    if args.output_markdown:
+        write_text(Path(args.output_markdown), build_markdown(enriched, args.top))
+
+    if not args.output_json and not args.output_markdown:
+        print(json.dumps(enriched, ensure_ascii=False, indent=2))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
