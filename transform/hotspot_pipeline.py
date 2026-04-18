@@ -8,7 +8,6 @@ import json
 import re
 from collections import Counter, defaultdict
 from difflib import SequenceMatcher
-from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -27,7 +26,7 @@ SPORTS_WORDS = [
 ]
 AI_WORDS = [
     "OpenAI", "ChatGPT", "Gemini", "Sora", "Claude", "英伟达", "苹果AI", "模型",
-    "人工智能", "大模型", "推理", "智能体", "NVIDIA", "Google AI",
+    "人工智能", "大模型", "推理", "智能体", "NVIDIA", "Google AI", "Agent",
 ]
 ENT_WORDS = [
     "微博热搜", "电影", "电视剧", "综艺", "明星", "演员", "导演", "票房",
@@ -36,20 +35,23 @@ ENT_WORDS = [
 
 SPORTS_HIGH_VALUE_SOURCES = ["懂球帝", "直播吧", "体坛周报", "虎扑", "ESPN", "Sky Sports", "The Athletic", "Reuters", "AP"]
 SPORTS_LOW_VALUE_PATTERNS = ["集锦", "录像", "回放", "直播安排", "赛程表", "节目表"]
+
 AI_HIGH_VALUE_SOURCES = ["OpenAI Blog", "Google Blog", "Anthropic", "The Verge", "TechCrunch", "量子位", "机器之心", "36氪", "新智元"]
-AI_LOW_VALUE_SOURCES = ["新浪财经", "手机新浪网", "搜狐"]
-AI_LOW_VALUE_PATTERNS = [
-    "Claude Design",
-    "Figma",
-    "Adobe",
-    "设计行业",
-    "Claude Opus 4.7",
-    "跑分",
-    "提示词曝光",
-    "GPT-Rosalind",
-    "药物研发",
+AI_LOW_VALUE_SOURCES = ["美通社", "财富号", "车家号", "新浪财经", "搜狐", "手机新浪网"]
+AI_HASH_LOW_RE = re.compile(r"^(?:#.*#){2,}.*$|^#")
+AI_PRODUCT_RE = re.compile(r"(?:工具|上线|发布|推出|开发工具|智能体|agent|零代码|应用|平台|产品|助手|插件)", re.IGNORECASE)
+AI_MODEL_RE = re.compile(r"(?:模型更新|推理|参数|跑分|Claude\s*Opus|GPT|Gemini|Sora|模型能力|大模型)", re.IGNORECASE)
+AI_CONTROVERSY_RE = re.compile(r"(?:泄露|曝光|版权|诉讼|监管|安全|崩了|降智|翻车)", re.IGNORECASE)
+AI_LOW_VALUE_PATTERNS = ["Claude Design", "Figma", "Adobe", "设计行业", "Claude Opus 4.7", "提示词曝光", "GPT-Rosalind", "药物研发"]
+
+ENT_LOW_VALUE_PATTERNS = [
+    "电影+消费", "消费市场", "市场活力", "经济图景", "集团战略", "产业发展", "多元体验", "新质赋能",
+    "演唱会定档", "杏花节", "比亚迪", "充电", "续航", "km", "城市活动", "文旅活动", "消费节", "景区活动",
 ]
-ENT_LOW_VALUE_PATTERNS = ["明星回应", "热搜第一", "终于", "炸了", "塌了", "全网热议", "太敢说"]
+ENT_HIGH_VALUE_PATTERNS = ["明星", "回应", "争议", "道歉", "塌房", "热搜", "票房破", "定档", "撤档", "开播", "爆了", "封神", "翻车"]
+ENT_TITLE_BONUS_PATTERNS = ["票房", "定档", "上映", "电影节", "撤档", "改档", "开播", "官宣阵容", "主演", "导演", "回应", "争议", "道歉", "塌房", "翻车"]
+
+TITLE_PARTY_PATTERNS = ["终于", "炸了", "塌了", "全网热议", "太敢说", "万万没想到", "惊呆", "杀疯了"]
 
 SOURCE_SUFFIX_RE = re.compile(r"(?:\s*[-—|｜]\s*[^-—|｜]{2,24})+$")
 SPACE_RE = re.compile(r"\s+")
@@ -147,24 +149,41 @@ def infer_sports_type(title):
 
 
 def infer_ai_type(title):
-    if contains_any(title, ["模型", "model", "推理", "参数", "Gemini", "Claude", "GPT"]):
-        return "ai_model"
-    if contains_any(title, ["工具", "上线", "发布", "app", "产品", "功能"]):
-        return "ai_product"
-    if contains_any(title, ["监管", "安全", "争议", "诉讼", "版权"]):
+    if AI_CONTROVERSY_RE.search(title):
         return "ai_controversy"
+    if AI_PRODUCT_RE.search(title):
+        return "ai_product"
+    if AI_MODEL_RE.search(title):
+        return "ai_model"
     return "ai_company"
 
 
 def infer_ent_type(title):
-    if contains_any(title, ["争议", "回应", "道歉", "塌房", "舆论"]):
-        return "entertainment_controversy"
-    if contains_any(title, ["电影", "票房", "上映", "定档"]):
+    # 低质/误伤先拦截
+    if contains_any(title, ENT_LOW_VALUE_PATTERNS):
+        # 如果是“定档”但不是电影/剧集/综艺/电影节，默认低价值
+        if "定档" in title and not contains_any(title, ["电影", "影片", "剧集", "电视剧", "综艺", "上映", "电影节"]):
+            return "entertainment_low_value"
+        # 演唱会/城市活动/文旅/车企发布等都直接低价值
+        return "entertainment_low_value"
+
+    # 真正的电影类：不能只靠“定档”判断，必须有更明确电影信号
+    movie_signal = contains_any(title, ["电影", "影片", "院线", "票房", "主演", "导演", "北影节", "上映", "预告片", "撤档", "改档"])
+    quoted_title = "《" in title and "》" in title
+    if movie_signal and (quoted_title or contains_any(title, ["电影", "影片", "主演", "导演", "上映", "票房", "预告片", "院线", "北影节", "撤档", "改档"])):
         return "entertainment_movie"
-    if contains_any(title, ["电视剧", "剧集"]):
+
+    if contains_any(title, ["电视剧", "剧集", "开播"]):
         return "entertainment_tv"
     if contains_any(title, ["明星", "演员", "艺人"]):
         return "entertainment_star"
+    if contains_any(title, ["回应", "争议", "道歉", "塌房", "翻车", "热搜"]):
+        return "entertainment_controversy"
+    if "定档" in title:
+        # 不是明确电影/剧集/综艺的一律低价值
+        if not contains_any(title, ["电影", "影片", "电视剧", "剧集", "综艺", "上映", "北影节"]):
+            return "entertainment_low_value"
+        return "entertainment_movie"
     return "entertainment_hotsearch"
 
 
@@ -192,22 +211,24 @@ def summary_hint(topic, topic_type, title):
             return "人物热度突出，重点看个人表现和外溢话题。"
         return "体育资讯热度一般，适合作为补充观察。"
     if topic == "ai":
-        if topic_type == "ai_model":
-            return "模型更新会直接影响能力表现和用户体验。"
         if topic_type == "ai_product":
             return "工具或产品发布更看重实际使用价值和上手体验。"
+        if topic_type == "ai_model":
+            return "模型更新会直接影响能力表现和用户体验。"
         if topic_type == "ai_controversy":
             return "争议或监管信号值得继续跟进。"
         return "公司动态可能影响行业预期和产品节奏。"
     if topic == "entertainment":
-        if topic_type == "entertainment_controversy":
-            return "争议和舆论走向值得继续跟进。"
         if topic_type == "entertainment_movie":
             return "电影相关信息适合看票房、定档和市场反馈。"
         if topic_type == "entertainment_tv":
             return "剧集热度适合观察口碑和播放表现。"
         if topic_type == "entertainment_star":
             return "人物动态适合观察舆论扩散和粉丝反馈。"
+        if topic_type == "entertainment_controversy":
+            return "争议和舆论走向值得继续跟进。"
+        if topic_type == "entertainment_low_value":
+            return "更适合作为补充信息，不宜放高优先级。"
         return "热搜事件适合观察传播速度和讨论点。"
     return "热点可继续观察。"
 
@@ -229,6 +250,34 @@ def title_similarity(a, b):
     return SequenceMatcher(None, a_norm, b_norm).ratio()
 
 
+def title_quality_score(topic, title):
+    score = 4.0
+    compact = re.sub(r"\s+", "", title)
+    length = len(compact)
+    if length < 8:
+        score -= 2.0
+    elif length > 55:
+        score -= 0.7
+
+    if all(ch.isdigit() or ch in "#-_" for ch in compact):
+        score -= 2.0
+    if compact.count("#") >= 2 and length < 25:
+        score -= 2.5
+    if title.startswith("#"):
+        score -= 1.5
+    if contains_any(title, TITLE_PARTY_PATTERNS):
+        score -= 1.2
+    if contains_any(title, ["今日", "一夜消息", "恭喜", "正式确认", "曝", "终于"]):
+        score -= 0.4
+    if topic == "sports" and contains_any(title, SPORTS_LOW_VALUE_PATTERNS):
+        score -= 1.0
+    if topic == "ai" and contains_any(title, ["跑分", "提示词", "曝光"]):
+        score -= 0.8
+    if topic == "entertainment" and contains_any(title, ENT_LOW_VALUE_PATTERNS):
+        score -= 1.5
+    return round(max(score, 0.0), 2)
+
+
 def score_item(topic, topic_type, title, source):
     score = 3.0
     if topic == "sports":
@@ -242,14 +291,15 @@ def score_item(topic, topic_type, title, source):
             "sports_low_value": 0.5,
         }
     elif topic == "ai":
-        boost = {"ai_model": 3.0, "ai_product": 2.6, "ai_company": 2.0, "ai_controversy": 2.4}
+        boost = {"ai_product": 3.3, "ai_model": 2.6, "ai_company": 1.6, "ai_controversy": 2.5}
     else:
         boost = {
-            "entertainment_controversy": 2.6,
-            "entertainment_movie": 2.2,
-            "entertainment_tv": 2.0,
-            "entertainment_star": 2.1,
-            "entertainment_hotsearch": 2.3,
+            "entertainment_controversy": 3.0,
+            "entertainment_movie": 2.8,
+            "entertainment_tv": 2.5,
+            "entertainment_star": 2.4,
+            "entertainment_hotsearch": 2.0,
+            "entertainment_low_value": 0.3,
         }
     score += boost.get(topic_type, 1.0)
 
@@ -262,12 +312,18 @@ def score_item(topic, topic_type, title, source):
         if contains_any(source, AI_HIGH_VALUE_SOURCES):
             score += 1.2
         if contains_any(source, AI_LOW_VALUE_SOURCES):
-            score -= 0.8
+            score -= 1.0
+        if AI_HASH_LOW_RE.search(title) or (title.count("#") >= 2 and len(title) < 25):
+            score -= 3.0
         if contains_any(title, AI_LOW_VALUE_PATTERNS):
-            score -= 1.2
+            score -= 1.0
     else:
         if contains_any(title, ENT_LOW_VALUE_PATTERNS):
-            score -= 1.2
+            score -= 2.5
+        if contains_any(title, ENT_HIGH_VALUE_PATTERNS):
+            score += 1.2
+        if "定档" in title and topic_type == "entertainment_low_value":
+            score -= 2.0
 
     trusted = ["央视", "新华", "人民网", "ESPN", "BBC", "Reuters", "AP"]
     if contains_any(source, trusted):
@@ -275,6 +331,8 @@ def score_item(topic, topic_type, title, source):
 
     if len(title) > 42:
         score -= 0.2
+
+    score += 0.18 * title_quality_score(topic, title)
     return round(max(score, 0.1), 2)
 
 
@@ -305,8 +363,8 @@ def build_ranked(items, top):
         topic = infer_topic(item)
         topic_type = infer_topic_type(topic, item["title"])
 
-        is_dup = False
         dup_threshold = {"sports": 0.96, "ai": 0.88, "entertainment": 0.90}.get(topic, 0.90)
+        is_dup = False
         for prev in seen_by_topic[topic]:
             if normalize_title(prev["title"]) == normalize_title(item["title"]):
                 is_dup = True
@@ -349,6 +407,7 @@ def build_ranked(items, top):
         for item in grouped[topic]:
             source_name = item.get("source", "") or "未知来源"
             if source_counts[source_name] >= 8:
+                item["score"] = round(max(0.1, item["score"] - 1.0), 2)
                 continue
             source_counts[source_name] += 1
             selected.append(item)

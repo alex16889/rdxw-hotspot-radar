@@ -55,7 +55,7 @@
     {
       "topic": "ai",
       "name": "openai_ai_cn",
-      "count": 78
+      "count": 79
     },
     {
       "topic": "ai",
@@ -65,12 +65,12 @@
     {
       "topic": "entertainment",
       "name": "entertainment_hot_cn",
-      "count": 89
+      "count": 88
     },
     {
       "topic": "entertainment",
       "name": "movie_tv_cn",
-      "count": 90
+      "count": 91
     }
   ],
   "items": [
@@ -1380,8 +1380,7 @@
       "query_name": "global_high_value_cn",
       "keyword": [
         "global_high_value_cn",
-        "domestic_alt_cn",
-        "sports_media_cn"
+        "domestic_alt_cn"
       ],
       "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (懂球帝 OR 直播吧 OR 体坛周报 OR 虎扑 OR ESPN OR Sky Sports OR Reuters OR AP OR The Athletic) when:1d",
       "topic": "sports",
@@ -1518,6 +1517,41 @@
       "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE4zSDExb2hWRENtYTNmdUxseThFYkNKQ1JSeXo2WlI4WFFLY2xNRi1icksyZ3JRQ0liV19vN1JHb201dGlKYWR3VXVBaHNGOW9HcWh5Xzl1TQ?oc=5",
       "published_at": "2026-04-18T21:06:00+07:00",
       "latest_published_at": "2026-04-18T21:06:00+07:00",
+      "league": "",
+      "query_name": "domestic_alt_cn",
+      "keyword": [
+        "domestic_alt_cn",
+        "sports_media_cn"
+      ],
+      "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
+      "topic": "sports",
+      "required_keywords": [
+        "NBA",
+        "欧冠",
+        "英超",
+        "意甲",
+        "德甲",
+        "中超",
+        "亚冠",
+        "WTT",
+        "斯诺克",
+        "WCBA",
+        "女篮"
+      ],
+      "sources": [
+        {
+          "name": "懂球帝",
+          "url": "https://www.dongqiudi.com"
+        }
+      ]
+    },
+    {
+      "title": "中超第6轮观众人数：梭鱼湾最高；场均超3万人",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiW0FVX3lxTE91cjhEOW83R09oN2ZFdFgzSkxGWmZ2UDhRTWJqYzhKbF9wVnktSXhndVRsLWJXd2dMMVM2VGdJWWFxWXdtRHNnSldnTXRMTXNzWEMxZ3FiMGpqOEE?oc=5\" target=\"_blank\">中超第6轮观众人数：梭鱼湾最高；场均超3万人</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">懂球帝</font>",
+      "source": "懂球帝",
+      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE91cjhEOW83R09oN2ZFdFgzSkxGWmZ2UDhRTWJqYzhKbF9wVnktSXhndVRsLWJXd2dMMVM2VGdJWWFxWXdtRHNnSldnTXRMTXNzWEMxZ3FiMGpqOEE?oc=5",
+      "published_at": "2026-04-18T22:06:00+07:00",
+      "latest_published_at": "2026-04-18T22:06:00+07:00",
       "league": "",
       "query_name": "domestic_alt_cn",
       "keyword": [
@@ -1905,10 +1939,7 @@
       "latest_published_at": "2026-04-18T03:49:00+07:00",
       "league": "",
       "query_name": "domestic_alt_cn",
-      "keyword": [
-        "domestic_alt_cn",
-        "sports_media_cn"
-      ],
+      "keyword": "domestic_alt_cn",
       "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
       "topic": "sports",
       "required_keywords": [
@@ -2014,38 +2045,6 @@
         "domestic_alt_cn",
         "sports_media_cn"
       ],
-      "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
-      "topic": "sports",
-      "required_keywords": [
-        "NBA",
-        "欧冠",
-        "英超",
-        "意甲",
-        "德甲",
-        "中超",
-        "亚冠",
-        "WTT",
-        "斯诺克",
-        "WCBA",
-        "女篮"
-      ],
-      "sources": [
-        {
-          "name": "懂球帝",
-          "url": "https://m.dongqiudi.com"
-        }
-      ]
-    },
-    {
-      "title": "齐沃：任何顶级俱乐部的目标都是进欧冠；我会和俱乐部谈续约|国际米兰|曾加|齐沃",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiV0FVX3lxTE1lM1d1QmJub01GWUxRQjZGd1N6cFlHbDhfc1hIYXdhTWR4UGdOUDN5azRXaWtUZER3OFVYcF9taEw4NlNRZm1JZGhoYVY2cDQxOHl6WkEwRQ?oc=5\" target=\"_blank\">齐沃：任何顶级俱乐部的目标都是进欧冠；我会和俱乐部谈续约|国际米兰|曾加|齐沃</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">懂球帝</font>",
-      "source": "懂球帝",
-      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE1lM1d1QmJub01GWUxRQjZGd1N6cFlHbDhfc1hIYXdhTWR4UGdOUDN5azRXaWtUZER3OFVYcF9taEw4NlNRZm1JZGhoYVY2cDQxOHl6WkEwRQ?oc=5",
-      "published_at": "2026-04-18T05:30:00+07:00",
-      "latest_published_at": "2026-04-18T05:30:00+07:00",
-      "league": "",
-      "query_name": "domestic_alt_cn",
-      "keyword": "domestic_alt_cn",
       "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
       "topic": "sports",
       "required_keywords": [
@@ -2765,6 +2764,38 @@
         {
           "name": "懂球帝",
           "url": "https://www.dongqiudi.com"
+        }
+      ]
+    },
+    {
+      "title": "与利物浦争欧冠席位？莫耶斯：我们想追赶任何排在身前的球队",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiV0FVX3lxTE5QdHI3ZE9aWHJUbkVMY3VPdmFsdzB4aV84S3ljUjlOdlNreWt3NjZ4ODRnaF9SeEw1NTFhYUNNOThjTDNtQjkwX2FmMHpGcUVtM2JKN0tldw?oc=5\" target=\"_blank\">与利物浦争欧冠席位？莫耶斯：我们想追赶任何排在身前的球队</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">懂球帝</font>",
+      "source": "懂球帝",
+      "url": "https://news.google.com/rss/articles/CBMiV0FVX3lxTE5QdHI3ZE9aWHJUbkVMY3VPdmFsdzB4aV84S3ljUjlOdlNreWt3NjZ4ODRnaF9SeEw1NTFhYUNNOThjTDNtQjkwX2FmMHpGcUVtM2JKN0tldw?oc=5",
+      "published_at": "2026-04-17T23:16:00+07:00",
+      "latest_published_at": "2026-04-17T23:16:00+07:00",
+      "league": "",
+      "query_name": "domestic_alt_cn",
+      "keyword": "domestic_alt_cn",
+      "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
+      "topic": "sports",
+      "required_keywords": [
+        "NBA",
+        "欧冠",
+        "英超",
+        "意甲",
+        "德甲",
+        "中超",
+        "亚冠",
+        "WTT",
+        "斯诺克",
+        "WCBA",
+        "女篮"
+      ],
+      "sources": [
+        {
+          "name": "懂球帝",
+          "url": "https://m.dongqiudi.com"
         }
       ]
     },
@@ -3511,38 +3542,6 @@
       ]
     },
     {
-      "title": "足球报：亚冠扩军先考虑增加参赛联赛范围，中超增直通名额机会有限",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiW0FVX3lxTE5qZXZXUnc3RE9sUnU2VmVseVRXMGZMYTdPYVliZlNKbE00X3NEMGNhNjVhbFJyRUI4NE44Q1Z6Q2p2YUF6cTUxV0tRaUsyNXhGcWdvSVliRFJyZEE?oc=5\" target=\"_blank\">足球报：亚冠扩军先考虑增加参赛联赛范围，中超增直通名额机会有限</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">懂球帝</font>",
-      "source": "懂球帝",
-      "url": "https://news.google.com/rss/articles/CBMiW0FVX3lxTE5qZXZXUnc3RE9sUnU2VmVseVRXMGZMYTdPYVliZlNKbE00X3NEMGNhNjVhbFJyRUI4NE44Q1Z6Q2p2YUF6cTUxV0tRaUsyNXhGcWdvSVliRFJyZEE?oc=5",
-      "published_at": "2026-04-18T04:15:00+07:00",
-      "latest_published_at": "2026-04-18T04:15:00+07:00",
-      "league": "",
-      "query_name": "domestic_alt_cn",
-      "keyword": "domestic_alt_cn",
-      "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
-      "topic": "sports",
-      "required_keywords": [
-        "NBA",
-        "欧冠",
-        "英超",
-        "意甲",
-        "德甲",
-        "中超",
-        "亚冠",
-        "WTT",
-        "斯诺克",
-        "WCBA",
-        "女篮"
-      ],
-      "sources": [
-        {
-          "name": "懂球帝",
-          "url": "https://www.dongqiudi.com"
-        }
-      ]
-    },
-    {
       "title": "虎扑&咪咕英超第33轮前瞻：一战定冠军？曼城vs阿森纳天王山之战明晚打响",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiS0FVX3lxTE5GZjNfaHpKYTJFdEpZTW1jM0tzSTd6S1NVakRNN3N6WmJsZ1E1M2tyWUJMNlhacmphY2JETGU3c0JwcXQteVZWQ29Gdw?oc=5\" target=\"_blank\">虎扑&咪咕英超第33轮前瞻：一战定冠军？曼城vs阿森纳天王山之战明晚打响</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">虎扑</font>",
       "source": "虎扑",
@@ -3581,6 +3580,38 @@
       "url": "https://news.google.com/rss/articles/CBMiS0FVX3lxTE1yUkZ0c0FnTHllTUN4M1FxYUtlT0JmTGh2WkNJdEVkalg3MXRyR3lqVWJ3OGYtS0Mxc0ZTSXZud29sRXlTWmJ4ZEc1SQ?oc=5",
       "published_at": "2026-04-18T18:51:00+07:00",
       "latest_published_at": "2026-04-18T18:51:00+07:00",
+      "league": "",
+      "query_name": "sports_media_cn",
+      "keyword": "sports_media_cn",
+      "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:ppsports.com OR site:zhibo8.cc OR site:titan24.com OR site:hupu.com OR site:dongqiudi.com) when:1d",
+      "topic": "sports",
+      "required_keywords": [
+        "NBA",
+        "欧冠",
+        "英超",
+        "意甲",
+        "德甲",
+        "中超",
+        "亚冠",
+        "WTT",
+        "斯诺克",
+        "WCBA",
+        "女篮"
+      ],
+      "sources": [
+        {
+          "name": "虎扑",
+          "url": "https://bbs.hupu.com"
+        }
+      ]
+    },
+    {
+      "title": "一场经典的英超肉搏大战",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiYkFVX3lxTE1PYUVkbGNUdldRblZMQ2FzYURmOE1lQkpYdWJyYzlHd1pSNXpMSm9IOGNyNDlyeG84NS1ldmJ5WHJOWDFGNFF6Qkd2azQ5ZzJkeEVrczBneS0welNRVTJlMHln?oc=5\" target=\"_blank\">一场经典的英超肉搏大战</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">虎扑</font>",
+      "source": "虎扑",
+      "url": "https://news.google.com/rss/articles/CBMiYkFVX3lxTE1PYUVkbGNUdldRblZMQ2FzYURmOE1lQkpYdWJyYzlHd1pSNXpMSm9IOGNyNDlyeG84NS1ldmJ5WHJOWDFGNFF6Qkd2azQ5ZzJkeEVrczBneS0welNRVTJlMHln?oc=5",
+      "published_at": "2026-04-18T20:04:00+07:00",
+      "latest_published_at": "2026-04-18T20:04:00+07:00",
       "league": "",
       "query_name": "sports_media_cn",
       "keyword": "sports_media_cn",
@@ -3948,6 +3979,35 @@
       ]
     },
     {
+      "title": "Meta又挖墙角：前OpenAI CTO初创公司五名员工跳槽 人才争夺加剧",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE1KbFlHTzJlaTRKdEJiM2I5ZnFTT3IzMDBMTWYyX0R0SndOVWZmOTN0Q3lZTnJKS1RadHQ1SFpfcTN3cHVFZG1EVQ?oc=5\" target=\"_blank\">Meta又挖墙角：前OpenAI CTO初创公司五名员工跳槽 人才争夺加剧</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
+      "source": "财联社",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE1KbFlHTzJlaTRKdEJiM2I5ZnFTT3IzMDBMTWYyX0R0SndOVWZmOTN0Q3lZTnJKS1RadHQ1SFpfcTN3cHVFZG1EVQ?oc=5",
+      "published_at": "2026-04-18T20:20:00+07:00",
+      "latest_published_at": "2026-04-18T20:20:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": "openai_ai_cn",
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "财联社",
+          "url": "https://www.cls.cn"
+        }
+      ]
+    },
+    {
       "title": "肖茜 王净宇｜全球南方、中等强国与人工智能治理新秩序",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE5QcWJJYzFCMGpJSzVqcDlXNU5XN0FiVVBOVDVtUUdRdmliZzlNRnJRWGd2MC1Pa05zZzFfNVRycU01LVp5ZW5IZg?oc=5\" target=\"_blank\">肖茜 王净宇｜全球南方、中等强国与人工智能治理新秩序</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">智源社区</font>",
       "source": "智源社区",
@@ -4035,39 +4095,6 @@
       ]
     },
     {
-      "title": "广州黄埔启动“人工智能+教育”聚变行动计划",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijwFBVV95cUxOS053TjVLOUk3VHNnTTJQSDY1RThlV0xVbTktS0NnMFlnaFpCTmY2NTY0Z3diZkUwbWJDMmRXeWlzdmlqQTlodkNMOXlaRE5SRjltNE1HR3lrQnQxc0FoT3Z1RlV1MkFxWFg1WGRJbm9XUjJaU243MWh4SGJyeWRVYWg5MGtfZ2hrZmdHdTBGbw?oc=5\" target=\"_blank\">广州黄埔启动“人工智能+教育”聚变行动计划</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">21财经</font>",
-      "source": "21财经",
-      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOS053TjVLOUk3VHNnTTJQSDY1RThlV0xVbTktS0NnMFlnaFpCTmY2NTY0Z3diZkUwbWJDMmRXeWlzdmlqQTlodkNMOXlaRE5SRjltNE1HR3lrQnQxc0FoT3Z1RlV1MkFxWFg1WGRJbm9XUjJaU243MWh4SGJyeWRVYWg5MGtfZ2hrZmdHdTBGbw?oc=5",
-      "published_at": "2026-04-18T11:00:00+07:00",
-      "latest_published_at": "2026-04-18T11:00:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": "openai_ai_cn",
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "21财经",
-          "url": "https://www.21jingji.com"
-        },
-        {
-          "name": "新浪财经",
-          "url": "https://finance.sina.com.cn"
-        }
-      ]
-    },
-    {
       "title": "诺和诺德与OpenAI达成战略合作 AI全面赋能药物研发与商业运营",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTFBGczBqa1hPRUl4X0E2S0pwY3ZyaVhLaEJ6aHEzWl9yQzRfMFBxeTV1S21YdUxSb2tSUHQwT1RuTng1OGtqd2VmNw?oc=5\" target=\"_blank\">诺和诺德与OpenAI达成战略合作 AI全面赋能药物研发与商业运营</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
       "source": "财联社",
@@ -4097,18 +4124,15 @@
       ]
     },
     {
-      "title": "大模型从工具走向伙伴",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMia0FVX3lxTE5VcXEydXo1eWpMTjVzejVEN054QVhtZmlWcmFvbDJMeWg1N2N2bGhYWmFTNEVjb0NRZDRadTRZeF9URHI5dm9MSUNQejVmTzFVbTN0eWNyOFVlU2lhSHAxN3dCS1NmNnZDMmww?oc=5\" target=\"_blank\">大模型从工具走向伙伴</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">经济日报</font>",
-      "source": "经济日报",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5VcXEydXo1eWpMTjVzejVEN054QVhtZmlWcmFvbDJMeWg1N2N2bGhYWmFTNEVjb0NRZDRadTRZeF9URHI5dm9MSUNQejVmTzFVbTN0eWNyOFVlU2lhSHAxN3dCS1NmNnZDMmww?oc=5",
-      "published_at": "2026-04-18T05:35:00+07:00",
-      "latest_published_at": "2026-04-18T05:35:00+07:00",
+      "title": "广州黄埔启动“人工智能+教育”聚变行动计划",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijwFBVV95cUxOS053TjVLOUk3VHNnTTJQSDY1RThlV0xVbTktS0NnMFlnaFpCTmY2NTY0Z3diZkUwbWJDMmRXeWlzdmlqQTlodkNMOXlaRE5SRjltNE1HR3lrQnQxc0FoT3Z1RlV1MkFxWFg1WGRJbm9XUjJaU243MWh4SGJyeWRVYWg5MGtfZ2hrZmdHdTBGbw?oc=5\" target=\"_blank\">广州黄埔启动“人工智能+教育”聚变行动计划</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">21财经</font>",
+      "source": "21财经",
+      "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOS053TjVLOUk3VHNnTTJQSDY1RThlV0xVbTktS0NnMFlnaFpCTmY2NTY0Z3diZkUwbWJDMmRXeWlzdmlqQTlodkNMOXlaRE5SRjltNE1HR3lrQnQxc0FoT3Z1RlV1MkFxWFg1WGRJbm9XUjJaU243MWh4SGJyeWRVYWg5MGtfZ2hrZmdHdTBGbw?oc=5",
+      "published_at": "2026-04-18T11:00:00+07:00",
+      "latest_published_at": "2026-04-18T11:00:00+07:00",
       "league": "",
       "query_name": "openai_ai_cn",
-      "keyword": [
-        "openai_ai_cn",
-        "ai_product_cn"
-      ],
+      "keyword": "openai_ai_cn",
       "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
       "topic": "ai",
       "required_keywords": [
@@ -4123,8 +4147,12 @@
       ],
       "sources": [
         {
-          "name": "经济日报",
-          "url": "http://paper.ce.cn"
+          "name": "21财经",
+          "url": "https://www.21jingji.com"
+        },
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn"
         }
       ]
     },
@@ -4183,6 +4211,38 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.cn"
+        }
+      ]
+    },
+    {
+      "title": "大模型从工具走向伙伴",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMia0FVX3lxTE5VcXEydXo1eWpMTjVzejVEN054QVhtZmlWcmFvbDJMeWg1N2N2bGhYWmFTNEVjb0NRZDRadTRZeF9URHI5dm9MSUNQejVmTzFVbTN0eWNyOFVlU2lhSHAxN3dCS1NmNnZDMmww?oc=5\" target=\"_blank\">大模型从工具走向伙伴</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">经济日报</font>",
+      "source": "经济日报",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE5VcXEydXo1eWpMTjVzejVEN054QVhtZmlWcmFvbDJMeWg1N2N2bGhYWmFTNEVjb0NRZDRadTRZeF9URHI5dm9MSUNQejVmTzFVbTN0eWNyOFVlU2lhSHAxN3dCS1NmNnZDMmww?oc=5",
+      "published_at": "2026-04-18T05:35:00+07:00",
+      "latest_published_at": "2026-04-18T05:35:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": [
+        "openai_ai_cn",
+        "ai_product_cn"
+      ],
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "经济日报",
+          "url": "http://paper.ce.cn"
         }
       ]
     },
@@ -4584,35 +4644,6 @@
       ]
     },
     {
-      "title": "Sora之父跑路！OpenAI一日流失三高管，资本还密谋换掉奥特曼",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTFAxV2Q3T21BR0xGNTZLSjE5Z3JEN1lRVDJyVnc1NGhKeVZ3ejB2YXVkWUtVcVdLbnI5dk8tZUNwYjY2cHYzNnF1cEN0Qm1LbnN6eGVj?oc=5\" target=\"_blank\">Sora之父跑路！OpenAI一日流失三高管，资本还密谋换掉奥特曼</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">华尔街见闻</font>",
-      "source": "华尔街见闻",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFAxV2Q3T21BR0xGNTZLSjE5Z3JEN1lRVDJyVnc1NGhKeVZ3ejB2YXVkWUtVcVdLbnI5dk8tZUNwYjY2cHYzNnF1cEN0Qm1LbnN6eGVj?oc=5",
-      "published_at": "2026-04-18T14:46:00+07:00",
-      "latest_published_at": "2026-04-18T14:46:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": "openai_ai_cn",
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "华尔街见闻",
-          "url": "https://wallstreetcn.com"
-        }
-      ]
-    },
-    {
       "title": "AI芯片厂商Cerebras启动美股IPO，挑战英伟达",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiTEFVX3lxTE40RWVSdjNJRlBJTGtwVXh1UnB4dlROOUNYSUNsZFJSNjZtQ05OVENnbWRyeEJ1WmxEVGtjMHFZb1AtemNrRHRkdEotbXg?oc=5\" target=\"_blank\">AI芯片厂商Cerebras启动美股IPO，挑战英伟达</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">凤凰网科技</font>",
       "source": "凤凰网科技",
@@ -4645,6 +4676,35 @@
       ]
     },
     {
+      "title": "Sora之父跑路！OpenAI一日流失三高管，资本还密谋换掉奥特曼",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTFAxV2Q3T21BR0xGNTZLSjE5Z3JEN1lRVDJyVnc1NGhKeVZ3ejB2YXVkWUtVcVdLbnI5dk8tZUNwYjY2cHYzNnF1cEN0Qm1LbnN6eGVj?oc=5\" target=\"_blank\">Sora之父跑路！OpenAI一日流失三高管，资本还密谋换掉奥特曼</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">华尔街见闻</font>",
+      "source": "华尔街见闻",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTFAxV2Q3T21BR0xGNTZLSjE5Z3JEN1lRVDJyVnc1NGhKeVZ3ejB2YXVkWUtVcVdLbnI5dk8tZUNwYjY2cHYzNnF1cEN0Qm1LbnN6eGVj?oc=5",
+      "published_at": "2026-04-18T14:46:00+07:00",
+      "latest_published_at": "2026-04-18T14:46:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": "openai_ai_cn",
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "华尔街见闻",
+          "url": "https://wallstreetcn.com"
+        }
+      ]
+    },
+    {
       "title": "中越青年开展对话 人工智能成热词",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTE5sNEFXa3RkMHM3bDdqeWVpbnZXNlN3NEtLbjduWjYtdGNjbHh3XzFTdG03NmNRUWowd1QyeGFvSmtFU3dfSFFPUERjX2xmU1liX3JzdWU5Z0RlUkVTczRmVUtHYUd1VjJFV0d1dW9JS1pEeFZOcFFPSw?oc=5\" target=\"_blank\">中越青年开展对话 人工智能成热词</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
@@ -4670,6 +4730,35 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.com.cn"
+        }
+      ]
+    },
+    {
+      "title": "医疗大模型不止于对话！互联网大厂抢滩核心工作流，谁在逼近真正的商业闭环？|AI重塑医疗",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiRkFVX3lxTE41WW1oUkNsUmhxeXZ3cWNrWU9Dd2tZeURUTVJkQlZFck5kWkh3YTQtOUFmd3hHVzNoa2hCYnBxbHUxTmJuU1E?oc=5\" target=\"_blank\">医疗大模型不止于对话！互联网大厂抢滩核心工作流，谁在逼近真正的商业闭环？|AI重塑医疗</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
+      "source": "财联社",
+      "url": "https://news.google.com/rss/articles/CBMiRkFVX3lxTE41WW1oUkNsUmhxeXZ3cWNrWU9Dd2tZeURUTVJkQlZFck5kWkh3YTQtOUFmd3hHVzNoa2hCYnBxbHUxTmJuU1E?oc=5",
+      "published_at": "2026-04-18T10:44:00+07:00",
+      "latest_published_at": "2026-04-18T10:44:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": "openai_ai_cn",
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "财联社",
+          "url": "https://m.cls.cn"
         }
       ]
     },
@@ -4732,12 +4821,12 @@
       ]
     },
     {
-      "title": "【早报】一夜蒸发超万亿元，英伟达创10个月最大单日跌幅；华为发布代码“神器”",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE8wU2lUZllSckRlNU45bzNpUEdsdTVjazFaU25QVno4VmUzWEIxNEdxR25PN0twSHR0QzFFYVJkNGJnemY1cU53bQ?oc=5\" target=\"_blank\">【早报】一夜蒸发超万亿元，英伟达创10个月最大单日跌幅；华为发布代码“神器”</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
-      "source": "财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE8wU2lUZllSckRlNU45bzNpUEdsdTVjazFaU25QVno4VmUzWEIxNEdxR25PN0twSHR0QzFFYVJkNGJnemY1cU53bQ?oc=5",
-      "published_at": "2026-04-18T09:57:00+07:00",
-      "latest_published_at": "2026-04-18T09:57:00+07:00",
+      "title": "论文 | ACL 2026 | 大脑里没有眼睛，大模型能分清左转右转吗？这篇论文挖出了AI空间认知的惊人短板",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE96aERCTWlweFBRSVFoWWl5bEpOaXg1b0tOWndXY3J2bWJqbDlrdFVTRjYtWFlNMldFMzNvbU9fMkVub1RYbnZCSw?oc=5\" target=\"_blank\">论文 | ACL 2026 | 大脑里没有眼睛，大模型能分清左转右转吗？这篇论文挖出了AI空间认知的惊人短板</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">智源社区</font>",
+      "source": "智源社区",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE96aERCTWlweFBRSVFoWWl5bEpOaXg1b0tOWndXY3J2bWJqbDlrdFVTRjYtWFlNMldFMzNvbU9fMkVub1RYbnZCSw?oc=5",
+      "published_at": "2026-04-18T20:40:00+07:00",
+      "latest_published_at": "2026-04-18T20:40:00+07:00",
       "league": "",
       "query_name": "openai_ai_cn",
       "keyword": [
@@ -4758,8 +4847,8 @@
       ],
       "sources": [
         {
-          "name": "财联社",
-          "url": "https://www.cls.cn"
+          "name": "智源社区",
+          "url": "https://hub.baai.ac.cn"
         }
       ]
     },
@@ -4822,18 +4911,15 @@
       ]
     },
     {
-      "title": "论文 | ACL 2026 | 大脑里没有眼睛，大模型能分清左转右转吗？这篇论文挖出了AI空间认知的惊人短板",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE96aERCTWlweFBRSVFoWWl5bEpOaXg1b0tOWndXY3J2bWJqbDlrdFVTRjYtWFlNMldFMzNvbU9fMkVub1RYbnZCSw?oc=5\" target=\"_blank\">论文 | ACL 2026 | 大脑里没有眼睛，大模型能分清左转右转吗？这篇论文挖出了AI空间认知的惊人短板</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">智源社区</font>",
-      "source": "智源社区",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE96aERCTWlweFBRSVFoWWl5bEpOaXg1b0tOWndXY3J2bWJqbDlrdFVTRjYtWFlNMldFMzNvbU9fMkVub1RYbnZCSw?oc=5",
-      "published_at": "2026-04-18T20:40:00+07:00",
-      "latest_published_at": "2026-04-18T20:40:00+07:00",
+      "title": "智算筑基，生态共生，2026人工智能基础设施峰会在沪召开",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMif0FVX3lxTE1tUEtpNEhZNlNKY1B0cm4xdXlrcThMVEdnakEzNzYzMy1uVlpwcEY5cGs3aUlKTXdwckFoUmh0ZlFaTUJmajl6MGIwbTJfU1pwVzlVaksxZHFrMG9YcEUxXzkxNnRKbUVuaFBCTi1lYW1kYWpYYVBITUhrRFkyMXc?oc=5\" target=\"_blank\">智算筑基，生态共生，2026人工智能基础设施峰会在沪召开</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1tUEtpNEhZNlNKY1B0cm4xdXlrcThMVEdnakEzNzYzMy1uVlpwcEY5cGs3aUlKTXdwckFoUmh0ZlFaTUJmajl6MGIwbTJfU1pwVzlVaksxZHFrMG9YcEUxXzkxNnRKbUVuaFBCTi1lYW1kYWpYYVBITUhrRFkyMXc?oc=5",
+      "published_at": "2026-04-18T14:58:00+07:00",
+      "latest_published_at": "2026-04-18T14:58:00+07:00",
       "league": "",
       "query_name": "openai_ai_cn",
-      "keyword": [
-        "openai_ai_cn",
-        "ai_product_cn"
-      ],
+      "keyword": "openai_ai_cn",
       "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
       "topic": "ai",
       "required_keywords": [
@@ -4848,8 +4934,8 @@
       ],
       "sources": [
         {
-          "name": "智源社区",
-          "url": "https://hub.baai.ac.cn"
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn"
         }
       ]
     },
@@ -4886,15 +4972,18 @@
       ]
     },
     {
-      "title": "智算筑基，生态共生，2026人工智能基础设施峰会在沪召开",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMif0FVX3lxTE1tUEtpNEhZNlNKY1B0cm4xdXlrcThMVEdnakEzNzYzMy1uVlpwcEY5cGs3aUlKTXdwckFoUmh0ZlFaTUJmajl6MGIwbTJfU1pwVzlVaksxZHFrMG9YcEUxXzkxNnRKbUVuaFBCTi1lYW1kYWpYYVBITUhrRFkyMXc?oc=5\" target=\"_blank\">智算筑基，生态共生，2026人工智能基础设施峰会在沪召开</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMif0FVX3lxTE1tUEtpNEhZNlNKY1B0cm4xdXlrcThMVEdnakEzNzYzMy1uVlpwcEY5cGs3aUlKTXdwckFoUmh0ZlFaTUJmajl6MGIwbTJfU1pwVzlVaksxZHFrMG9YcEUxXzkxNnRKbUVuaFBCTi1lYW1kYWpYYVBITUhrRFkyMXc?oc=5",
-      "published_at": "2026-04-18T14:58:00+07:00",
-      "latest_published_at": "2026-04-18T14:58:00+07:00",
+      "title": "【早报】一夜蒸发超万亿元，英伟达创10个月最大单日跌幅；华为发布代码“神器”",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE8wU2lUZllSckRlNU45bzNpUEdsdTVjazFaU25QVno4VmUzWEIxNEdxR25PN0twSHR0QzFFYVJkNGJnemY1cU53bQ?oc=5\" target=\"_blank\">【早报】一夜蒸发超万亿元，英伟达创10个月最大单日跌幅；华为发布代码“神器”</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
+      "source": "财联社",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE8wU2lUZllSckRlNU45bzNpUEdsdTVjazFaU25QVno4VmUzWEIxNEdxR25PN0twSHR0QzFFYVJkNGJnemY1cU53bQ?oc=5",
+      "published_at": "2026-04-18T09:57:00+07:00",
+      "latest_published_at": "2026-04-18T09:57:00+07:00",
       "league": "",
       "query_name": "openai_ai_cn",
-      "keyword": "openai_ai_cn",
+      "keyword": [
+        "openai_ai_cn",
+        "ai_product_cn"
+      ],
       "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
       "topic": "ai",
       "required_keywords": [
@@ -4909,8 +4998,8 @@
       ],
       "sources": [
         {
-          "name": "新浪财经",
-          "url": "https://finance.sina.com.cn"
+          "name": "财联社",
+          "url": "https://www.cls.cn"
         }
       ]
     },
@@ -5179,35 +5268,6 @@
       ]
     },
     {
-      "title": "不卷AlphaFold，OpenAI首个生命科学模型杀出，单项超越95%专家",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMifEFVX3lxTE1wNHZjX1BTXzk2amREeWtzVTJjRVRwY3E4X25BSHd0cXdSOVVCaVc0UXdkbGVYSVc2Q2NVNUZvcUVvUkVORGJCTE5TY2VIaW50OENkUjRiNVFXOG1Da2t1WmwtckpVM0JCcFpXX2VCX21qdzVBQTlWbGU4Q20?oc=5\" target=\"_blank\">不卷AlphaFold，OpenAI首个生命科学模型杀出，单项超越95%专家</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1wNHZjX1BTXzk2amREeWtzVTJjRVRwY3E4X25BSHd0cXdSOVVCaVc0UXdkbGVYSVc2Q2NVNUZvcUVvUkVORGJCTE5TY2VIaW50OENkUjRiNVFXOG1Da2t1WmwtckpVM0JCcFpXX2VCX21qdzVBQTlWbGU4Q20?oc=5",
-      "published_at": "2026-04-18T14:33:00+07:00",
-      "latest_published_at": "2026-04-18T14:33:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": "openai_ai_cn",
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "新浪财经",
-          "url": "https://finance.sina.com.cn"
-        }
-      ]
-    },
-    {
       "title": "Claude Design功能强大但Token消耗过高",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiXkFVX3lxTE14UkxlRXNWOW9sNjFwb1V3NGFWQUNHS2ZHWEVIWEZoRS1CWjRncU8xMGdvZnRxUXhCbng3Q1pNMjM3QUpwR1QtQWpvYXhibjBRZUlQNnRzbHVHeXo1d1E?oc=5\" target=\"_blank\">Claude Design功能强大但Token消耗过高</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">DoNews</font>",
       "source": "DoNews",
@@ -5295,6 +5355,35 @@
       ]
     },
     {
+      "title": "不卷AlphaFold，OpenAI首个生命科学模型杀出，单项超越95%专家",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMifEFVX3lxTE1wNHZjX1BTXzk2amREeWtzVTJjRVRwY3E4X25BSHd0cXdSOVVCaVc0UXdkbGVYSVc2Q2NVNUZvcUVvUkVORGJCTE5TY2VIaW50OENkUjRiNVFXOG1Da2t1WmwtckpVM0JCcFpXX2VCX21qdzVBQTlWbGU4Q20?oc=5\" target=\"_blank\">不卷AlphaFold，OpenAI首个生命科学模型杀出，单项超越95%专家</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMifEFVX3lxTE1wNHZjX1BTXzk2amREeWtzVTJjRVRwY3E4X25BSHd0cXdSOVVCaVc0UXdkbGVYSVc2Q2NVNUZvcUVvUkVORGJCTE5TY2VIaW50OENkUjRiNVFXOG1Da2t1WmwtckpVM0JCcFpXX2VCX21qdzVBQTlWbGU4Q20?oc=5",
+      "published_at": "2026-04-18T14:33:00+07:00",
+      "latest_published_at": "2026-04-18T14:33:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": "openai_ai_cn",
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn"
+        }
+      ]
+    },
+    {
       "title": "AI赋能制造，光谷探路“智造”新未来——光谷“人工智能+工业制造”对接会举办- 湖北日报新闻客户端",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiWEFVX3lxTE9QaVUzamoybnluRVYxNFduMVM1Z0tobldjWHpmMXY3QklWMmVGN0ppM1NvMUNhQWtXZ1poTEh1THhHQk9SZW81ZF92dnNNN293cjNHMTBRWWY?oc=5\" target=\"_blank\">AI赋能制造，光谷探路“智造”新未来——光谷“人工智能+工业制造”对接会举办- 湖北日报新闻客户端</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">湖北日报传媒集团</font>",
       "source": "湖北日报传媒集团",
@@ -5353,6 +5442,35 @@
       ]
     },
     {
+      "title": "OpenAI彻底重构Codex！长出独立鼠标，自己排班狂卷打工人",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE91LWpNc2xDc01iZGZCSXRBc2VuLWVTaEFhWEt6aExDRGFxNVJQNG5SY2ZjSjBkUk9pN0JIYXUybVJvOEp1M1NRbg?oc=5\" target=\"_blank\">OpenAI彻底重构Codex！长出独立鼠标，自己排班狂卷打工人</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">智源社区</font>",
+      "source": "智源社区",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE91LWpNc2xDc01iZGZCSXRBc2VuLWVTaEFhWEt6aExDRGFxNVJQNG5SY2ZjSjBkUk9pN0JIYXUybVJvOEp1M1NRbg?oc=5",
+      "published_at": "2026-04-18T14:50:00+07:00",
+      "latest_published_at": "2026-04-18T14:50:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": "openai_ai_cn",
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "智源社区",
+          "url": "https://hub.baai.ac.cn"
+        }
+      ]
+    },
+    {
       "title": "早报｜刚刚，OpenAI两位大牛离职/一季度iPhone出货量激增20%/雷军回应小米做入门车型：10万块难做好智能化",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiQ0FVX3lxTE9udnNaNkh3WEdhZmxqa1JiWWE5LTEzY3Q2QTd5TWJqX2xpc2Z5Q0wtbWV1dUlRS2tITEJ0MlJyVmlNOFk?oc=5\" target=\"_blank\">早报｜刚刚，OpenAI两位大牛离职/一季度iPhone出货量激增20%/雷军回应小米做入门车型：10万块难做好智能化</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">爱范儿</font>",
       "source": "爱范儿",
@@ -5382,12 +5500,12 @@
       ]
     },
     {
-      "title": "OpenAI彻底重构Codex！长出独立鼠标，自己排班狂卷打工人",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE91LWpNc2xDc01iZGZCSXRBc2VuLWVTaEFhWEt6aExDRGFxNVJQNG5SY2ZjSjBkUk9pN0JIYXUybVJvOEp1M1NRbg?oc=5\" target=\"_blank\">OpenAI彻底重构Codex！长出独立鼠标，自己排班狂卷打工人</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">智源社区</font>",
-      "source": "智源社区",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE91LWpNc2xDc01iZGZCSXRBc2VuLWVTaEFhWEt6aExDRGFxNVJQNG5SY2ZjSjBkUk9pN0JIYXUybVJvOEp1M1NRbg?oc=5",
-      "published_at": "2026-04-18T14:50:00+07:00",
-      "latest_published_at": "2026-04-18T14:50:00+07:00",
+      "title": "Anthropic发布Claude Opus 4.7：金融分析能力登顶公开模型 软件工程、多模态全面进阶",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMi7AJBVV95cUxOR3pySVNpVUZNOVJLLU9iTndxYl82a3p5Smt5Vzc4eTE3eWk4aFlQalF0ZHJ6enp4UlRFVHZvVVdhejhzSmJLcmlSUzZuMDByUEhHTHB2NUxVQjluSzNYckwzOGpheWdUUGZwOG5LcU1LOV9fbzhsR3duTHNkaHVNMlZheWNTOVV6REkyNTZTci1sRVVSRWtIamNGMDNySVBoSndQX3BsMl9JdjZQdkxTam9obEoxWUpIQ3N5NDZZLTBNTkg2bmtra1RtUEl2Q0xWUl9udFZIY0d4UjVYcVpsNHROQlpGVmM1dFBMOUUzQ0VxMjY3NEd2RFBTZW9SYW4wa3ZkUTA5RUNlcVBrNmVMQl8ySnQzTkNuRm9pSW9iY2Jxd1ZQVVN0RjRvb1F0WUFRSXZmMlhkMElTOG8yZmw1bnVETkJDMjlUelNsVExoVHBmV2ptcXNwVU5jQjZ2VVM3cU5iMkxFcXI3ZTdh?oc=5\" target=\"_blank\">Anthropic发布Claude Opus 4.7：金融分析能力登顶公开模型 软件工程、多模态全面进阶</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMi7AJBVV95cUxOR3pySVNpVUZNOVJLLU9iTndxYl82a3p5Smt5Vzc4eTE3eWk4aFlQalF0ZHJ6enp4UlRFVHZvVVdhejhzSmJLcmlSUzZuMDByUEhHTHB2NUxVQjluSzNYckwzOGpheWdUUGZwOG5LcU1LOV9fbzhsR3duTHNkaHVNMlZheWNTOVV6REkyNTZTci1sRVVSRWtIamNGMDNySVBoSndQX3BsMl9JdjZQdkxTam9obEoxWUpIQ3N5NDZZLTBNTkg2bmtra1RtUEl2Q0xWUl9udFZIY0d4UjVYcVpsNHROQlpGVmM1dFBMOUUzQ0VxMjY3NEd2RFBTZW9SYW4wa3ZkUTA5RUNlcVBrNmVMQl8ySnQzTkNuRm9pSW9iY2Jxd1ZQVVN0RjRvb1F0WUFRSXZmMlhkMElTOG8yZmw1bnVETkJDMjlUelNsVExoVHBmV2ptcXNwVU5jQjZ2VVM3cU5iMkxFcXI3ZTdh?oc=5",
+      "published_at": "2026-04-18T08:47:00+07:00",
+      "latest_published_at": "2026-04-18T08:47:00+07:00",
       "league": "",
       "query_name": "openai_ai_cn",
       "keyword": "openai_ai_cn",
@@ -5405,8 +5523,8 @@
       ],
       "sources": [
         {
-          "name": "智源社区",
-          "url": "https://hub.baai.ac.cn"
+          "name": "新浪财经",
+          "url": "https://finance.sina.cn"
         }
       ]
     },
@@ -5504,38 +5622,6 @@
       ]
     },
     {
-      "title": "英伟达发布通信网络基建联盟倡议 探索6G与人工智能深度融合",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE9nNkNnWFlmdkUzeGhzMVVpdWpQQl9xUzRibGtPTTlaTC02aHZlOHJ2QVVISnQ4YjRRVU9VQzZHNDJNVkJJaXRfSQ?oc=5\" target=\"_blank\">英伟达发布通信网络基建联盟倡议 探索6G与人工智能深度融合</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
-      "source": "财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9nNkNnWFlmdkUzeGhzMVVpdWpQQl9xUzRibGtPTTlaTC02aHZlOHJ2QVVISnQ4YjRRVU9VQzZHNDJNVkJJaXRfSQ?oc=5",
-      "published_at": "2026-04-18T04:36:00+07:00",
-      "latest_published_at": "2026-04-18T04:36:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": [
-        "openai_ai_cn",
-        "ai_product_cn"
-      ],
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "财联社",
-          "url": "https://www.cls.cn"
-        }
-      ]
-    },
-    {
       "title": "Claude有的，国产也有！紫东太初科研龙虾ScienceClaw，已经把Harness卷进实验室",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTFBESVgwVmhiWDVRR0Nua0s4WEtTYWpjYkFJYm9PTlZWV1FMcVVqc3QwSmxRcURiVXFDZ0xlR3AzLXJWVmpBQmRvSA?oc=5\" target=\"_blank\">Claude有的，国产也有！紫东太初科研龙虾ScienceClaw，已经把Harness卷进实验室</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">智源社区</font>",
       "source": "智源社区",
@@ -5590,6 +5676,67 @@
         {
           "name": "智源社区",
           "url": "https://hub.baai.ac.cn"
+        }
+      ]
+    },
+    {
+      "title": "Sora 之父官宣离职，OpenAI 乱成一锅粥了",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiUEFVX3lxTE5LWlBUdnVqWXM4b3dtTkw3WTRCazE0VXRRYmU4WmhfNmtVN0lHYlNacjVFVlJxN3V0eF9BR3ZqV1cyLTJ0SU05bi1MSFZhQUFR?oc=5\" target=\"_blank\">Sora 之父官宣离职，OpenAI 乱成一锅粥了</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">凤凰网</font>",
+      "source": "凤凰网",
+      "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE5LWlBUdnVqWXM4b3dtTkw3WTRCazE0VXRRYmU4WmhfNmtVN0lHYlNacjVFVlJxN3V0eF9BR3ZqV1cyLTJ0SU05bi1MSFZhQUFR?oc=5",
+      "published_at": "2026-04-18T07:09:00+07:00",
+      "latest_published_at": "2026-04-18T07:09:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": "openai_ai_cn",
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "凤凰网",
+          "url": "https://finance.ifeng.com"
+        }
+      ]
+    },
+    {
+      "title": "英伟达发布通信网络基建联盟倡议 探索6G与人工智能深度融合",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE9nNkNnWFlmdkUzeGhzMVVpdWpQQl9xUzRibGtPTTlaTC02aHZlOHJ2QVVISnQ4YjRRVU9VQzZHNDJNVkJJaXRfSQ?oc=5\" target=\"_blank\">英伟达发布通信网络基建联盟倡议 探索6G与人工智能深度融合</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
+      "source": "财联社",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE9nNkNnWFlmdkUzeGhzMVVpdWpQQl9xUzRibGtPTTlaTC02aHZlOHJ2QVVISnQ4YjRRVU9VQzZHNDJNVkJJaXRfSQ?oc=5",
+      "published_at": "2026-04-18T04:36:00+07:00",
+      "latest_published_at": "2026-04-18T04:36:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": [
+        "openai_ai_cn",
+        "ai_product_cn"
+      ],
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "财联社",
+          "url": "https://www.cls.cn"
         }
       ]
     },
@@ -5655,12 +5802,12 @@
       ]
     },
     {
-      "title": "《淮北市人工智能通识培训系列课程》面向全国正式发布",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiakFVX3lxTE9aOTJtZkdTZVdBbF9nTi1OcThjT2lScXlQNTAzX1JpbkFYNzFINkllVGdaYVNDTjRfdXBxSHVRc0xQVU0zWk0zREFFUkRXcEFqMHNaQjk1Wjd3cW5QSXZOTHFFakxCdS05M1E?oc=5\" target=\"_blank\">《淮北市人工智能通识培训系列课程》面向全国正式发布</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">人民网－安徽频道</font>",
-      "source": "人民网－安徽频道",
-      "url": "https://news.google.com/rss/articles/CBMiakFVX3lxTE9aOTJtZkdTZVdBbF9nTi1OcThjT2lScXlQNTAzX1JpbkFYNzFINkllVGdaYVNDTjRfdXBxSHVRc0xQVU0zWk0zREFFUkRXcEFqMHNaQjk1Wjd3cW5QSXZOTHFFakxCdS05M1E?oc=5",
-      "published_at": "2026-04-18T09:42:00+07:00",
-      "latest_published_at": "2026-04-18T09:42:00+07:00",
+      "title": "Claude Design暴击设计行业！Figma、Adobe市值闪崩",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE5CQnlRWG1qODNxdEVGR1A5TloxNW5POHNsVTdYTEYtVXJVNGVCbC10dGNjQ2xXd01TM3AzNDFJQlEwNWFFTkV1aDhwSGpOb05Dck5Z?oc=5\" target=\"_blank\">Claude Design暴击设计行业！Figma、Adobe市值闪崩</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">华尔街见闻</font>",
+      "source": "华尔街见闻",
+      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5CQnlRWG1qODNxdEVGR1A5TloxNW5POHNsVTdYTEYtVXJVNGVCbC10dGNjQ2xXd01TM3AzNDFJQlEwNWFFTkV1aDhwSGpOb05Dck5Z?oc=5",
+      "published_at": "2026-04-18T09:12:00+07:00",
+      "latest_published_at": "2026-04-18T09:12:00+07:00",
       "league": "",
       "query_name": "openai_ai_cn",
       "keyword": "openai_ai_cn",
@@ -5678,8 +5825,8 @@
       ],
       "sources": [
         {
-          "name": "人民网－安徽频道",
-          "url": "http://ah.people.com.cn"
+          "name": "华尔街见闻",
+          "url": "https://wallstreetcn.com"
         }
       ]
     },
@@ -5713,35 +5860,6 @@
       ]
     },
     {
-      "title": "Claude Design暴击设计行业！Figma、Adobe市值闪崩",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTE5CQnlRWG1qODNxdEVGR1A5TloxNW5POHNsVTdYTEYtVXJVNGVCbC10dGNjQ2xXd01TM3AzNDFJQlEwNWFFTkV1aDhwSGpOb05Dck5Z?oc=5\" target=\"_blank\">Claude Design暴击设计行业！Figma、Adobe市值闪崩</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">华尔街见闻</font>",
-      "source": "华尔街见闻",
-      "url": "https://news.google.com/rss/articles/CBMiU0FVX3lxTE5CQnlRWG1qODNxdEVGR1A5TloxNW5POHNsVTdYTEYtVXJVNGVCbC10dGNjQ2xXd01TM3AzNDFJQlEwNWFFTkV1aDhwSGpOb05Dck5Z?oc=5",
-      "published_at": "2026-04-18T09:12:00+07:00",
-      "latest_published_at": "2026-04-18T09:12:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": "openai_ai_cn",
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "华尔街见闻",
-          "url": "https://wallstreetcn.com"
-        }
-      ]
-    },
-    {
       "title": "被OpenAI放弃后，视频生成平台Sora负责人皮布尔斯离职",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMivAFBVV95cUxON0dvYzlqb3JHSFplaWxQbXdhR0R5dFA1d2t2bGtPdkE1THQ4UUlvMTFrOFBORmZjcFFPaUh0dTljQUh5WjhRQkZSQkdYS21PR3ZqUWJPR0RnOW9PV2d5T01yb2p4WEZFaE9YeWRvWW1OaDZwNzNJWXBqazNEcjFDeVFMV0cyTzVzQzVjYlQ2SWctellJNnZDTFZnX2R2anJsOFZOOTlIMjFvblpNd2dUcENHSGlFLS1nSVJKVg?oc=5\" target=\"_blank\">被OpenAI放弃后，视频生成平台Sora负责人皮布尔斯离职</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
@@ -5767,70 +5885,6 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.cn"
-        }
-      ]
-    },
-    {
-      "title": "英伟达发布量子计算模型点燃行情，Xanadu创始人三天跻身跻身十亿美元富豪",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAJBVV95cUxPZHdTYWJWVFJPcXdBYm1OSk1IdTVWYzFyemxnYTBhQ0tUNFNnNmY2d3VoOXlDcy1IeUROZ1hmRFNsZDdLWHlBWXVoN3JYYXlsbGpKdzBjTGdPcENQMWd3NDctU015cFpwazZVUHk5WldCNHktcGJubGhxVzJEWDNGOHNyelgweV91WEtuZGtLdk04bWRqc1ZSeS1teDZwblFEVnNwUGl3ZFVpeTVWRGpJMGNmQi0yd2lfVnlfRXJlVDN2UHhWVFVNSm8tOEllTEdTREV2WXlXNzBxTG05c3J5MFdVR0VwLUM4UkU3ZEFXQjdzaGFRV0RCck1uNzBQVUNOa0JXOGsxTHJ2RjR0?oc=5\" target=\"_blank\">英伟达发布量子计算模型点燃行情，Xanadu创始人三天跻身跻身十亿美元富豪</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxNcGYydGdGSzhuMkN3eWo5djFCZjF6eWFEWjlzd1pXdUtqcUNRdUdCakR4YXdOR1BQdFRFbVM1UG4ta3Y5d2dENnoxSk03Z1YtNFNjS1c3NVZ6N2g5dV95S2FvQTdiTy01S1BzVjJqU1IxTzFIMVRLaXZKVjlaRExNcEhMY00zU2NZQmZ2YnplSTZ2RFJQWGVQY2toSVNBY0hMU2RWNkp5SGlSeVhIM3p6VkJBUHFjY0JOT0U4aDV0cjE3YURaWUJIUlJHd3FFVi0wOUpmX1RkWHNLV1VSeHdfZlJyNjFSZElneWh2LVVmbEE3aUpmWk4zRXdqc0F0elNI?oc=5",
-      "published_at": "2026-04-18T07:27:00+07:00",
-      "latest_published_at": "2026-04-18T07:27:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": [
-        "openai_ai_cn",
-        "ai_product_cn"
-      ],
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "新浪财经",
-          "url": "https://finance.sina.cn"
-        }
-      ]
-    },
-    {
-      "title": "医疗大模型不止于对话！互联网大厂抢滩核心工作流 谁在逼近真正的商业闭环？",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE9Gb2R4TjRPMmpRaHpBcGdqZV93clVkcWNJU1lWWXJFQmlLSEMxRThaNGxvN1lfalIzbVFDNmNWVTlMT3ZzWkFsbTl1Z0RSRXN3b3A4WFJ2aEp4RXdJbWJiYUVKWUdZQQ?oc=5\" target=\"_blank\">医疗大模型不止于对话！互联网大厂抢滩核心工作流 谁在逼近真正的商业闭环？</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">东方财富</font>",
-      "source": "东方财富",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9Gb2R4TjRPMmpRaHpBcGdqZV93clVkcWNJU1lWWXJFQmlLSEMxRThaNGxvN1lfalIzbVFDNmNWVTlMT3ZzWkFsbTl1Z0RSRXN3b3A4WFJ2aEp4RXdJbWJiYUVKWUdZQQ?oc=5",
-      "published_at": "2026-04-18T07:01:00+07:00",
-      "latest_published_at": "2026-04-18T07:01:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": [
-        "openai_ai_cn",
-        "ai_product_cn"
-      ],
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "东方财富",
-          "url": "https://finance.eastmoney.com"
         }
       ]
     },
@@ -5867,6 +5921,38 @@
       ]
     },
     {
+      "title": "英伟达发布量子计算模型点燃行情，Xanadu创始人三天跻身跻身十亿美元富豪",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAJBVV95cUxPZHdTYWJWVFJPcXdBYm1OSk1IdTVWYzFyemxnYTBhQ0tUNFNnNmY2d3VoOXlDcy1IeUROZ1hmRFNsZDdLWHlBWXVoN3JYYXlsbGpKdzBjTGdPcENQMWd3NDctU015cFpwazZVUHk5WldCNHktcGJubGhxVzJEWDNGOHNyelgweV91WEtuZGtLdk04bWRqc1ZSeS1teDZwblFEVnNwUGl3ZFVpeTVWRGpJMGNmQi0yd2lfVnlfRXJlVDN2UHhWVFVNSm8tOEllTEdTREV2WXlXNzBxTG05c3J5MFdVR0VwLUM4UkU3ZEFXQjdzaGFRV0RCck1uNzBQVUNOa0JXOGsxTHJ2RjR0?oc=5\" target=\"_blank\">英伟达发布量子计算模型点燃行情，Xanadu创始人三天跻身跻身十亿美元富豪</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMigAJBVV95cUxNcGYydGdGSzhuMkN3eWo5djFCZjF6eWFEWjlzd1pXdUtqcUNRdUdCakR4YXdOR1BQdFRFbVM1UG4ta3Y5d2dENnoxSk03Z1YtNFNjS1c3NVZ6N2g5dV95S2FvQTdiTy01S1BzVjJqU1IxTzFIMVRLaXZKVjlaRExNcEhMY00zU2NZQmZ2YnplSTZ2RFJQWGVQY2toSVNBY0hMU2RWNkp5SGlSeVhIM3p6VkJBUHFjY0JOT0U4aDV0cjE3YURaWUJIUlJHd3FFVi0wOUpmX1RkWHNLV1VSeHdfZlJyNjFSZElneWh2LVVmbEE3aUpmWk4zRXdqc0F0elNI?oc=5",
+      "published_at": "2026-04-18T07:27:00+07:00",
+      "latest_published_at": "2026-04-18T07:27:00+07:00",
+      "league": "",
+      "query_name": "openai_ai_cn",
+      "keyword": [
+        "openai_ai_cn",
+        "ai_product_cn"
+      ],
+      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "OpenAI",
+        "ChatGPT",
+        "Gemini",
+        "Claude",
+        "Sora",
+        "英伟达",
+        "人工智能",
+        "大模型"
+      ],
+      "sources": [
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.cn"
+        }
+      ]
+    },
+    {
       "title": "梁文锋被曝史上首次融资！DeepSeek V4彻底摆脱英伟达",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiU0FVX3lxTFBRaVZmSkJxTFg1ZEh1SzlUTWFod28yUWVWNnBGcFhMV3M0Zk5XbWUtRzZXZVZMZ1g4Qk8xRWNad3B6Uzh2TXVCejVvNnJ6Q2ZnQU04?oc=5\" target=\"_blank\">梁文锋被曝史上首次融资！DeepSeek V4彻底摆脱英伟达</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">华尔街见闻</font>",
       "source": "凤凰网",
@@ -5899,67 +5985,6 @@
         {
           "name": "凤凰网",
           "url": "https://i.ifeng.com"
-        }
-      ]
-    },
-    {
-      "title": "阿里ATH发布AI开发工具Meoo，集成四大模型实现零代码建站",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE42UURJSHpZY1hSUGFPZDZNMzFhVmVlQ095SGhxTWJnRndsVEFGZWloblZwNklwaXJnWGZoTDY0QlM5UjVuM3YxMw?oc=5\" target=\"_blank\">阿里ATH发布AI开发工具Meoo，集成四大模型实现零代码建站</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">品玩</font>",
-      "source": "品玩",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE42UURJSHpZY1hSUGFPZDZNMzFhVmVlQ095SGhxTWJnRndsVEFGZWloblZwNklwaXJnWGZoTDY0QlM5UjVuM3YxMw?oc=5",
-      "published_at": "2026-04-18T13:09:00+07:00",
-      "latest_published_at": "2026-04-18T13:09:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": [
-        "openai_ai_cn",
-        "ai_product_cn"
-      ],
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "品玩",
-          "url": "https://www.pingwest.com"
-        }
-      ]
-    },
-    {
-      "title": "中国裁军大使：以全球安全倡议引领人工智能军事应用全球治理",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiaEFVX3lxTE52RUU2QjV4d2IycGE4dG9MNlNzbjAycmVLWTNya0s0djRUano1b0djT2VfUEFWcGw3Mmd1b01LNW1naUdUM0E2Z1oxb0s1Q0hRa0F6b0FwRXZJREVTNUkxUDlCQlVsVE9V?oc=5\" target=\"_blank\">中国裁军大使：以全球安全倡议引领人工智能军事应用全球治理</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">chinanews.com.cn</font>",
-      "source": "chinanews.com.cn",
-      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE52RUU2QjV4d2IycGE4dG9MNlNzbjAycmVLWTNya0s0djRUano1b0djT2VfUEFWcGw3Mmd1b01LNW1naUdUM0E2Z1oxb0s1Q0hRa0F6b0FwRXZJREVTNUkxUDlCQlVsVE9V?oc=5",
-      "published_at": "2026-04-18T14:54:00+07:00",
-      "latest_published_at": "2026-04-18T14:54:00+07:00",
-      "league": "",
-      "query_name": "openai_ai_cn",
-      "keyword": "openai_ai_cn",
-      "query": "OpenAI OR ChatGPT OR Gemini OR Claude OR Sora OR 英伟达 OR 人工智能 OR 大模型 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "OpenAI",
-        "ChatGPT",
-        "Gemini",
-        "Claude",
-        "Sora",
-        "英伟达",
-        "人工智能",
-        "大模型"
-      ],
-      "sources": [
-        {
-          "name": "chinanews.com.cn",
-          "url": "https://www.chinanews.com.cn"
         }
       ]
     },
@@ -6022,6 +6047,33 @@
       ]
     },
     {
+      "title": "探迹科技十周年：编织全球产业链智能体网络，实施全员Token激励计划",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijgFBVV95cUxQYWVnQ1FBd2YzaHNfNDNlb0s0enZSLU5hc2ZuZmFaaVJVR0piRllmQUNSSjhyeWU1ZE1rSVFPeWFrQWUxMW9paDJEYU5CSUpqR04ydnQxckpjUThnN3RKQy1hcXQycmw1VmVCS19DTDJtUlJvTWt1bUl3RW9FQzlGVnJ2UkVpWi1ZWWxKb3lR?oc=5\" target=\"_blank\">探迹科技十周年：编织全球产业链智能体网络，实施全员Token激励计划</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">21财经</font>",
+      "source": "21财经",
+      "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQYWVnQ1FBd2YzaHNfNDNlb0s0enZSLU5hc2ZuZmFaaVJVR0piRllmQUNSSjhyeWU1ZE1rSVFPeWFrQWUxMW9paDJEYU5CSUpqR04ydnQxckpjUThnN3RKQy1hcXQycmw1VmVCS19DTDJtUlJvTWt1bUl3RW9FQzlGVnJ2UkVpWi1ZWWxKb3lR?oc=5",
+      "published_at": "2026-04-18T21:42:00+07:00",
+      "latest_published_at": "2026-04-18T21:42:00+07:00",
+      "league": "",
+      "query_name": "ai_product_cn",
+      "keyword": "ai_product_cn",
+      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "AI工具",
+        "大模型",
+        "智能体",
+        "苹果AI",
+        "英伟达",
+        "模型更新"
+      ],
+      "sources": [
+        {
+          "name": "21财经",
+          "url": "http://www.21jingji.com"
+        }
+      ]
+    },
+    {
       "title": "智能体企业架构浮现：数据、模型、系统之外的控制平面｜ 技术趋势",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiwFBVV95cUxQbmZyXzNLRzE0czN5aXczd3hpVTFqcnhMb2ZaUGRxd2hhN0JHdFZwSzRxUkVud2duTFdTa0FjN010VUhiMkJSWkZzSXN4aFUtSy1nMVJPSGNKSkZkWG5VaDFzd01QY1pTTVFyZlNvWTEzVkJra1JEZTZ5UFllaUUzVC1mU0tVTjlHZ0dN?oc=5\" target=\"_blank\">智能体企业架构浮现：数据、模型、系统之外的控制平面｜ 技术趋势</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">Infoq.cn</font>",
       "source": "Infoq.cn",
@@ -6076,12 +6128,12 @@
       ]
     },
     {
-      "title": "游戏行业不缺AI工具，缺什么？腾讯游戏用一场大赛给出答案",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMidkFVX3lxTFA5Q3dGM3NjUmU2bmNkcGRHb0lLTGJLWEdrRWNNX0liTktlcXFMVzUwWDlPcjRiRzZrMU5hY3BtOUw5ZElJSFNCS0FSVi0waTVKM1RUcXFTd1lDV1pqYjk1WWw5dVo1TjAwcVBJUWZ2MHMwbG5ITHc?oc=5\" target=\"_blank\">游戏行业不缺AI工具，缺什么？腾讯游戏用一场大赛给出答案</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "title": "极氪8X正式上市：首次搭载舱驾融合超级智能体",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiwgJBVV95cUxOYnRGUkVGVUxGMElNeTZ2eU5tNjE1MkY5c29sS0hqU1E4bmxzVFpBY3pqVmIxMURQMURWcnY5ZUltLWNPSl8taEpDOE5nMVVmc21tNTkzcE9wa1NZVHRvTHdVa1dxTGZYby16MEdjS09HQjZoVWVWc085bUJjVWhHbU82T2FreUI1eUJYTXM4OGlfN2VWcmxKZVVLOFhsZzhMMkhPb0lnd0VlQmpmQUtWd3IxTDBJRHd1ZjVvYlNCZk1lbUFudTZWNzk4QXhraTE1dkY5NTBzTnhUbWRjOVlBRTkwUk5Kem5IN3NzWGZETFQzR1hFMWNUOXkwX1BNd2lIVTBPaUN1Uk9BbkhwLVpmSFlUU1ZkVE5LaUJfdWR3TjFqSHVWbFR2NUx5UHVDVGs3U2xWdlN6dFltQWUtNW1lal9n?oc=5\" target=\"_blank\">极氪8X正式上市：首次搭载舱驾融合超级智能体</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA5Q3dGM3NjUmU2bmNkcGRHb0lLTGJLWEdrRWNNX0liTktlcXFMVzUwWDlPcjRiRzZrMU5hY3BtOUw5ZElJSFNCS0FSVi0waTVKM1RUcXFTd1lDV1pqYjk1WWw5dVo1TjAwcVBJUWZ2MHMwbG5ITHc?oc=5",
-      "published_at": "2026-04-18T17:24:00+07:00",
-      "latest_published_at": "2026-04-18T17:24:00+07:00",
+      "url": "https://news.google.com/rss/articles/CBMiwgJBVV95cUxOYnRGUkVGVUxGMElNeTZ2eU5tNjE1MkY5c29sS0hqU1E4bmxzVFpBY3pqVmIxMURQMURWcnY5ZUltLWNPSl8taEpDOE5nMVVmc21tNTkzcE9wa1NZVHRvTHdVa1dxTGZYby16MEdjS09HQjZoVWVWc085bUJjVWhHbU82T2FreUI1eUJYTXM4OGlfN2VWcmxKZVVLOFhsZzhMMkhPb0lnd0VlQmpmQUtWd3IxTDBJRHd1ZjVvYlNCZk1lbUFudTZWNzk4QXhraTE1dkY5NTBzTnhUbWRjOVlBRTkwUk5Kem5IN3NzWGZETFQzR1hFMWNUOXkwX1BNd2lIVTBPaUN1Uk9BbkhwLVpmSFlUU1ZkVE5LaUJfdWR3TjFqSHVWbFR2NUx5UHVDVGs3U2xWdlN6dFltQWUtNW1lal9n?oc=5",
+      "published_at": "2026-04-18T19:46:00+07:00",
+      "latest_published_at": "2026-04-18T19:46:00+07:00",
       "league": "",
       "query_name": "ai_product_cn",
       "keyword": "ai_product_cn",
@@ -6098,7 +6150,7 @@
       "sources": [
         {
           "name": "新浪财经",
-          "url": "https://finance.sina.com.cn"
+          "url": "https://finance.sina.cn"
         }
       ]
     },
@@ -6161,12 +6213,12 @@
       ]
     },
     {
-      "title": "极氪8X正式上市：首次搭载舱驾融合超级智能体",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMisgFBVV95cUxPMksxZVdVUDBmUHV1WGt4VWdFR2lmdXRTQ2gyWXAzMXp0cTc3R3JuSjFGMDRoOGEtSVVOWWhmcDh0RGF0S2ZHdkFjYXBYRG5BYVBIX0xDeUhkTm50MFFCT1ZOZUhTWVU4TVlKMkwwTExYdWcxcGpLZ19YUW0xMHVDUHktTGdVQlR5TThZYzNwQmpKQ19zdng2Y3pGVFU1OFNMczJpbFQ0V2ZMa3dKcVo1NUVn?oc=5\" target=\"_blank\">极氪8X正式上市：首次搭载舱驾融合超级智能体</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "title": "游戏行业不缺AI工具，缺什么？腾讯游戏用一场大赛给出答案",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMidkFVX3lxTFA5Q3dGM3NjUmU2bmNkcGRHb0lLTGJLWEdrRWNNX0liTktlcXFMVzUwWDlPcjRiRzZrMU5hY3BtOUw5ZElJSFNCS0FSVi0waTVKM1RUcXFTd1lDV1pqYjk1WWw5dVo1TjAwcVBJUWZ2MHMwbG5ITHc?oc=5\" target=\"_blank\">游戏行业不缺AI工具，缺什么？腾讯游戏用一场大赛给出答案</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPMksxZVdVUDBmUHV1WGt4VWdFR2lmdXRTQ2gyWXAzMXp0cTc3R3JuSjFGMDRoOGEtSVVOWWhmcDh0RGF0S2ZHdkFjYXBYRG5BYVBIX0xDeUhkTm50MFFCT1ZOZUhTWVU4TVlKMkwwTExYdWcxcGpLZ19YUW0xMHVDUHktTGdVQlR5TThZYzNwQmpKQ19zdng2Y3pGVFU1OFNMczJpbFQ0V2ZMa3dKcVo1NUVn?oc=5",
-      "published_at": "2026-04-18T16:08:00+07:00",
-      "latest_published_at": "2026-04-18T16:08:00+07:00",
+      "url": "https://news.google.com/rss/articles/CBMidkFVX3lxTFA5Q3dGM3NjUmU2bmNkcGRHb0lLTGJLWEdrRWNNX0liTktlcXFMVzUwWDlPcjRiRzZrMU5hY3BtOUw5ZElJSFNCS0FSVi0waTVKM1RUcXFTd1lDV1pqYjk1WWw5dVo1TjAwcVBJUWZ2MHMwbG5ITHc?oc=5",
+      "published_at": "2026-04-18T17:24:00+07:00",
+      "latest_published_at": "2026-04-18T17:24:00+07:00",
       "league": "",
       "query_name": "ai_product_cn",
       "keyword": "ai_product_cn",
@@ -6183,7 +6235,65 @@
       "sources": [
         {
           "name": "新浪财经",
-          "url": "https://finance.sina.cn"
+          "url": "https://finance.sina.com.cn"
+        },
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
+      "title": "阿里ATH发布AI开发工具Meoo，集成四大模型实现零代码建站",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTE42UURJSHpZY1hSUGFPZDZNMzFhVmVlQ095SGhxTWJnRndsVEFGZWloblZwNklwaXJnWGZoTDY0QlM5UjVuM3YxMw?oc=5\" target=\"_blank\">阿里ATH发布AI开发工具Meoo，集成四大模型实现零代码建站</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">品玩</font>",
+      "source": "品玩",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE42UURJSHpZY1hSUGFPZDZNMzFhVmVlQ095SGhxTWJnRndsVEFGZWloblZwNklwaXJnWGZoTDY0QlM5UjVuM3YxMw?oc=5",
+      "published_at": "2026-04-18T13:09:00+07:00",
+      "latest_published_at": "2026-04-18T13:09:00+07:00",
+      "league": "",
+      "query_name": "ai_product_cn",
+      "keyword": "ai_product_cn",
+      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "AI工具",
+        "大模型",
+        "智能体",
+        "苹果AI",
+        "英伟达",
+        "模型更新"
+      ],
+      "sources": [
+        {
+          "name": "品玩",
+          "url": "https://www.pingwest.com"
+        }
+      ]
+    },
+    {
+      "title": "医疗大模型不止于对话！互联网大厂抢滩核心工作流 谁在逼近真正的商业闭环？",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE9Gb2R4TjRPMmpRaHpBcGdqZV93clVkcWNJU1lWWXJFQmlLSEMxRThaNGxvN1lfalIzbVFDNmNWVTlMT3ZzWkFsbTl1Z0RSRXN3b3A4WFJ2aEp4RXdJbWJiYUVKWUdZQQ?oc=5\" target=\"_blank\">医疗大模型不止于对话！互联网大厂抢滩核心工作流 谁在逼近真正的商业闭环？</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">东方财富</font>",
+      "source": "东方财富",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9Gb2R4TjRPMmpRaHpBcGdqZV93clVkcWNJU1lWWXJFQmlLSEMxRThaNGxvN1lfalIzbVFDNmNWVTlMT3ZzWkFsbTl1Z0RSRXN3b3A4WFJ2aEp4RXdJbWJiYUVKWUdZQQ?oc=5",
+      "published_at": "2026-04-18T07:01:00+07:00",
+      "latest_published_at": "2026-04-18T07:01:00+07:00",
+      "league": "",
+      "query_name": "ai_product_cn",
+      "keyword": "ai_product_cn",
+      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "AI工具",
+        "大模型",
+        "智能体",
+        "苹果AI",
+        "英伟达",
+        "模型更新"
+      ],
+      "sources": [
+        {
+          "name": "东方财富",
+          "url": "https://finance.eastmoney.com"
         }
       ]
     },
@@ -6817,33 +6927,6 @@
       ]
     },
     {
-      "title": "英伟达点燃量子行情，Xanadu股价周涨两倍 创始人成亿万富豪",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTFBqUGdHNDFCdndSOHBCX0FJN2FiVmRIcVduOFgzU2NPU0c0a2Nwb3hwdnlScEhPR1RKQ19hYzNfdUlOUHN4X3oyNA?oc=5\" target=\"_blank\">英伟达点燃量子行情，Xanadu股价周涨两倍 创始人成亿万富豪</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
-      "source": "财联社",
-      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBqUGdHNDFCdndSOHBCX0FJN2FiVmRIcVduOFgzU2NPU0c0a2Nwb3hwdnlScEhPR1RKQ19hYzNfdUlOUHN4X3oyNA?oc=5",
-      "published_at": "2026-04-18T01:37:00+07:00",
-      "latest_published_at": "2026-04-18T01:37:00+07:00",
-      "league": "",
-      "query_name": "ai_product_cn",
-      "keyword": "ai_product_cn",
-      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "AI工具",
-        "大模型",
-        "智能体",
-        "苹果AI",
-        "英伟达",
-        "模型更新"
-      ],
-      "sources": [
-        {
-          "name": "财联社",
-          "url": "https://www.cls.cn"
-        }
-      ]
-    },
-    {
       "title": "NanoClaw携手Vercel，为AI智能体敏感操作打造一键审批机制",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxNc0tkOXpKOVZQaGY5c193eWc1SUhaWl9XRWNjV25sTXBKd3dQbjA0RnF0dVV0am43cmVsSFM3VHg2MzJ6Zms3Xy1fa3QwX1FmUUdMUWE1LWJFd3kzUWhweW9LREpkajJXMmpwdHYyS1NVeE5XSks5SFJQRVZCR0MzSWlzWTZuVjl1?oc=5\" target=\"_blank\">NanoClaw携手Vercel，为AI智能体敏感操作打造一键审批机制</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "搜狐网",
@@ -6867,6 +6950,33 @@
         {
           "name": "搜狐网",
           "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
+      "title": "英伟达点燃量子行情，Xanadu股价周涨两倍 创始人成亿万富豪",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiSEFVX3lxTFBqUGdHNDFCdndSOHBCX0FJN2FiVmRIcVduOFgzU2NPU0c0a2Nwb3hwdnlScEhPR1RKQ19hYzNfdUlOUHN4X3oyNA?oc=5\" target=\"_blank\">英伟达点燃量子行情，Xanadu股价周涨两倍 创始人成亿万富豪</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">财联社</font>",
+      "source": "财联社",
+      "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTFBqUGdHNDFCdndSOHBCX0FJN2FiVmRIcVduOFgzU2NPU0c0a2Nwb3hwdnlScEhPR1RKQ19hYzNfdUlOUHN4X3oyNA?oc=5",
+      "published_at": "2026-04-18T01:37:00+07:00",
+      "latest_published_at": "2026-04-18T01:37:00+07:00",
+      "league": "",
+      "query_name": "ai_product_cn",
+      "keyword": "ai_product_cn",
+      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "AI工具",
+        "大模型",
+        "智能体",
+        "苹果AI",
+        "英伟达",
+        "模型更新"
+      ],
+      "sources": [
+        {
+          "name": "财联社",
+          "url": "https://www.cls.cn"
         }
       ]
     },
@@ -7249,33 +7359,6 @@
       ]
     },
     {
-      "title": "艺赛旗亮相CDIE2026丨以智能体自动化，让AI真正转化为企业生产力",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE1TWkdqTzcyYk5Ya256VWJ6TU02azNta0xBcHRDSUlCYUpzX1NVNmtoM3FkbEJQdHpKSnN4dWtyVTRCNHNWT2JLXzNRaVJoYzdfU0cxQ3g4ODJlMWVVallIU1FSOA?oc=5\" target=\"_blank\">艺赛旗亮相CDIE2026丨以智能体自动化，让AI真正转化为企业生产力</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">中华网生活</font>",
-      "source": "中华网生活",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1TWkdqTzcyYk5Ya256VWJ6TU02azNta0xBcHRDSUlCYUpzX1NVNmtoM3FkbEJQdHpKSnN4dWtyVTRCNHNWT2JLXzNRaVJoYzdfU0cxQ3g4ODJlMWVVallIU1FSOA?oc=5",
-      "published_at": "2026-04-18T01:01:00+07:00",
-      "latest_published_at": "2026-04-18T01:01:00+07:00",
-      "league": "",
-      "query_name": "ai_product_cn",
-      "keyword": "ai_product_cn",
-      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "AI工具",
-        "大模型",
-        "智能体",
-        "苹果AI",
-        "英伟达",
-        "模型更新"
-      ],
-      "sources": [
-        {
-          "name": "中华网生活",
-          "url": "https://life.china.com"
-        }
-      ]
-    },
-    {
       "title": "英伟达 CEO 黄仁勋：AI 不会取代你，但会用 AI 的人可能会取代你",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE12dTktYUdiTktXLTM4RGFzWVlvY1pJclUybk9sX2htTFMwZ19WUVRoZXMtOTY3MldBOTd4YnM3LXVnSnpwRFRhSzZnREpxSldmNVoxY3ptVFNZUWFrWURMWXpfbWY?oc=5\" target=\"_blank\">英伟达 CEO 黄仁勋：AI 不会取代你，但会用 AI 的人可能会取代你</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">17173</font>",
       "source": "17173",
@@ -7299,6 +7382,33 @@
         {
           "name": "17173",
           "url": "http://news.17173.com"
+        }
+      ]
+    },
+    {
+      "title": "艺赛旗亮相CDIE2026丨以智能体自动化，让AI真正转化为企业生产力",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE1TWkdqTzcyYk5Ya256VWJ6TU02azNta0xBcHRDSUlCYUpzX1NVNmtoM3FkbEJQdHpKSnN4dWtyVTRCNHNWT2JLXzNRaVJoYzdfU0cxQ3g4ODJlMWVVallIU1FSOA?oc=5\" target=\"_blank\">艺赛旗亮相CDIE2026丨以智能体自动化，让AI真正转化为企业生产力</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">中华网生活</font>",
+      "source": "中华网生活",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1TWkdqTzcyYk5Ya256VWJ6TU02azNta0xBcHRDSUlCYUpzX1NVNmtoM3FkbEJQdHpKSnN4dWtyVTRCNHNWT2JLXzNRaVJoYzdfU0cxQ3g4ODJlMWVVallIU1FSOA?oc=5",
+      "published_at": "2026-04-18T01:01:00+07:00",
+      "latest_published_at": "2026-04-18T01:01:00+07:00",
+      "league": "",
+      "query_name": "ai_product_cn",
+      "keyword": "ai_product_cn",
+      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "AI工具",
+        "大模型",
+        "智能体",
+        "苹果AI",
+        "英伟达",
+        "模型更新"
+      ],
+      "sources": [
+        {
+          "name": "中华网生活",
+          "url": "https://life.china.com"
         }
       ]
     },
@@ -7330,33 +7440,6 @@
       ]
     },
     {
-      "title": "极氪也说首发智能体超级Eva #极氪8x首发舱驾融合超级智能体# ，上次智己是im ultra agent#智己超级智能体发布会# 这两家都是很敢搞的厂商，背后实力都很大。从已发的车型看极氪堆料很猛，智己堆料相对比较弱很多，而且是新能源车堆料最弱的而实现辅助驾驶的",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE1XbEZ2aDNRLXJhRzJ2d3h6QkVOYjMtSmlxTW1zQTVnSmEwbS1NX05QWU1XQUFYa1ZRUXlZSVBqNEdGVDUtSEcxSXlLRFZQTlhyYzJxR0ZjSDdiMzhGOVJDMnpaTQ?oc=5\" target=\"_blank\">极氪也说首发智能体超级Eva #极氪8x首发舱驾融合超级智能体# ，上次智己是im ultra agent#智己超级智能体发布会# 这两家都是很敢搞的厂商，背后实力都很大。从已发的车型看极氪堆料很猛，智己堆料相对比较弱很多，而且是新能源车堆料最弱的而实现辅助驾驶的</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">手机新浪网</font>",
-      "source": "手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1XbEZ2aDNRLXJhRzJ2d3h6QkVOYjMtSmlxTW1zQTVnSmEwbS1NX05QWU1XQUFYa1ZRUXlZSVBqNEdGVDUtSEcxSXlLRFZQTlhyYzJxR0ZjSDdiMzhGOVJDMnpaTQ?oc=5",
-      "published_at": "2026-04-18T01:39:00+07:00",
-      "latest_published_at": "2026-04-18T01:39:00+07:00",
-      "league": "",
-      "query_name": "ai_product_cn",
-      "keyword": "ai_product_cn",
-      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "AI工具",
-        "大模型",
-        "智能体",
-        "苹果AI",
-        "英伟达",
-        "模型更新"
-      ],
-      "sources": [
-        {
-          "name": "手机新浪网",
-          "url": "https://www.sina.cn"
-        }
-      ]
-    },
-    {
       "title": "英伟达发布Lyra 2.0框架实现单图生成可探索3D世界",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSDhRTGtYY1RScU1hR1F3aFVTVmk2RnhTMmx6dU5BckZ1d1JlQUdKcDYyTFM5aEJiM0FScHgwV0tQM1NBbldxZW10dXZOLWZYbnRLdWtpbTVhQllFeTNDTFZ5dTlIS3lpNFlkNDFPOWVaNUpRSmowRVdBZ1k5LUZyVThxZlBFVXFG?oc=5\" target=\"_blank\">英伟达发布Lyra 2.0框架实现单图生成可探索3D世界</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "搜狐网",
@@ -7380,6 +7463,33 @@
         {
           "name": "搜狐网",
           "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
+      "title": "极氪也说首发智能体超级Eva #极氪8x首发舱驾融合超级智能体# ，上次智己是im ultra agent#智己超级智能体发布会# 这两家都是很敢搞的厂商，背后实力都很大。从已发的车型看极氪堆料很猛，智己堆料相对比较弱很多，而且是新能源车堆料最弱的而实现辅助驾驶的",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE1XbEZ2aDNRLXJhRzJ2d3h6QkVOYjMtSmlxTW1zQTVnSmEwbS1NX05QWU1XQUFYa1ZRUXlZSVBqNEdGVDUtSEcxSXlLRFZQTlhyYzJxR0ZjSDdiMzhGOVJDMnpaTQ?oc=5\" target=\"_blank\">极氪也说首发智能体超级Eva #极氪8x首发舱驾融合超级智能体# ，上次智己是im ultra agent#智己超级智能体发布会# 这两家都是很敢搞的厂商，背后实力都很大。从已发的车型看极氪堆料很猛，智己堆料相对比较弱很多，而且是新能源车堆料最弱的而实现辅助驾驶的</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">手机新浪网</font>",
+      "source": "手机新浪网",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE1XbEZ2aDNRLXJhRzJ2d3h6QkVOYjMtSmlxTW1zQTVnSmEwbS1NX05QWU1XQUFYa1ZRUXlZSVBqNEdGVDUtSEcxSXlLRFZQTlhyYzJxR0ZjSDdiMzhGOVJDMnpaTQ?oc=5",
+      "published_at": "2026-04-18T01:39:00+07:00",
+      "latest_published_at": "2026-04-18T01:39:00+07:00",
+      "league": "",
+      "query_name": "ai_product_cn",
+      "keyword": "ai_product_cn",
+      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
+      "topic": "ai",
+      "required_keywords": [
+        "AI工具",
+        "大模型",
+        "智能体",
+        "苹果AI",
+        "英伟达",
+        "模型更新"
+      ],
+      "sources": [
+        {
+          "name": "手机新浪网",
+          "url": "https://www.sina.cn"
         }
       ]
     },
@@ -7577,33 +7687,6 @@
       ]
     },
     {
-      "title": "【视频】归元S平台首创双VLA大模型，双脑合一的魏牌V9X预售",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMia0FVX3lxTE4xdE01UHJGYWx6eUhpYjU3X1Q1UURWSGNUMXFLYkNQZUNmRkk5SnF2blpKUFBGaVFwem5MMHBodXRsd1hxU1RlZ0UxcHBITzBSZ3VsTWNRd1lCZVltdUlOaUJ2ZS15MGFDbTNr?oc=5\" target=\"_blank\">【视频】归元S平台首创双VLA大模型，双脑合一的魏牌V9X预售</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">车家号</font>",
-      "source": "车家号",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE4xdE01UHJGYWx6eUhpYjU3X1Q1UURWSGNUMXFLYkNQZUNmRkk5SnF2blpKUFBGaVFwem5MMHBodXRsd1hxU1RlZ0UxcHBITzBSZ3VsTWNRd1lCZVltdUlOaUJ2ZS15MGFDbTNr?oc=5",
-      "published_at": "2026-04-17T22:19:00+07:00",
-      "latest_published_at": "2026-04-17T22:19:00+07:00",
-      "league": "",
-      "query_name": "ai_product_cn",
-      "keyword": "ai_product_cn",
-      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "AI工具",
-        "大模型",
-        "智能体",
-        "苹果AI",
-        "英伟达",
-        "模型更新"
-      ],
-      "sources": [
-        {
-          "name": "车家号",
-          "url": "https://chejiahao.autohome.com.cn"
-        }
-      ]
-    },
-    {
       "title": "三星将HBM开发周期从2年缩短至1年，紧跟英伟达节奏，力争更大市场份额",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMingFBVV95cUxQS0p1LV9weEh3ZTNQU291MmJ2SGpoRTZHWWJPMG82c3I5c1hLRzBYQ3VOWlI4ZDBlUHpUSFhlejVpUi1vcmZYY2taTWZDT3lueTlpczNoRVRQaVZfZlBCbXdJT0dqWkI0dEtlSDlTWVpfX3JoNGpDSS1tbW9zVFhDM095bmRZdUZuQUMxNEdRb1JHdHB5d1pUeDBHcE1yQQ?oc=5\" target=\"_blank\">三星将HBM开发周期从2年缩短至1年，紧跟英伟达节奏，力争更大市场份额</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">富途牛牛</font>",
       "source": "富途牛牛",
@@ -7631,12 +7714,12 @@
       ]
     },
     {
-      "title": "双VLA大模型+综合续航1700公里，魏牌V9X预售37.18万起",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMia0FVX3lxTE9IWTU1bVJ4Z2ZnX215cHRfQkxiMTZKY2JRWkhQNFRpLUwtNGxCdEp1OUJYeGVVUmExN0N0WEhsUWVFTEJHLUtDdzRxV3E0MVQ1RnhtaXpzb3RZck1mdjFaY2NnNDdkX3dqTEVj?oc=5\" target=\"_blank\">双VLA大模型+综合续航1700公里，魏牌V9X预售37.18万起</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">车家号</font>",
+      "title": "【视频】归元S平台首创双VLA大模型，双脑合一的魏牌V9X预售",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMia0FVX3lxTE4xdE01UHJGYWx6eUhpYjU3X1Q1UURWSGNUMXFLYkNQZUNmRkk5SnF2blpKUFBGaVFwem5MMHBodXRsd1hxU1RlZ0UxcHBITzBSZ3VsTWNRd1lCZVltdUlOaUJ2ZS15MGFDbTNr?oc=5\" target=\"_blank\">【视频】归元S平台首创双VLA大模型，双脑合一的魏牌V9X预售</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">车家号</font>",
       "source": "车家号",
-      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE9IWTU1bVJ4Z2ZnX215cHRfQkxiMTZKY2JRWkhQNFRpLUwtNGxCdEp1OUJYeGVVUmExN0N0WEhsUWVFTEJHLUtDdzRxV3E0MVQ1RnhtaXpzb3RZck1mdjFaY2NnNDdkX3dqTEVj?oc=5",
-      "published_at": "2026-04-17T22:16:00+07:00",
-      "latest_published_at": "2026-04-17T22:16:00+07:00",
+      "url": "https://news.google.com/rss/articles/CBMia0FVX3lxTE4xdE01UHJGYWx6eUhpYjU3X1Q1UURWSGNUMXFLYkNQZUNmRkk5SnF2blpKUFBGaVFwem5MMHBodXRsd1hxU1RlZ0UxcHBITzBSZ3VsTWNRd1lCZVltdUlOaUJ2ZS15MGFDbTNr?oc=5",
+      "published_at": "2026-04-17T22:19:00+07:00",
+      "latest_published_at": "2026-04-17T22:19:00+07:00",
       "league": "",
       "query_name": "ai_product_cn",
       "keyword": "ai_product_cn",
@@ -7654,33 +7737,6 @@
         {
           "name": "车家号",
           "url": "https://chejiahao.autohome.com.cn"
-        }
-      ]
-    },
-    {
-      "title": "AI编程明星Cursor正洽谈20亿美元融资，英伟达拟参投",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiUkFVX3lxTE5DcS1OWXZLZGhzSENzR0ZiTUVOY0pJNHJHV0JodWxuVjlsUXd6S2NTZTlERlQzNl9SMFR4VVA0dDdoM1NzMnhZVGpfcmlScXpDaWc?oc=5\" target=\"_blank\">AI编程明星Cursor正洽谈20亿美元融资，英伟达拟参投</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">富途牛牛</font>",
-      "source": "富途牛牛",
-      "url": "https://news.google.com/rss/articles/CBMiUkFVX3lxTE5DcS1OWXZLZGhzSENzR0ZiTUVOY0pJNHJHV0JodWxuVjlsUXd6S2NTZTlERlQzNl9SMFR4VVA0dDdoM1NzMnhZVGpfcmlScXpDaWc?oc=5",
-      "published_at": "2026-04-18T03:10:00+07:00",
-      "latest_published_at": "2026-04-18T03:10:00+07:00",
-      "league": "",
-      "query_name": "ai_product_cn",
-      "keyword": "ai_product_cn",
-      "query": "AI工具 OR 大模型 OR 智能体 OR 苹果AI OR 英伟达 OR 模型更新 when:1d",
-      "topic": "ai",
-      "required_keywords": [
-        "AI工具",
-        "大模型",
-        "智能体",
-        "苹果AI",
-        "英伟达",
-        "模型更新"
-      ],
-      "sources": [
-        {
-          "name": "富途牛牛",
-          "url": "https://news.futunn.com"
         }
       ]
     },
@@ -7818,38 +7874,6 @@
       ]
     },
     {
-      "title": "探路一人公司 | 对话青年导演邹晓勇：传统电影后期要两三年，AI短片4天做完",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiX0FVX3lxTE1DNlVDUHFzMHNlMTNiVEpTOFZmQ2NnRXNlbjNseTI5U3dKZ3RUdFhoaEh4RVFvRDVLLVZ0S0pFZFIySGNkc0hrUEJkWUg4dVJFalRhT2F0c3lIUjhmZ3hr?oc=5\" target=\"_blank\">探路一人公司 | 对话青年导演邹晓勇：传统电影后期要两三年，AI短片4天做完</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">cb.com.cn</font>",
-      "source": "cb.com.cn",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE1DNlVDUHFzMHNlMTNiVEpTOFZmQ2NnRXNlbjNseTI5U3dKZ3RUdFhoaEh4RVFvRDVLLVZ0S0pFZFIySGNkc0hrUEJkWUg4dVJFalRhT2F0c3lIUjhmZ3hr?oc=5",
-      "published_at": "2026-04-18T21:53:00+07:00",
-      "latest_published_at": "2026-04-18T21:53:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "cb.com.cn",
-          "url": "http://www.cb.com.cn"
-        }
-      ]
-    },
-    {
       "title": "新闻8点见丨第十六届北京国际电影节开幕；黎以将停火10天",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZEFVX3lxTE1FY2dWMk9oNmZ6aXV1MmdHYk1iWTNkZWw4X2JXTXBvc1BFUFN1V1YxWUlfX1gyMm1kcnBHNzVRNEV1U0VzVWFpejRGQUdvT1hOa3pCRHBMNjZNajRqRHJIYWxwYzA?oc=5\" target=\"_blank\">新闻8点见丨第十六届北京国际电影节开幕；黎以将停火10天</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新京报</font>",
       "source": "新京报",
@@ -7884,10 +7908,10 @@
     {
       "title": "京剧演员鲁肃：麒派于我是一种反叛精神",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiXkFVX3lxTFBiMXdWaTZwcWFqeG9vbkxCWW9ock9DYjl5aGUxLUZYQjY3RnRnUjdVbXdJLV8xSk0xSWxONWp3MXlUU2hRVkFrN1BfNy10OFVvR0pLVklxcWxia0Z0REE?oc=5\" target=\"_blank\">京剧演员鲁肃：麒派于我是一种反叛精神</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">shobserver.com</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOQ21mdnU3Uzdaa0NqUXVBUUozMUppTzhmRENlbkF0eklqaVJnZVlOV1NsaHctbmZBQzA2THI1bklsOGdCVjNHel9nQ05ldW52S3RXcTlOVmltaEoySmxzTEpjUi03bE41aDNSX2VHZm1uVG5SOWliN2hXZ0hjRUhqN2UtVUt0R2NGVVRGcA?oc=5",
-      "published_at": "2026-04-18T17:10:00+07:00",
-      "latest_published_at": "2026-04-18T17:10:00+07:00",
+      "source": "shobserver.com",
+      "url": "https://news.google.com/rss/articles/CBMiXkFVX3lxTFBiMXdWaTZwcWFqeG9vbkxCWW9ock9DYjl5aGUxLUZYQjY3RnRnUjdVbXdJLV8xSk0xSWxONWp3MXlUU2hRVkFrN1BfNy10OFVvR0pLVklxcWxia0Z0REE?oc=5",
+      "published_at": "2026-04-18T17:00:00+07:00",
+      "latest_published_at": "2026-04-18T17:00:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": "entertainment_hot_cn",
@@ -7907,10 +7931,6 @@
         {
           "name": "shobserver.com",
           "url": "https://www.shobserver.com"
-        },
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -8038,12 +8058,12 @@
           "url": "https://news.bjd.com.cn"
         },
         {
-          "name": "新浪财经",
-          "url": "https://finance.sina.com.cn"
-        },
-        {
           "name": "搜狐网",
           "url": "https://m.sohu.com"
+        },
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn"
         }
       ]
     },
@@ -8144,6 +8164,38 @@
       ]
     },
     {
+      "title": "4部京产电影进入年度票房前十",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMi7ANBVV95cUxNWC1Lai05Q0Y5OUdNNEZ3S2xDTUxJeVFvY0NaNEc3RTFjaFB5eWdhdnJOSndkQ0ZKMlQ0U2UwVU54S3hNZFQydzd3OVhEZHFLdDZkX2x2Q1l2OXBjOVoxNGZSbWV5aWEwU1FyTFJQUXVleW0tY01JTEdTRWRPdjRyalYxYTF2OXltdWFhTDNqSTRFelVuck90MmVaSC1qSWFjb21xaWxuYXFLUU1MZ1I5MUh6Wk5IZ3A4Ukl4N2h5N0dBVUxZNWQxTEhrSllYZUoxQXh6Xy1ZMGROc3V0WWljczBmR3lTY1AwSkxiNmdtb0pWWFJNNGFBc1ZnSlVtdVRRRE1ZZFZCT2FELUF3QjF3bG5VWDkxTHM1VEEyZnJfYkdudDlQNW93QmxIWGFUNVluWlhNU0QwQXNpQ1JCYWJjSFpuYzI5R0pLRXhEQmlOWEhfMUcwWHVjS1BFQlJxbEV5NU94eVk3eUtPY0FhR2xhV0poOURZaGw2T2poMjNTRmZMYXlaQms2WmNyNnhHX013RGNncm13RmNMY3F6UU4xcVE2NjRNdkM4ejlMRDN4NFFrODNkdnBtV2dXLWhOel92djRXN2tNNTVUb29PUFlZUVp4S25IcnlNcFZRcVFOMXFRbno0X0s1NGkwLTM?oc=5\" target=\"_blank\">4部京产电影进入年度票房前十</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMi7ANBVV95cUxNWC1Lai05Q0Y5OUdNNEZ3S2xDTUxJeVFvY0NaNEc3RTFjaFB5eWdhdnJOSndkQ0ZKMlQ0U2UwVU54S3hNZFQydzd3OVhEZHFLdDZkX2x2Q1l2OXBjOVoxNGZSbWV5aWEwU1FyTFJQUXVleW0tY01JTEdTRWRPdjRyalYxYTF2OXltdWFhTDNqSTRFelVuck90MmVaSC1qSWFjb21xaWxuYXFLUU1MZ1I5MUh6Wk5IZ3A4Ukl4N2h5N0dBVUxZNWQxTEhrSllYZUoxQXh6Xy1ZMGROc3V0WWljczBmR3lTY1AwSkxiNmdtb0pWWFJNNGFBc1ZnSlVtdVRRRE1ZZFZCT2FELUF3QjF3bG5VWDkxTHM1VEEyZnJfYkdudDlQNW93QmxIWGFUNVluWlhNU0QwQXNpQ1JCYWJjSFpuYzI5R0pLRXhEQmlOWEhfMUcwWHVjS1BFQlJxbEV5NU94eVk3eUtPY0FhR2xhV0poOURZaGw2T2poMjNTRmZMYXlaQms2WmNyNnhHX013RGNncm13RmNMY3F6UU4xcVE2NjRNdkM4ejlMRDN4NFFrODNkdnBtV2dXLWhOel92djRXN2tNNTVUb29PUFlZUVp4S25IcnlNcFZRcVFOMXFRbno0X0s1NGkwLTM?oc=5",
+      "published_at": "2026-04-18T06:28:00+07:00",
+      "latest_published_at": "2026-04-18T06:28:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.cn"
+        }
+      ]
+    },
+    {
       "title": "中国电影(600977):中国电影未来三年股东回报规划（2026年-2028年）",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiVkFVX3lxTFBkZUVKQmxDNFpwWGFRZlA4VXBoS2FHMUdYSHppc09SdW1kdERGM0Q4VnloMldtSHkwaWZaYjBzNE9xLUJhQnF5TG12SmhOc1BKSi1qTzRR?oc=5\" target=\"_blank\">中国电影(600977):中国电影未来三年股东回报规划（2026年-2028年）</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">中财网</font>",
       "source": "中财网",
@@ -8240,38 +8292,6 @@
       ]
     },
     {
-      "title": "4部京产电影进入年度票房前十",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMi7ANBVV95cUxNWC1Lai05Q0Y5OUdNNEZ3S2xDTUxJeVFvY0NaNEc3RTFjaFB5eWdhdnJOSndkQ0ZKMlQ0U2UwVU54S3hNZFQydzd3OVhEZHFLdDZkX2x2Q1l2OXBjOVoxNGZSbWV5aWEwU1FyTFJQUXVleW0tY01JTEdTRWRPdjRyalYxYTF2OXltdWFhTDNqSTRFelVuck90MmVaSC1qSWFjb21xaWxuYXFLUU1MZ1I5MUh6Wk5IZ3A4Ukl4N2h5N0dBVUxZNWQxTEhrSllYZUoxQXh6Xy1ZMGROc3V0WWljczBmR3lTY1AwSkxiNmdtb0pWWFJNNGFBc1ZnSlVtdVRRRE1ZZFZCT2FELUF3QjF3bG5VWDkxTHM1VEEyZnJfYkdudDlQNW93QmxIWGFUNVluWlhNU0QwQXNpQ1JCYWJjSFpuYzI5R0pLRXhEQmlOWEhfMUcwWHVjS1BFQlJxbEV5NU94eVk3eUtPY0FhR2xhV0poOURZaGw2T2poMjNTRmZMYXlaQms2WmNyNnhHX013RGNncm13RmNMY3F6UU4xcVE2NjRNdkM4ejlMRDN4NFFrODNkdnBtV2dXLWhOel92djRXN2tNNTVUb29PUFlZUVp4S25IcnlNcFZRcVFOMXFRbno0X0s1NGkwLTM?oc=5\" target=\"_blank\">4部京产电影进入年度票房前十</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMi7ANBVV95cUxNWC1Lai05Q0Y5OUdNNEZ3S2xDTUxJeVFvY0NaNEc3RTFjaFB5eWdhdnJOSndkQ0ZKMlQ0U2UwVU54S3hNZFQydzd3OVhEZHFLdDZkX2x2Q1l2OXBjOVoxNGZSbWV5aWEwU1FyTFJQUXVleW0tY01JTEdTRWRPdjRyalYxYTF2OXltdWFhTDNqSTRFelVuck90MmVaSC1qSWFjb21xaWxuYXFLUU1MZ1I5MUh6Wk5IZ3A4Ukl4N2h5N0dBVUxZNWQxTEhrSllYZUoxQXh6Xy1ZMGROc3V0WWljczBmR3lTY1AwSkxiNmdtb0pWWFJNNGFBc1ZnSlVtdVRRRE1ZZFZCT2FELUF3QjF3bG5VWDkxTHM1VEEyZnJfYkdudDlQNW93QmxIWGFUNVluWlhNU0QwQXNpQ1JCYWJjSFpuYzI5R0pLRXhEQmlOWEhfMUcwWHVjS1BFQlJxbEV5NU94eVk3eUtPY0FhR2xhV0poOURZaGw2T2poMjNTRmZMYXlaQms2WmNyNnhHX013RGNncm13RmNMY3F6UU4xcVE2NjRNdkM4ejlMRDN4NFFrODNkdnBtV2dXLWhOel92djRXN2tNNTVUb29PUFlZUVp4S25IcnlNcFZRcVFOMXFRbno0X0s1NGkwLTM?oc=5",
-      "published_at": "2026-04-18T06:28:00+07:00",
-      "latest_published_at": "2026-04-18T06:28:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "新浪财经",
-          "url": "https://finance.sina.cn"
-        }
-      ]
-    },
-    {
       "title": "中国电影去年营收48亿元增长5.65%，净利下滑17%",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiYEFVX3lxTFBUV3FGRG5IZkxqUjRtS3JVSzlCY0FoMXRLSE5ONDJIYW5ESXRPZVhZRlhka0QzWjVWQkJXTkcybFcwdUdiQlNlTFZnQ0dhNG8tck9iWm9IVzNIZ2RvUFlpNQ?oc=5\" target=\"_blank\">中国电影去年营收48亿元增长5.65%，净利下滑17%</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">thepaper.cn</font>",
       "source": "thepaper.cn",
@@ -8306,10 +8326,10 @@
     {
       "title": "电影+非遗+科技 多元文化体验玩转消费新场景",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTFBGeG44Sk9MV251cTJCbmtXV2VfZzlJVk1zYWZpUkxmUnFRQzBUdE9vbHRocEZRUnppWF9JTnBKcWRjWVVfcURFcDBVT0hiRFRzTExFZnp0QURvVmZoY3ByZVJ3MTA4eVNVaVpEbGNtTHBKVVRtTlkxeQ?oc=5\" target=\"_blank\">电影+非遗+科技 多元文化体验玩转消费新场景</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">央视网</font>",
-      "source": "央视网",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTFBGeG44Sk9MV251cTJCbmtXV2VfZzlJVk1zYWZpUkxmUnFRQzBUdE9vbHRocEZRUnppWF9JTnBKcWRjWVVfcURFcDBVT0hiRFRzTExFZnp0QURvVmZoY3ByZVJ3MTA4eVNVaVpEbGNtTHBKVVRtTlkxeQ?oc=5",
-      "published_at": "2026-04-18T08:25:00+07:00",
-      "latest_published_at": "2026-04-18T08:25:00+07:00",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMihwFBVV95cUxQQm1tdU1ldWhnMnBHaU1uLW12LVQxWDJ5SlRTQ3NOMWVKSDNoYU9yZlpfNWdBQzVCdFdzNUpsRjR5OXZxdzlIOEx2OHNMVGpseEhRSUdMN0RiRnZuemUtdV9iY05WNV9Hc2JXRTM3TzM0M0NuLTJCbmxUaVBxSC1tUXRWVUd3aWs?oc=5",
+      "published_at": "2026-04-18T08:52:00+07:00",
+      "latest_published_at": "2026-04-18T08:52:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": [
@@ -8332,16 +8352,20 @@
         {
           "name": "央视网",
           "url": "https://news.cctv.com"
+        },
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.com.cn"
         }
       ]
     },
     {
-      "title": "知名演员刘庭尧去世",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTE81TkxOb0NQM3h3d2twTkJYYzlzMFJlbGtVbEtCdHowU2E4a1MyWjZPa2NmQ0g0cGZScUpkY0Y5djBqRVBfVWZtTWVfV2haTWI2bUpqYVFQQlpnVjNOaEthaXdKdDRYTHNKREZRcnJhWENST25qN2wtVA?oc=5\" target=\"_blank\">知名演员刘庭尧去世</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "title": "演员刘庭尧去世！代表作有《重庆谈判》《七七事变》",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzh2M1F1SG1CYzc2ckI1cFpTeUhHSnVERURqaW9YVDVRQmhEU1p5QnlfcGI1amN5MHVhTnJGOUlydVRVSWJUOFMybllaQ092b29HYTI1MWZFd3M0NC00a3pIZ2FPdFlCUjZXMlJqeXNzcExjSUVVVV9XZmlwNjFhdU1UX0MyRE9JQzJ3Yw?oc=5\" target=\"_blank\">演员刘庭尧去世！代表作有《重庆谈判》《七七事变》</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMieEFVX3lxTE81TkxOb0NQM3h3d2twTkJYYzlzMFJlbGtVbEtCdHowU2E4a1MyWjZPa2NmQ0g0cGZScUpkY0Y5djBqRVBfVWZtTWVfV2haTWI2bUpqYVFQQlpnVjNOaEthaXdKdDRYTHNKREZRcnJhWENST25qN2wtVA?oc=5",
-      "published_at": "2026-04-18T10:12:00+07:00",
-      "latest_published_at": "2026-04-18T10:12:00+07:00",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzh2M1F1SG1CYzc2ckI1cFpTeUhHSnVERURqaW9YVDVRQmhEU1p5QnlfcGI1amN5MHVhTnJGOUlydVRVSWJUOFMybllaQ092b29HYTI1MWZFd3M0NC00a3pIZ2FPdFlCUjZXMlJqeXNzcExjSUVVVV9XZmlwNjFhdU1UX0MyRE9JQzJ3Yw?oc=5",
+      "published_at": "2026-04-18T11:29:00+07:00",
+      "latest_published_at": "2026-04-18T11:29:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": "entertainment_hot_cn",
@@ -8361,64 +8385,6 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.cn"
-        }
-      ]
-    },
-    {
-      "title": "张张导演合作王楠求好本子_新浪新闻",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTFAzNHJnVHlXQjZ4YWJReVMtMnlqT0VNNmNuaDBoWTdTWXp5M0dsWncxM3R6YWdLdURwLTJSdE9uWUNWc3Jmb1BSN3hxUUc4bWFvU0VkN1hMYndoVDF3dTNFcktuTQ?oc=5\" target=\"_blank\">张张导演合作王楠求好本子_新浪新闻</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">手机新浪网</font>",
-      "source": "手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFAzNHJnVHlXQjZ4YWJReVMtMnlqT0VNNmNuaDBoWTdTWXp5M0dsWncxM3R6YWdLdURwLTJSdE9uWUNWc3Jmb1BSN3hxUUc4bWFvU0VkN1hMYndoVDF3dTNFcktuTQ?oc=5",
-      "published_at": "2026-04-18T19:53:00+07:00",
-      "latest_published_at": "2026-04-18T19:53:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "手机新浪网",
-          "url": "https://www.sina.cn"
-        }
-      ]
-    },
-    {
-      "title": "带着爱情诗集来了！全网千万粉丝的脱口秀演员二狗空降珠海",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMid0FVX3lxTFBWSjVyVl9kblRSNXR0SDBJNjdleTZlQ1Y4ZDM0OFRwbEhScFpGeUZvZ1QyREh5LW1fUjlaU0NpRkRNckVlSkZxdExIR3M5bmxOUzBvVnBORjlEc2pVUUxXNHlWcDVKcDMwTE43RUxaQmZ3eXVQYTdJ?oc=5\" target=\"_blank\">带着爱情诗集来了！全网千万粉丝的脱口秀演员二狗空降珠海</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">珠海网</font>",
-      "source": "珠海网",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBWSjVyVl9kblRSNXR0SDBJNjdleTZlQ1Y4ZDM0OFRwbEhScFpGeUZvZ1QyREh5LW1fUjlaU0NpRkRNckVlSkZxdExIR3M5bmxOUzBvVnBORjlEc2pVUUxXNHlWcDVKcDMwTE43RUxaQmZ3eXVQYTdJ?oc=5",
-      "published_at": "2026-04-18T13:47:00+07:00",
-      "latest_published_at": "2026-04-18T13:47:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "珠海网",
-          "url": "https://pub-zhtb.hizh.cn"
         }
       ]
     },
@@ -8455,6 +8421,67 @@
       ]
     },
     {
+      "title": "探路一人公司 | 对话青年导演邹晓勇：传统电影后期要两三年，AI短片4天做完",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiYEFVX3lxTE1LQV9Oc05EemdLYzJnc1BIZGdFcHNhU3dhellIbzZYTEd1bHZYY3NKRzBfWThhSm9RSkJsR3p1cVlJWHktbFBhN1lhaHE5MjA1ZExlVTlvNjd4aFFyN0JxSg?oc=5\" target=\"_blank\">探路一人公司 | 对话青年导演邹晓勇：传统电影后期要两三年，AI短片4天做完</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">东方财富</font>",
+      "source": "东方财富",
+      "url": "https://news.google.com/rss/articles/CBMiYEFVX3lxTE1LQV9Oc05EemdLYzJnc1BIZGdFcHNhU3dhellIbzZYTEd1bHZYY3NKRzBfWThhSm9RSkJsR3p1cVlJWHktbFBhN1lhaHE5MjA1ZExlVTlvNjd4aFFyN0JxSg?oc=5",
+      "published_at": "2026-04-18T07:11:00+07:00",
+      "latest_published_at": "2026-04-18T07:11:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "东方财富",
+          "url": "https://wap.eastmoney.com"
+        }
+      ]
+    },
+    {
+      "title": "带着爱情诗集来了！全网千万粉丝的脱口秀演员二狗空降珠海",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMid0FVX3lxTFBWSjVyVl9kblRSNXR0SDBJNjdleTZlQ1Y4ZDM0OFRwbEhScFpGeUZvZ1QyREh5LW1fUjlaU0NpRkRNckVlSkZxdExIR3M5bmxOUzBvVnBORjlEc2pVUUxXNHlWcDVKcDMwTE43RUxaQmZ3eXVQYTdJ?oc=5\" target=\"_blank\">带着爱情诗集来了！全网千万粉丝的脱口秀演员二狗空降珠海</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">珠海网</font>",
+      "source": "珠海网",
+      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBWSjVyVl9kblRSNXR0SDBJNjdleTZlQ1Y4ZDM0OFRwbEhScFpGeUZvZ1QyREh5LW1fUjlaU0NpRkRNckVlSkZxdExIR3M5bmxOUzBvVnBORjlEc2pVUUxXNHlWcDVKcDMwTE43RUxaQmZ3eXVQYTdJ?oc=5",
+      "published_at": "2026-04-18T13:47:00+07:00",
+      "latest_published_at": "2026-04-18T13:47:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "珠海网",
+          "url": "https://pub-zhtb.hizh.cn"
+        }
+      ]
+    },
+    {
       "title": "“影话共同体”2026北京民族电影展启动",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTE55RFFoWmZ5dGJyUkJVeHpvdlZyTHZYMXJ1ZDNSaVd5UWZNSjBYeXdVYWlkWldYZ2xxbDY5MHlyeE5ITXlfQktvX01wVGpGNHlway10cVM0dEVYeVJtcXBfUkdCdFNmcEVEaUVuUXVaMTdwUHo0U2JXaQ?oc=5\" target=\"_blank\">“影话共同体”2026北京民族电影展启动</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
@@ -8483,6 +8510,35 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.com.cn"
+        }
+      ]
+    },
+    {
+      "title": "张张导演合作王楠求好本子_新浪新闻",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTFAzNHJnVHlXQjZ4YWJReVMtMnlqT0VNNmNuaDBoWTdTWXp5M0dsWncxM3R6YWdLdURwLTJSdE9uWUNWc3Jmb1BSN3hxUUc4bWFvU0VkN1hMYndoVDF3dTNFcktuTQ?oc=5\" target=\"_blank\">张张导演合作王楠求好本子_新浪新闻</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">手机新浪网</font>",
+      "source": "手机新浪网",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTFAzNHJnVHlXQjZ4YWJReVMtMnlqT0VNNmNuaDBoWTdTWXp5M0dsWncxM3R6YWdLdURwLTJSdE9uWUNWc3Jmb1BSN3hxUUc4bWFvU0VkN1hMYndoVDF3dTNFcktuTQ?oc=5",
+      "published_at": "2026-04-18T19:53:00+07:00",
+      "latest_published_at": "2026-04-18T19:53:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "手机新浪网",
+          "url": "https://www.sina.cn"
         }
       ]
     },
@@ -8616,6 +8672,38 @@
       ]
     },
     {
+      "title": "北京国际电影节系列活动开启",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiggFBVV95cUxPRVhWUVJ1Ml96cGlDc1EzNWFDaVlIdjIzVldJS1ZDREdsYVpvYl9mX05GeUhJbm53WFVXYTh1Z3FGN05BaDh0Y0UwRDlkRHVRRDhtNjczVElLSk4xWFFVdUZhdXpSbmFMaFA3R1FwQzZia2pURDFwbFphN3lqNHpvUmxn?oc=5\" target=\"_blank\">北京国际电影节系列活动开启</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">天津日报</font>",
+      "source": "天津日报",
+      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRVhWUVJ1Ml96cGlDc1EzNWFDaVlIdjIzVldJS1ZDREdsYVpvYl9mX05GeUhJbm53WFVXYTh1Z3FGN05BaDh0Y0UwRDlkRHVRRDhtNjczVElLSk4xWFFVdUZhdXpSbmFMaFA3R1FwQzZia2pURDFwbFphN3lqNHpvUmxn?oc=5",
+      "published_at": "2026-04-18T03:49:00+07:00",
+      "latest_published_at": "2026-04-18T03:49:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "天津日报",
+          "url": "https://epaper.tianjinwe.com"
+        }
+      ]
+    },
+    {
       "title": "第33届大学生电影节启动，33部“光影青春”优秀国产入选影片揭晓",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxPM3lNd3FaOGVXRGVOeUtBZENIYWRzdHVfQVFTWWtVdkI4b0w0Qzl1ZDZZbW1VbjVmYVZXOXZBQW5vWFJZZGVkNmNpalQ0YWF3SDBwMXhWV1JaM3NRTC1SNU1yZzFITHVPSFQ4Q0ZLNzhzVnRpTEhkeEtiTjAwWlQ2VThBdFMxMk0t?oc=5\" target=\"_blank\">第33届大学生电影节启动，33部“光影青春”优秀国产入选影片揭晓</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "搜狐网",
@@ -8641,6 +8729,43 @@
         "导演"
       ],
       "sources": [
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
+      "title": "长影演员剧团原团长刘庭尧去世，终年90岁",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMigwFBVV95cUxOQ1FyZm5NcTU3c0tXY1NWNFZpTEtrc2g1cDBGWTZnZGVwRjZna3RhVHpmamI5eFFxZFhBSHNyM0pOUlZnMmNLb0drRmhfNkk4NHhSMTN1TTlacHVuREZfMG04NktGMWtZWndIVVRjOVdtam4ySzRqWFd3V1JHY080aVRwOA?oc=5\" target=\"_blank\">长影演员剧团原团长刘庭尧去世，终年90岁</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSG1uOG1SOHpKYlQtbk8wTUJBZTRaajlVaFczZk1CQlphbGF3Z1NydWFUbnlKa1pWSkJabmo4dm1VY25vWUpwc3RiZk5PakpjOUp3MGZpdHR1OUZKLVJCV0JPOG9fZzY1THBZZDdzTEZoeEpPVlBZdVJ1UGFzcjBROHpYUDh3Mjln?oc=5",
+      "published_at": "2026-04-18T17:50:00+07:00",
+      "latest_published_at": "2026-04-18T17:50:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "新浪财经",
+          "url": "https://finance.sina.cn"
+        },
+        {
+          "name": "Jiemian.com",
+          "url": "https://www.jiemian.com"
+        },
         {
           "name": "搜狐网",
           "url": "https://m.sohu.com"
@@ -8684,12 +8809,12 @@
       ]
     },
     {
-      "title": "北京国际电影节系列活动开启",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiggFBVV95cUxPRVhWUVJ1Ml96cGlDc1EzNWFDaVlIdjIzVldJS1ZDREdsYVpvYl9mX05GeUhJbm53WFVXYTh1Z3FGN05BaDh0Y0UwRDlkRHVRRDhtNjczVElLSk4xWFFVdUZhdXpSbmFMaFA3R1FwQzZia2pURDFwbFphN3lqNHpvUmxn?oc=5\" target=\"_blank\">北京国际电影节系列活动开启</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">天津日报</font>",
-      "source": "天津日报",
-      "url": "https://news.google.com/rss/articles/CBMiggFBVV95cUxPRVhWUVJ1Ml96cGlDc1EzNWFDaVlIdjIzVldJS1ZDREdsYVpvYl9mX05GeUhJbm53WFVXYTh1Z3FGN05BaDh0Y0UwRDlkRHVRRDhtNjczVElLSk4xWFFVdUZhdXpSbmFMaFA3R1FwQzZia2pURDFwbFphN3lqNHpvUmxn?oc=5",
-      "published_at": "2026-04-18T03:49:00+07:00",
-      "latest_published_at": "2026-04-18T03:49:00+07:00",
+      "title": "看最好的电影不一定在影院",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMimAFBVV95cUxQMVplYUE2NmZkT2stUlc0a2RqZUVEclB0N0xCM1VUTkNrb3JjSUU2NS1jRnBzOC01UFpERkc3eUl6N2sxZ2hfRkNSWm5tN0l0Q2NWTVR4Qi1OZWxCU3NlSGV0WENZamtrTGZqNklqc3hqZV9BeGZIYTZ2SDhpN20xOFQ3TGE3U0hqRE0yelRiTG1Sc3hQM0M4WA?oc=5\" target=\"_blank\">看最好的电影不一定在影院</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQMVplYUE2NmZkT2stUlc0a2RqZUVEclB0N0xCM1VUTkNrb3JjSUU2NS1jRnBzOC01UFpERkc3eUl6N2sxZ2hfRkNSWm5tN0l0Q2NWTVR4Qi1OZWxCU3NlSGV0WENZamtrTGZqNklqc3hqZV9BeGZIYTZ2SDhpN20xOFQ3TGE3U0hqRE0yelRiTG1Sc3hQM0M4WA?oc=5",
+      "published_at": "2026-04-18T09:58:00+07:00",
+      "latest_published_at": "2026-04-18T09:58:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": [
@@ -8710,45 +8835,8 @@
       ],
       "sources": [
         {
-          "name": "天津日报",
-          "url": "https://epaper.tianjinwe.com"
-        }
-      ]
-    },
-    {
-      "title": "长影演员剧团原团长刘庭尧去世，终年90岁",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMigwFBVV95cUxOQ1FyZm5NcTU3c0tXY1NWNFZpTEtrc2g1cDBGWTZnZGVwRjZna3RhVHpmamI5eFFxZFhBSHNyM0pOUlZnMmNLb0drRmhfNkk4NHhSMTN1TTlacHVuREZfMG04NktGMWtZWndIVVRjOVdtam4ySzRqWFd3V1JHY080aVRwOA?oc=5\" target=\"_blank\">长影演员剧团原团长刘庭尧去世，终年90岁</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQSG1uOG1SOHpKYlQtbk8wTUJBZTRaajlVaFczZk1CQlphbGF3Z1NydWFUbnlKa1pWSkJabmo4dm1VY25vWUpwc3RiZk5PakpjOUp3MGZpdHR1OUZKLVJCV0JPOG9fZzY1THBZZDdzTEZoeEpPVlBZdVJ1UGFzcjBROHpYUDh3Mjln?oc=5",
-      "published_at": "2026-04-18T17:50:00+07:00",
-      "latest_published_at": "2026-04-18T17:50:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
           "name": "新浪财经",
           "url": "https://finance.sina.cn"
-        },
-        {
-          "name": "Jiemian.com",
-          "url": "https://www.jiemian.com"
-        },
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -8782,18 +8870,15 @@
       ]
     },
     {
-      "title": "看最好的电影不一定在影院",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMimAFBVV95cUxQMVplYUE2NmZkT2stUlc0a2RqZUVEclB0N0xCM1VUTkNrb3JjSUU2NS1jRnBzOC01UFpERkc3eUl6N2sxZ2hfRkNSWm5tN0l0Q2NWTVR4Qi1OZWxCU3NlSGV0WENZamtrTGZqNklqc3hqZV9BeGZIYTZ2SDhpN20xOFQ3TGE3U0hqRE0yelRiTG1Sc3hQM0M4WA?oc=5\" target=\"_blank\">看最好的电影不一定在影院</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxQMVplYUE2NmZkT2stUlc0a2RqZUVEclB0N0xCM1VUTkNrb3JjSUU2NS1jRnBzOC01UFpERkc3eUl6N2sxZ2hfRkNSWm5tN0l0Q2NWTVR4Qi1OZWxCU3NlSGV0WENZamtrTGZqNklqc3hqZV9BeGZIYTZ2SDhpN20xOFQ3TGE3U0hqRE0yelRiTG1Sc3hQM0M4WA?oc=5",
-      "published_at": "2026-04-18T09:58:00+07:00",
-      "latest_published_at": "2026-04-18T09:58:00+07:00",
+      "title": "《10间敢死队》北影节首映，导演陈思诚回应为何起用新人",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiaEFVX3lxTE1xeXZIV2ZOMFNwUjhXLVJpVkMtMmtZbHhEenpzdmxFWjhvc01lM0dSSUNtcVFrOGs0NUE1clFRSF9lRUlsUFZSb1hBMENYdnI4SXQzTm5GbXAwc09JeXZHc3hnekNRS2hE?oc=5\" target=\"_blank\">《10间敢死队》北影节首映，导演陈思诚回应为何起用新人</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">紫牛新闻</font>",
+      "source": "紫牛新闻",
+      "url": "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1xeXZIV2ZOMFNwUjhXLVJpVkMtMmtZbHhEenpzdmxFWjhvc01lM0dSSUNtcVFrOGs0NUE1clFRSF9lRUlsUFZSb1hBMENYdnI4SXQzTm5GbXAwc09JeXZHc3hnekNRS2hE?oc=5",
+      "published_at": "2026-04-18T13:21:00+07:00",
+      "latest_published_at": "2026-04-18T13:21:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
+      "keyword": "entertainment_hot_cn",
       "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
       "topic": "entertainment",
       "required_keywords": [
@@ -8808,8 +8893,8 @@
       ],
       "sources": [
         {
-          "name": "新浪财经",
-          "url": "https://finance.sina.cn"
+          "name": "紫牛新闻",
+          "url": "https://www.yzwb.net"
         }
       ]
     },
@@ -8911,12 +8996,12 @@
       ]
     },
     {
-      "title": "青年演员何时走出舒适圈？关晓彤：等准备好失败的时候",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxOYlZUSFlCNHpsajdiaGFrWkEtQURSSV9nZnYweHE5bVlndDNnYmkxQzM3dkxJMHRRcHNubXVxbmJ5T1RTb2NIT2ZpWXZWQllxMXA3a1hQdl9kZU5hSlQ4QnpHb01Md3M5UDBNSHZua3F2eGVLcDJVWUFnekZpUy1wdFQzQzBld1dYcWtOTg?oc=5\" target=\"_blank\">青年演员何时走出舒适圈？关晓彤：等准备好失败的时候</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOYlZUSFlCNHpsajdiaGFrWkEtQURSSV9nZnYweHE5bVlndDNnYmkxQzM3dkxJMHRRcHNubXVxbmJ5T1RTb2NIT2ZpWXZWQllxMXA3a1hQdl9kZU5hSlQ4QnpHb01Md3M5UDBNSHZua3F2eGVLcDJVWUFnekZpUy1wdFQzQzBld1dYcWtOTg?oc=5",
-      "published_at": "2026-04-18T21:26:00+07:00",
-      "latest_published_at": "2026-04-18T21:26:00+07:00",
+      "title": "演员潘宏彬去世，终年63岁，曾出演1988年版《射雕英雄传》杨康，与刘德华、梁家辉、徐锦江是同学",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMihgFBVV95cUxPeGJkZnU1Q3F4cGtyUndoTHNtTFNaRC1RQmxnZ2hyVGJYeDVQQjNUTV9sNHQzZ0JhTFNQTmZFR25yeFdNR21OVXlGU3p0OE5yNXk4Z2c1Z2tfc1hFUVRQMUdHU25FMFlhNld1UGVrVFVnZ0dNSTBLMjVsZlB3blRpWmttY2lZUQ?oc=5\" target=\"_blank\">演员潘宏彬去世，终年63岁，曾出演1988年版《射雕英雄传》杨康，与刘德华、梁家辉、徐锦江是同学</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeGJkZnU1Q3F4cGtyUndoTHNtTFNaRC1RQmxnZ2hyVGJYeDVQQjNUTV9sNHQzZ0JhTFNQTmZFR25yeFdNR21OVXlGU3p0OE5yNXk4Z2c1Z2tfc1hFUVRQMUdHU25FMFlhNld1UGVrVFVnZ0dNSTBLMjVsZlB3blRpWmttY2lZUQ?oc=5",
+      "published_at": "2026-04-18T07:26:00+07:00",
+      "latest_published_at": "2026-04-18T07:26:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": "entertainment_hot_cn",
@@ -8934,8 +9019,8 @@
       ],
       "sources": [
         {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
+          "name": "新浪财经",
+          "url": "https://finance.sina.cn"
         }
       ]
     },
@@ -8972,12 +9057,12 @@
       ]
     },
     {
-      "title": "演员潘宏彬去世，终年63岁，曾出演1988年版《射雕英雄传》杨康，与刘德华、梁家辉、徐锦江是同学",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMihgFBVV95cUxPeGJkZnU1Q3F4cGtyUndoTHNtTFNaRC1RQmxnZ2hyVGJYeDVQQjNUTV9sNHQzZ0JhTFNQTmZFR25yeFdNR21OVXlGU3p0OE5yNXk4Z2c1Z2tfc1hFUVRQMUdHU25FMFlhNld1UGVrVFVnZ0dNSTBLMjVsZlB3blRpWmttY2lZUQ?oc=5\" target=\"_blank\">演员潘宏彬去世，终年63岁，曾出演1988年版《射雕英雄传》杨康，与刘德华、梁家辉、徐锦江是同学</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPeGJkZnU1Q3F4cGtyUndoTHNtTFNaRC1RQmxnZ2hyVGJYeDVQQjNUTV9sNHQzZ0JhTFNQTmZFR25yeFdNR21OVXlGU3p0OE5yNXk4Z2c1Z2tfc1hFUVRQMUdHU25FMFlhNld1UGVrVFVnZ0dNSTBLMjVsZlB3blRpWmttY2lZUQ?oc=5",
-      "published_at": "2026-04-18T07:26:00+07:00",
-      "latest_published_at": "2026-04-18T07:26:00+07:00",
+      "title": "青年演员何时走出舒适圈？关晓彤：等准备好失败的时候",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxOYlZUSFlCNHpsajdiaGFrWkEtQURSSV9nZnYweHE5bVlndDNnYmkxQzM3dkxJMHRRcHNubXVxbmJ5T1RTb2NIT2ZpWXZWQllxMXA3a1hQdl9kZU5hSlQ4QnpHb01Md3M5UDBNSHZua3F2eGVLcDJVWUFnekZpUy1wdFQzQzBld1dYcWtOTg?oc=5\" target=\"_blank\">青年演员何时走出舒适圈？关晓彤：等准备好失败的时候</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxOYlZUSFlCNHpsajdiaGFrWkEtQURSSV9nZnYweHE5bVlndDNnYmkxQzM3dkxJMHRRcHNubXVxbmJ5T1RTb2NIT2ZpWXZWQllxMXA3a1hQdl9kZU5hSlQ4QnpHb01Md3M5UDBNSHZua3F2eGVLcDJVWUFnekZpUy1wdFQzQzBld1dYcWtOTg?oc=5",
+      "published_at": "2026-04-18T21:26:00+07:00",
+      "latest_published_at": "2026-04-18T21:26:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": "entertainment_hot_cn",
@@ -8995,8 +9080,8 @@
       ],
       "sources": [
         {
-          "name": "新浪财经",
-          "url": "https://finance.sina.cn"
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -9065,67 +9150,6 @@
       ]
     },
     {
-      "title": "跟着电影《四渡》游贵州：在取景地解锁好风光",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzcxckZwQjI5a0JJWVB5VFBacWYxVVk0SWMxczR3SmZ4SkxYck1mS0NnOWZRVjBNXzNtQldZU05LdnlGUjRYM0dMMUhaVkZKTjd1YUdrM3R1VDhWeU1aOVVZRFZHLUJHN1hQZG40Sk1OVHVkdEhOamx3eFBnYzNkd3VkWnJ4d0RsbHI1bw?oc=5\" target=\"_blank\">跟着电影《四渡》游贵州：在取景地解锁好风光</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzcxckZwQjI5a0JJWVB5VFBacWYxVVk0SWMxczR3SmZ4SkxYck1mS0NnOWZRVjBNXzNtQldZU05LdnlGUjRYM0dMMUhaVkZKTjd1YUdrM3R1VDhWeU1aOVVZRFZHLUJHN1hQZG40Sk1OVHVkdEhOamx3eFBnYzNkd3VkWnJ4d0RsbHI1bw?oc=5",
-      "published_at": "2026-04-18T19:40:00+07:00",
-      "latest_published_at": "2026-04-18T19:40:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
-        }
-      ]
-    },
-    {
-      "title": "六小龄童回应 “烦死了” 表情包，称这是当年拍戏时导演抓拍到的真实状态，意外成了全网爆款表情",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMigwFBVV95cUxPQ1lhMG4ta3hCYWtXeUZpYVNsR0p1RFRsZ2M3QjFwVXZOREdYSGZ1ckx6Tml4WmZaR1FtbThVNnloMUNVekljQ0RVaXhVcnZqNkFpcl9PUEFZWW9NNEgzMkRDdEVsZHJVNTI1ZXlVdG41NF9mZ19pbjFWVlBrYV9sb1V1RQ?oc=5\" target=\"_blank\">六小龄童回应 “烦死了” 表情包，称这是当年拍戏时导演抓拍到的真实状态，意外成了全网爆款表情</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMigwFBVV95cUxPQ1lhMG4ta3hCYWtXeUZpYVNsR0p1RFRsZ2M3QjFwVXZOREdYSGZ1ckx6Tml4WmZaR1FtbThVNnloMUNVekljQ0RVaXhVcnZqNkFpcl9PUEFZWW9NNEgzMkRDdEVsZHJVNTI1ZXlVdG41NF9mZ19pbjFWVlBrYV9sb1V1RQ?oc=5",
-      "published_at": "2026-04-18T17:04:00+07:00",
-      "latest_published_at": "2026-04-18T17:04:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "新浪财经",
-          "url": "https://finance.sina.cn"
-        }
-      ]
-    },
-    {
       "title": "在北京逛着逛着 就走进了电影里",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMieEFVX3lxTE1TYi1fLWlRZzR0MUQ4eE8teEw0ZldHNk5vcW9zR3RBZzZBS3lIeVlHbnBMY3hiLWVFU1dDWVltT09zcmtxSDFXbUpreUtrUzVuSU5sZ0l2Z3JCeGlHd0RlQ2Zta3U3Z1NSY1IzMTVzb01MTTdOOWpicQ?oc=5\" target=\"_blank\">在北京逛着逛着 就走进了电影里</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
@@ -9154,6 +9178,38 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.com.cn"
+        }
+      ]
+    },
+    {
+      "title": "跟着电影《四渡》游贵州：在取景地解锁好风光",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzcxckZwQjI5a0JJWVB5VFBacWYxVVk0SWMxczR3SmZ4SkxYck1mS0NnOWZRVjBNXzNtQldZU05LdnlGUjRYM0dMMUhaVkZKTjd1YUdrM3R1VDhWeU1aOVVZRFZHLUJHN1hQZG40Sk1OVHVkdEhOamx3eFBnYzNkd3VkWnJ4d0RsbHI1bw?oc=5\" target=\"_blank\">跟着电影《四渡》游贵州：在取景地解锁好风光</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNNzcxckZwQjI5a0JJWVB5VFBacWYxVVk0SWMxczR3SmZ4SkxYck1mS0NnOWZRVjBNXzNtQldZU05LdnlGUjRYM0dMMUhaVkZKTjd1YUdrM3R1VDhWeU1aOVVZRFZHLUJHN1hQZG40Sk1OVHVkdEhOamx3eFBnYzNkd3VkWnJ4d0RsbHI1bw?oc=5",
+      "published_at": "2026-04-18T19:40:00+07:00",
+      "latest_published_at": "2026-04-18T19:40:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -9216,6 +9272,42 @@
       ]
     },
     {
+      "title": "有书、有花、有电影，北京书市走进隆福潮集",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOVdSR2lEZ1pDYVlYQUNzczFNVVF3QnlRS1hfWExXRmpaaUx0VFV2bXpMNmFJN2xHRF9LalpJR0hIS3U5SkRkR0w5bElwblpBZWtXX09XSC1kQU1Qc0ZlRi0wci12YXNNS0pVSXgzam1fd0lzWEdsTllSWEw5RVYzeFh2NVlJVzZQ?oc=5\" target=\"_blank\">有书、有花、有电影，北京书市走进隆福潮集</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOVdSR2lEZ1pDYVlYQUNzczFNVVF3QnlRS1hfWExXRmpaaUx0VFV2bXpMNmFJN2xHRF9LalpJR0hIS3U5SkRkR0w5bElwblpBZWtXX09XSC1kQU1Qc0ZlRi0wci12YXNNS0pVSXgzam1fd0lzWEdsTllSWEw5RVYzeFh2NVlJVzZQ?oc=5",
+      "published_at": "2026-04-18T14:41:00+07:00",
+      "latest_published_at": "2026-04-18T14:41:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
+        },
+        {
+          "name": "新京报",
+          "url": "https://www.bjnews.com.cn"
+        }
+      ]
+    },
+    {
       "title": "多部国产佳作入围、七大“电影+”活动发布，第33届大影节启幕",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQXy1jbEhFVVh0NFZ5QVp1NDd5aDV2YmE2U0JZbFU5OHRacEIteThiSUt1SmFkV1RjRWNJTlRQNmlSaUdZc0l3VGxySEl5R3JfTUpTYjdIc2QyWmlROGZXa2pLT3YtSVBpRENrOGJkMHM5Q2RYV2dIcGdhZkN5VTJIbnpMd21xVzBr?oc=5\" target=\"_blank\">多部国产佳作入围、七大“电影+”活动发布，第33届大影节启幕</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "搜狐网",
@@ -9248,64 +9340,6 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.com.cn"
-        }
-      ]
-    },
-    {
-      "title": "有书、有花、有电影，北京书市走进隆福潮集",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOVdSR2lEZ1pDYVlYQUNzczFNVVF3QnlRS1hfWExXRmpaaUx0VFV2bXpMNmFJN2xHRF9LalpJR0hIS3U5SkRkR0w5bElwblpBZWtXX09XSC1kQU1Qc0ZlRi0wci12YXNNS0pVSXgzam1fd0lzWEdsTllSWEw5RVYzeFh2NVlJVzZQ?oc=5\" target=\"_blank\">有书、有花、有电影，北京书市走进隆福潮集</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQOVdSR2lEZ1pDYVlYQUNzczFNVVF3QnlRS1hfWExXRmpaaUx0VFV2bXpMNmFJN2xHRF9LalpJR0hIS3U5SkRkR0w5bElwblpBZWtXX09XSC1kQU1Qc0ZlRi0wci12YXNNS0pVSXgzam1fd0lzWEdsTllSWEw5RVYzeFh2NVlJVzZQ?oc=5",
-      "published_at": "2026-04-18T14:41:00+07:00",
-      "latest_published_at": "2026-04-18T14:41:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
-        }
-      ]
-    },
-    {
-      "title": "啥是HYROX？演员@姜子鲲 ，赛事官方挚友@昕婷Tina.Y @徐康康kk 春关现场即兴无实物表演！！！太炸裂啦！现场笑翻一片！！！@张朝阳 @狐克斯姐 @晏成的财经观察 @郭大燕紫 @锦鲤阿布 @UC学院路 小段 @茶壶rhino @肥肥今天躺平了吗 @Eagle一哥",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE5iTUZDMzBMc0Y3REdMTlc0NVNKb0prMUUtYVNyV21xTllvel93M0tzaXV5akhWdVh5dWh2UjlacEpzYWdtQllvOFQxcHBwN0U?oc=5\" target=\"_blank\">啥是HYROX？演员@姜子鲲 ，赛事官方挚友@昕婷Tina.Y @徐康康kk 春关现场即兴无实物表演！！！太炸裂啦！现场笑翻一片！！！@张朝阳 @狐克斯姐 @晏成的财经观察 @郭大燕紫 @锦鲤阿布 @UC学院路 小段 @茶壶rhino @肥肥今天躺平了吗 @Eagle一哥</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5iTUZDMzBMc0Y3REdMTlc0NVNKb0prMUUtYVNyV21xTllvel93M0tzaXV5akhWdVh5dWh2UjlacEpzYWdtQllvOFQxcHBwN0U?oc=5",
-      "published_at": "2026-04-18T16:01:00+07:00",
-      "latest_published_at": "2026-04-18T16:01:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -9374,6 +9408,35 @@
       ]
     },
     {
+      "title": "啥是HYROX？演员@姜子鲲 ，赛事官方挚友@昕婷Tina.Y @徐康康kk 春关现场即兴无实物表演！！！太炸裂啦！现场笑翻一片！！！@张朝阳 @狐克斯姐 @晏成的财经观察 @郭大燕紫 @锦鲤阿布 @UC学院路 小段 @茶壶rhino @肥肥今天躺平了吗 @Eagle一哥",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiT0FVX3lxTE5iTUZDMzBMc0Y3REdMTlc0NVNKb0prMUUtYVNyV21xTllvel93M0tzaXV5akhWdVh5dWh2UjlacEpzYWdtQllvOFQxcHBwN0U?oc=5\" target=\"_blank\">啥是HYROX？演员@姜子鲲 ，赛事官方挚友@昕婷Tina.Y @徐康康kk 春关现场即兴无实物表演！！！太炸裂啦！现场笑翻一片！！！@张朝阳 @狐克斯姐 @晏成的财经观察 @郭大燕紫 @锦鲤阿布 @UC学院路 小段 @茶壶rhino @肥肥今天躺平了吗 @Eagle一哥</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMiT0FVX3lxTE5iTUZDMzBMc0Y3REdMTlc0NVNKb0prMUUtYVNyV21xTllvel93M0tzaXV5akhWdVh5dWh2UjlacEpzYWdtQllvOFQxcHBwN0U?oc=5",
+      "published_at": "2026-04-18T16:01:00+07:00",
+      "latest_published_at": "2026-04-18T16:01:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
       "title": "又到了在青岛随处偶遇明星的时候了，青岛马拉松开跑在即，朱迅、张家齐、陈震等明星齐聚青岛#青岛马拉松（来源 青岛广电 编辑 王春红）",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxPRjcyT3ctb0g0VmphVUQzMmo0M2E2dmh6MGFfUFZPZVdpbjFQeTd0Um9CUmR5MEFDM0FfdEdjeTNTR1M1WEZJWWpZbGpiYjNZRkN6Q0t5MG1pNTkzMkdkOFJmVEFVekI3X0RBbVl2MVpFbm90bGc2cXVLNFhqRkcyY3Z4UGYyVWlf?oc=5\" target=\"_blank\">又到了在青岛随处偶遇明星的时候了，青岛马拉松开跑在即，朱迅、张家齐、陈震等明星齐聚青岛#青岛马拉松（来源 青岛广电 编辑 王春红）</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "搜狐网",
@@ -9428,6 +9491,38 @@
         {
           "name": "新浪财经",
           "url": "https://cj.sina.cn"
+        }
+      ]
+    },
+    {
+      "title": "中国电影：拟每10股分红0.32元",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE1sdEgwNF9WZlE0STBWOFRsZDdna09lU3IyZVRFV2VVMGtGWkhuN01lQ1JMcnlqRk5KYk5kZGplcG53YktJXzRpdjR0N0F4Smpab1htWGU4c1RKcDdjRnpZRHBBY0RlQQ?oc=5\" target=\"_blank\">中国电影：拟每10股分红0.32元</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">东方财富</font>",
+      "source": "东方财富",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1sdEgwNF9WZlE0STBWOFRsZDdna09lU3IyZVRFV2VVMGtGWkhuN01lQ1JMcnlqRk5KYk5kZGplcG53YktJXzRpdjR0N0F4Smpab1htWGU4c1RKcDdjRnpZRHBBY0RlQQ?oc=5",
+      "published_at": "2026-04-18T05:38:00+07:00",
+      "latest_published_at": "2026-04-18T05:38:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "东方财富",
+          "url": "https://finance.eastmoney.com"
         }
       ]
     },
@@ -9497,38 +9592,6 @@
       ]
     },
     {
-      "title": "中国电影：拟每10股分红0.32元",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE1sdEgwNF9WZlE0STBWOFRsZDdna09lU3IyZVRFV2VVMGtGWkhuN01lQ1JMcnlqRk5KYk5kZGplcG53YktJXzRpdjR0N0F4Smpab1htWGU4c1RKcDdjRnpZRHBBY0RlQQ?oc=5\" target=\"_blank\">中国电影：拟每10股分红0.32元</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">东方财富</font>",
-      "source": "东方财富",
-      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1sdEgwNF9WZlE0STBWOFRsZDdna09lU3IyZVRFV2VVMGtGWkhuN01lQ1JMcnlqRk5KYk5kZGplcG53YktJXzRpdjR0N0F4Smpab1htWGU4c1RKcDdjRnpZRHBBY0RlQQ?oc=5",
-      "published_at": "2026-04-18T05:38:00+07:00",
-      "latest_published_at": "2026-04-18T05:38:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "东方财富",
-          "url": "https://finance.eastmoney.com"
-        }
-      ]
-    },
-    {
       "title": "北京国际电影节评委媒体见面会：项目创投终审评委会出席",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxOVWRfZ1VWSE5oUVdQRTR2LTNsekQzTDYteENaSzc3MnpoMXVRbEJaUHBQMEsxM0FZdDBzY1RBNGlTV29WVUdJYVVSTGp2MmhCQm9keHQzaXA0RWZXMnhTRDR4OG5hTHRPdTNmSndsYUZiUDFoZjdQMFJYbFhhS3lpZkVLUzE5QjRh?oc=5\" target=\"_blank\">北京国际电影节评委媒体见面会：项目创投终审评委会出席</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "chinanews.com.cn",
@@ -9594,38 +9657,6 @@
       ]
     },
     {
-      "title": "北影节论坛共识：别只盯着票房了",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxNTWkxQXBQVVotSXlBOGZQR2V4OVpvU051N1JDaXZ5eXkxSlFial9jdVo5TTVxaGZsaGR5MWJ6LWI0UjlaSFJSYWVOemxWb1lCbW05SnNlYTAwNjFOMmJLaWhDTE80NjZNT2tpYmJiQnBWUERpc185T0FUZ1dIMnhrcG5CNHJnQ29iREFnZA?oc=5\" target=\"_blank\">北影节论坛共识：别只盯着票房了</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNTWkxQXBQVVotSXlBOGZQR2V4OVpvU051N1JDaXZ5eXkxSlFial9jdVo5TTVxaGZsaGR5MWJ6LWI0UjlaSFJSYWVOemxWb1lCbW05SnNlYTAwNjFOMmJLaWhDTE80NjZNT2tpYmJiQnBWUERpc185T0FUZ1dIMnhrcG5CNHJnQ29iREFnZA?oc=5",
-      "published_at": "2026-04-18T13:30:00+07:00",
-      "latest_published_at": "2026-04-18T13:30:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
-        }
-      ]
-    },
-    {
       "title": "中国电影：2025年年度归属于上市公司股东的净利润是116543214.50元",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiYEFVX3lxTE8wWHVkNkxGQ0dnbDBhU1J2UTBUcXhkTU85M2lXdjBJaGhIbkNEZk9Ndmc1blFKalBVUnI0Vm85d1h0WC1JbFVRMmZQRWVyVGxpanBhcUcwSkZVNG1ITWMweg?oc=5\" target=\"_blank\">中国电影：2025年年度归属于上市公司股东的净利润是116543214.50元</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">东方财富</font>",
       "source": "东方财富",
@@ -9687,6 +9718,38 @@
       ]
     },
     {
+      "title": "《哪吒2》进入全球动画电影票房榜TOP2_新闻频道",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMihAFBVV95cUxNZzBaay04QU5Jd3FXUnNxQXU0TE00MFZ3anFrZkpqb29YNFdwakxyU3JmaTdDZ1FjTlZPZjlzeWJZWUttRjZnVGxBNS1kSWhtS0VTNHFWNG9KS3pKUXY0R1BmSjRnaTBlRVhvWURYcy1zQlh4RVdGQ3NjVzRFVF9wdjI1VFo?oc=5\" target=\"_blank\">《哪吒2》进入全球动画电影票房榜TOP2_新闻频道</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
+      "source": "新浪财经",
+      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNZzBaay04QU5Jd3FXUnNxQXU0TE00MFZ3anFrZkpqb29YNFdwakxyU3JmaTdDZ1FjTlZPZjlzeWJZWUttRjZnVGxBNS1kSWhtS0VTNHFWNG9KS3pKUXY0R1BmSjRnaTBlRVhvWURYcy1zQlh4RVdGQ3NjVzRFVF9wdjI1VFo?oc=5",
+      "published_at": "2026-04-18T01:40:00+07:00",
+      "latest_published_at": "2026-04-18T01:40:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": [
+        "entertainment_hot_cn",
+        "movie_tv_cn"
+      ],
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "新浪财经",
+          "url": "https://cj.sina.cn"
+        }
+      ]
+    },
+    {
       "title": "中国首部8K拍摄太空电影《窗外是蓝星》亮相尼加拉瓜",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiV0FVX3lxTE40blJzN2F4UGwtcUdVUjV4bkJGWGoydkFyT3BMblc2TnJQbDZEc1J5c1YtYklxM2RwdmV5U0ppVTMxSDE0VjFNSzlUQ2FGTzBKcV9uMUNzZw?oc=5\" target=\"_blank\">中国首部8K拍摄太空电影《窗外是蓝星》亮相尼加拉瓜</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">eeo.com.cn</font>",
       "source": "eeo.com.cn",
@@ -9719,12 +9782,12 @@
       ]
     },
     {
-      "title": "光影交织下的时尚叙事，北影节光影风尚开幕大秀举行|北京电影学院|北京国际电影节|北京市|波司登|无界_新浪新闻",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMifkFVX3lxTFBNMjhwMDNDM0JMVDBJOHhybS1hN1hDTm0wTFRXZlNXN2RidlZyMl9TdXNnTlJ2N3pGR1VjWXdVZ1Z4TWhXYzRfcmViSmpCc0RfOERZMDExVE41MGJuck1aRjJmemJXNFFVRXg5ai0yNzJRSEUwcEpKQ2kybDM3UQ?oc=5\" target=\"_blank\">光影交织下的时尚叙事，北影节光影风尚开幕大秀举行|北京电影学院|北京国际电影节|北京市|波司登|无界_新浪新闻</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTFBNMjhwMDNDM0JMVDBJOHhybS1hN1hDTm0wTFRXZlNXN2RidlZyMl9TdXNnTlJ2N3pGR1VjWXdVZ1Z4TWhXYzRfcmViSmpCc0RfOERZMDExVE41MGJuck1aRjJmemJXNFFVRXg5ai0yNzJRSEUwcEpKQ2kybDM3UQ?oc=5",
-      "published_at": "2026-04-18T14:38:00+07:00",
-      "latest_published_at": "2026-04-18T14:38:00+07:00",
+      "title": "北影节论坛共识：别只盯着票房了",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxNTWkxQXBQVVotSXlBOGZQR2V4OVpvU051N1JDaXZ5eXkxSlFial9jdVo5TTVxaGZsaGR5MWJ6LWI0UjlaSFJSYWVOemxWb1lCbW05SnNlYTAwNjFOMmJLaWhDTE80NjZNT2tpYmJiQnBWUERpc185T0FUZ1dIMnhrcG5CNHJnQ29iREFnZA?oc=5\" target=\"_blank\">北影节论坛共识：别只盯着票房了</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNTWkxQXBQVVotSXlBOGZQR2V4OVpvU051N1JDaXZ5eXkxSlFial9jdVo5TTVxaGZsaGR5MWJ6LWI0UjlaSFJSYWVOemxWb1lCbW05SnNlYTAwNjFOMmJLaWhDTE80NjZNT2tpYmJiQnBWUERpc185T0FUZ1dIMnhrcG5CNHJnQ29iREFnZA?oc=5",
+      "published_at": "2026-04-18T13:30:00+07:00",
+      "latest_published_at": "2026-04-18T13:30:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": [
@@ -9745,40 +9808,8 @@
       ],
       "sources": [
         {
-          "name": "新浪财经",
-          "url": "https://cj.sina.cn"
-        }
-      ]
-    },
-    {
-      "title": "《哪吒2》进入全球动画电影票房榜TOP2_新闻频道",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMihAFBVV95cUxNZzBaay04QU5Jd3FXUnNxQXU0TE00MFZ3anFrZkpqb29YNFdwakxyU3JmaTdDZ1FjTlZPZjlzeWJZWUttRjZnVGxBNS1kSWhtS0VTNHFWNG9KS3pKUXY0R1BmSjRnaTBlRVhvWURYcy1zQlh4RVdGQ3NjVzRFVF9wdjI1VFo?oc=5\" target=\"_blank\">《哪吒2》进入全球动画电影票房榜TOP2_新闻频道</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxNZzBaay04QU5Jd3FXUnNxQXU0TE00MFZ3anFrZkpqb29YNFdwakxyU3JmaTdDZ1FjTlZPZjlzeWJZWUttRjZnVGxBNS1kSWhtS0VTNHFWNG9KS3pKUXY0R1BmSjRnaTBlRVhvWURYcy1zQlh4RVdGQ3NjVzRFVF9wdjI1VFo?oc=5",
-      "published_at": "2026-04-18T01:40:00+07:00",
-      "latest_published_at": "2026-04-18T01:40:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "新浪财经",
-          "url": "https://cj.sina.cn"
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -9812,35 +9843,6 @@
       ]
     },
     {
-      "title": "演员陈震来青岛跑“半马”，赞青岛很洋气，下次挑战“全马”（半岛全媒体记者 王悦 黄靖斐 编辑 林靓）",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRmpuTEh0dU1DeFU5Wm9hSHdkMVh2dDRIU0lIZ2ZXLUJNRGxhdHZWeG02U3pmWkkwU0hlX0U0Zm0xbEhiZWQ1N2RvYmNBaFVMY3FwUDNqSXFycGZ5Qll1UTlxQjQ2TFFzSkdya3c3MGMtN2dsRUVCeEIzN0p6Yjh6ZFYyZ3YzTWdH?oc=5\" target=\"_blank\">演员陈震来青岛跑“半马”，赞青岛很洋气，下次挑战“全马”（半岛全媒体记者 王悦 黄靖斐 编辑 林靓）</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRmpuTEh0dU1DeFU5Wm9hSHdkMVh2dDRIU0lIZ2ZXLUJNRGxhdHZWeG02U3pmWkkwU0hlX0U0Zm0xbEhiZWQ1N2RvYmNBaFVMY3FwUDNqSXFycGZ5Qll1UTlxQjQ2TFFzSkdya3c3MGMtN2dsRUVCeEIzN0p6Yjh6ZFYyZ3YzTWdH?oc=5",
-      "published_at": "2026-04-18T20:45:00+07:00",
-      "latest_published_at": "2026-04-18T20:45:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
-        }
-      ]
-    },
-    {
       "title": "著名主持人、国家一级导演田歌女士出任亚太智库文化艺术委员会理事",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxPMGxzNC05VUhaemNzZWpJWDQyRVdOYTFqaWo2TVVYekxoVzZFbWNkRm40M0Nnd3hFcUxmOVYxUFRLSEc1QUd4YTh1VlhMdm9WNTEyZlVpSVJVdUNOaDNpYndMYlphV0FPMHlENHNHZWVLNkp5MXZhbG43YUJPU0hQUDA1Ul96eXl6?oc=5\" target=\"_blank\">著名主持人、国家一级导演田歌女士出任亚太智库文化艺术委员会理事</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
       "source": "搜狐网",
@@ -9870,6 +9872,64 @@
       ]
     },
     {
+      "title": "演员陈震来青岛跑“半马”，赞青岛很洋气，下次挑战“全马”（半岛全媒体记者 王悦 黄靖斐 编辑 林靓）",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRmpuTEh0dU1DeFU5Wm9hSHdkMVh2dDRIU0lIZ2ZXLUJNRGxhdHZWeG02U3pmWkkwU0hlX0U0Zm0xbEhiZWQ1N2RvYmNBaFVMY3FwUDNqSXFycGZ5Qll1UTlxQjQ2TFFzSkdya3c3MGMtN2dsRUVCeEIzN0p6Yjh6ZFYyZ3YzTWdH?oc=5\" target=\"_blank\">演员陈震来青岛跑“半马”，赞青岛很洋气，下次挑战“全马”（半岛全媒体记者 王悦 黄靖斐 编辑 林靓）</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxQRmpuTEh0dU1DeFU5Wm9hSHdkMVh2dDRIU0lIZ2ZXLUJNRGxhdHZWeG02U3pmWkkwU0hlX0U0Zm0xbEhiZWQ1N2RvYmNBaFVMY3FwUDNqSXFycGZ5Qll1UTlxQjQ2TFFzSkdya3c3MGMtN2dsRUVCeEIzN0p6Yjh6ZFYyZ3YzTWdH?oc=5",
+      "published_at": "2026-04-18T20:45:00+07:00",
+      "latest_published_at": "2026-04-18T20:45:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
+      "title": "第十六届北京国际电影节文博文创市集启幕- 视频",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiX0FVX3lxTE9oQnZpYS1QemxIQm8yY2s3eDdjU09EVjIzaE9EcHpma3VHT2t6bmRyNXV6eVJfcUE0SjlPQ3BCb2pyaE1GX211V3Y4WXBSSE1JOEdFcDZ2NktfMFJJZ0F3?oc=5\" target=\"_blank\">第十六届北京国际电影节文博文创市集启幕- 视频</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">中工网</font>",
+      "source": "中工网",
+      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9oQnZpYS1QemxIQm8yY2s3eDdjU09EVjIzaE9EcHpma3VHT2t6bmRyNXV6eVJfcUE0SjlPQ3BCb2pyaE1GX211V3Y4WXBSSE1JOEdFcDZ2NktfMFJJZ0F3?oc=5",
+      "published_at": "2026-04-18T07:50:00+07:00",
+      "latest_published_at": "2026-04-18T07:50:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "中工网",
+          "url": "https://www.workercn.cn"
+        }
+      ]
+    },
+    {
       "title": "吴桥杂技幻乐城即将亮相 演员苦练技艺迎宾客",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMickFVX3lxTE43TlZMM3pEQUFfMDQxUE9Jb1FDdFVUeTRPVHhrSy1XT2NxR2t2TXQ5YVduTkVQcmd0VE9HMWxBdlh4YXYzNDZ4TnV6Ulo4WURKYkRqdFl1WWI1VHNlOEJGWGtPQ2NhbFZzSDNVaXFEVUh6QQ?oc=5\" target=\"_blank\">吴桥杂技幻乐城即将亮相 演员苦练技艺迎宾客</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">chinanews.com.cn</font>",
       "source": "chinanews.com.cn",
@@ -9895,38 +9955,6 @@
         {
           "name": "chinanews.com.cn",
           "url": "https://www.chinanews.com.cn"
-        }
-      ]
-    },
-    {
-      "title": "第十六届北京国际电影节文博文创市集启幕- 视频",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiX0FVX3lxTE9oQnZpYS1QemxIQm8yY2s3eDdjU09EVjIzaE9EcHpma3VHT2t6bmRyNXV6eVJfcUE0SjlPQ3BCb2pyaE1GX211V3Y4WXBSSE1JOEdFcDZ2NktfMFJJZ0F3?oc=5\" target=\"_blank\">第十六届北京国际电影节文博文创市集启幕- 视频</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">中工网</font>",
-      "source": "中工网",
-      "url": "https://news.google.com/rss/articles/CBMiX0FVX3lxTE9oQnZpYS1QemxIQm8yY2s3eDdjU09EVjIzaE9EcHpma3VHT2t6bmRyNXV6eVJfcUE0SjlPQ3BCb2pyaE1GX211V3Y4WXBSSE1JOEdFcDZ2NktfMFJJZ0F3?oc=5",
-      "published_at": "2026-04-18T07:50:00+07:00",
-      "latest_published_at": "2026-04-18T07:50:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": [
-        "entertainment_hot_cn",
-        "movie_tv_cn"
-      ],
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "中工网",
-          "url": "https://www.workercn.cn"
         }
       ]
     },
@@ -9989,35 +10017,6 @@
       ]
     },
     {
-      "title": "《10间敢死队》北影节首映，导演陈思诚回应为何起用新人",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMijAFBVV95cUxNT3VJcUtmaHRkeW44dzJZMElUcFVFM3NyWERkYjhvY2E1Mm1qcTVzRWZSN0Y2NTM3M0x0MTMzdlAyVFliREZ5bEo3MU1xa19vb05jTTBFRC1GUEhNbXVnbWdOM2dpNm52QVNiUEhWSEFPbUpPOTNiTlFKazMyMEJmelRGeWhDeTJsV2NCNg?oc=5\" target=\"_blank\">《10间敢死队》北影节首映，导演陈思诚回应为何起用新人</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNT3VJcUtmaHRkeW44dzJZMElUcFVFM3NyWERkYjhvY2E1Mm1qcTVzRWZSN0Y2NTM3M0x0MTMzdlAyVFliREZ5bEo3MU1xa19vb05jTTBFRC1GUEhNbXVnbWdOM2dpNm52QVNiUEhWSEFPbUpPOTNiTlFKazMyMEJmelRGeWhDeTJsV2NCNg?oc=5",
-      "published_at": "2026-04-18T13:35:00+07:00",
-      "latest_published_at": "2026-04-18T13:35:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
-        }
-      ]
-    },
-    {
       "title": "演员刘浩存遭男子强行贴脸合照，发生肢体碰撞",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMidkFVX3lxTE1RWlJUYVZGbFdTVUJ0cTVNZXdFU0xVSkM3V2xZeU5fTHFNMG1PT00tVlBiU19meFVoc0ZBOXF2VzEzN1A3Tjg0WC0wV0JkYmhWcVhJQ0NYUGZVM0wwR2ZtT2FJaTNZVGRySjViOGpKcmFxZnY3QXc?oc=5\" target=\"_blank\">演员刘浩存遭男子强行贴脸合照，发生肢体碰撞</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "新浪财经",
@@ -10043,35 +10042,6 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.com.cn"
-        }
-      ]
-    },
-    {
-      "title": "北京国际电影节光影风尚大秀举办 李冰冰胡杏儿出席",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxObFVfZE1ESDcwX3k2WC1lcjdrbWIyYTQtOWxVSERIQUh1aXZFVGFndXIyb3hYUGNmVkJNYTZuUW9iV0syUUl0VHNwTUpWN3ZWNUxxbG1UUHR6YXhobFVOLWZpdkdqNWMwbFN5ZVVtaS02bWlCU3JIN3lpQnpnXzdTc2VaVGZQLV94?oc=5\" target=\"_blank\">北京国际电影节光影风尚大秀举办 李冰冰胡杏儿出席</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
-      "source": "搜狐网",
-      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxObFVfZE1ESDcwX3k2WC1lcjdrbWIyYTQtOWxVSERIQUh1aXZFVGFndXIyb3hYUGNmVkJNYTZuUW9iV0syUUl0VHNwTUpWN3ZWNUxxbG1UUHR6YXhobFVOLWZpdkdqNWMwbFN5ZVVtaS02bWlCU3JIN3lpQnpnXzdTc2VaVGZQLV94?oc=5",
-      "published_at": "2026-04-18T21:05:00+07:00",
-      "latest_published_at": "2026-04-18T21:05:00+07:00",
-      "league": "",
-      "query_name": "entertainment_hot_cn",
-      "keyword": "entertainment_hot_cn",
-      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "微博热搜",
-        "电影",
-        "电视剧",
-        "综艺",
-        "明星",
-        "票房",
-        "演员",
-        "导演"
-      ],
-      "sources": [
-        {
-          "name": "搜狐网",
-          "url": "https://m.sohu.com"
         }
       ]
     },
@@ -10111,6 +10081,35 @@
       "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPeDR6ZDl4UDlZZ1FyUTdzZE96a29JVnRnd2dnMW0zNlhjYmxmdDcwR1QxNF93QkRGYnBKY1pUTFVzYlZYcmhaaVBXOElmbmdDYkE4Qm5PYnpJZ2hYQnQzYlV5YkFiMHJDc2FKN1VOM0Q3RXpqQ0tIaW12Ykc0MWRhT0ZDTXZSNkFn?oc=5",
       "published_at": "2026-04-18T13:03:00+07:00",
       "latest_published_at": "2026-04-18T13:03:00+07:00",
+      "league": "",
+      "query_name": "entertainment_hot_cn",
+      "keyword": "entertainment_hot_cn",
+      "query": "微博热搜 OR 电影 OR 电视剧 OR 综艺 OR 明星 OR 票房 OR 演员 OR 导演 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "微博热搜",
+        "电影",
+        "电视剧",
+        "综艺",
+        "明星",
+        "票房",
+        "演员",
+        "导演"
+      ],
+      "sources": [
+        {
+          "name": "搜狐网",
+          "url": "https://m.sohu.com"
+        }
+      ]
+    },
+    {
+      "title": "北京国际电影节光影风尚大秀举办 李冰冰胡杏儿出席",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiiAFBVV95cUxObFVfZE1ESDcwX3k2WC1lcjdrbWIyYTQtOWxVSERIQUh1aXZFVGFndXIyb3hYUGNmVkJNYTZuUW9iV0syUUl0VHNwTUpWN3ZWNUxxbG1UUHR6YXhobFVOLWZpdkdqNWMwbFN5ZVVtaS02bWlCU3JIN3lpQnpnXzdTc2VaVGZQLV94?oc=5\" target=\"_blank\">北京国际电影节光影风尚大秀举办 李冰冰胡杏儿出席</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">搜狐网</font>",
+      "source": "搜狐网",
+      "url": "https://news.google.com/rss/articles/CBMiiAFBVV95cUxObFVfZE1ESDcwX3k2WC1lcjdrbWIyYTQtOWxVSERIQUh1aXZFVGFndXIyb3hYUGNmVkJNYTZuUW9iV0syUUl0VHNwTUpWN3ZWNUxxbG1UUHR6YXhobFVOLWZpdkdqNWMwbFN5ZVVtaS02bWlCU3JIN3lpQnpnXzdTc2VaVGZQLV94?oc=5",
+      "published_at": "2026-04-18T21:05:00+07:00",
+      "latest_published_at": "2026-04-18T21:05:00+07:00",
       "league": "",
       "query_name": "entertainment_hot_cn",
       "keyword": "entertainment_hot_cn",
@@ -10363,33 +10362,6 @@
       ]
     },
     {
-      "title": "郎朗担任第十六届北影节“电影音乐全球推广人”",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMid0FVX3lxTFBVajhiV0xTTnBxTzRfdUlSU2V1NlJ4c255Rzg3S0VnWUR4QzA4M3UxTTFQbFlFMGhyakpVa2Z3ODR4b012TXVONk5WODhOZ3lja2N4cWVDdmQwSmFPSk44LWdZdEttbE1jZXRGU2dmOFNzZW52Zjhn?oc=5\" target=\"_blank\">郎朗担任第十六届北影节“电影音乐全球推广人”</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
-      "source": "新浪财经",
-      "url": "https://news.google.com/rss/articles/CBMid0FVX3lxTFBVajhiV0xTTnBxTzRfdUlSU2V1NlJ4c255Rzg3S0VnWUR4QzA4M3UxTTFQbFlFMGhyakpVa2Z3ODR4b012TXVONk5WODhOZ3lja2N4cWVDdmQwSmFPSk44LWdZdEttbE1jZXRGU2dmOFNzZW52Zjhn?oc=5",
-      "published_at": "2026-04-18T20:33:00+07:00",
-      "latest_published_at": "2026-04-18T20:33:00+07:00",
-      "league": "",
-      "query_name": "movie_tv_cn",
-      "keyword": "movie_tv_cn",
-      "query": "电影 OR 电视剧 OR 综艺 OR 定档 OR 票房 OR 上映 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "电影",
-        "电视剧",
-        "综艺",
-        "定档",
-        "票房",
-        "上映"
-      ],
-      "sources": [
-        {
-          "name": "新浪财经",
-          "url": "http://finance.sina.com.cn"
-        }
-      ]
-    },
-    {
       "title": "电影《登月》（第一部）在京首映 以纪实影像致敬探月工程幕后航天人",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMidkFVX3lxTE4tM0VrMHhkMmJ6OVZfZzAwdVBLand2Q0JEczhSQnNqVXpOOEFRNEJ6NkNzams3WVVveE56U3dfZzNaZmh1d1BiQXk0cHdxRFNFOUJ3bXQ4bHNic1VzQy1YWlc4djk5N0pYWGFtTG96cHhjeUdxelE?oc=5\" target=\"_blank\">电影《登月》（第一部）在京首映 以纪实影像致敬探月工程幕后航天人</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">新浪财经</font>",
       "source": "中华网",
@@ -10525,6 +10497,33 @@
         {
           "name": "新浪财经",
           "url": "https://finance.sina.cn"
+        }
+      ]
+    },
+    {
+      "title": "大疆携Osmo Pocket 4亮相北京国际电影节，以科技定格光影之美",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiZkFVX3lxTE9SaUo1a3lzRFItM3FBQTZFY21FX2JQeGJOYndBS2txamZwdEhGeE1qRzhIWFFRQW9oMnpPU1ozNEZNTG0yUmgxQk5ETnEzblhOaV82MWNFU2FhLVZNSmJCc0x1WTJIUQ?oc=5\" target=\"_blank\">大疆携Osmo Pocket 4亮相北京国际电影节，以科技定格光影之美</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">三易生活</font>",
+      "source": "三易生活",
+      "url": "https://news.google.com/rss/articles/CBMiZkFVX3lxTE9SaUo1a3lzRFItM3FBQTZFY21FX2JQeGJOYndBS2txamZwdEhGeE1qRzhIWFFRQW9oMnpPU1ozNEZNTG0yUmgxQk5ETnEzblhOaV82MWNFU2FhLVZNSmJCc0x1WTJIUQ?oc=5",
+      "published_at": "2026-04-18T18:10:00+07:00",
+      "latest_published_at": "2026-04-18T18:10:00+07:00",
+      "league": "",
+      "query_name": "movie_tv_cn",
+      "keyword": "movie_tv_cn",
+      "query": "电影 OR 电视剧 OR 综艺 OR 定档 OR 票房 OR 上映 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "电影",
+        "电视剧",
+        "综艺",
+        "定档",
+        "票房",
+        "上映"
+      ],
+      "sources": [
+        {
+          "name": "三易生活",
+          "url": "https://www.3elife.net"
         }
       ]
     },
@@ -10776,33 +10775,6 @@
       ]
     },
     {
-      "title": "《乘风2026》最新剧情走向简直比电视剧还抓马！李小冉在一公凭借 《心愿便利贴》拿下个人乘风值第一（926分），结果到了二公训练室，她竟一脸真诚地问队友：“我唱歌是不是特别难听？”这反差感直接冲上热搜。舞台“翻车”却拿第一一公舞台上，李小冉与王濛、唐艺昕合",
-      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE5tQ212dmkzUEIzR2toQ1o4ZVJ6X1hqYkFEenBsTFFwbGNBakhDRDRFQk1XenFEdkU0Um5zSkhJVHYzTXdDNmpfODhaWEZXNWMyZWt2aTFSd05EdXU5dUFkZndnMA?oc=5\" target=\"_blank\">《乘风2026》最新剧情走向简直比电视剧还抓马！李小冉在一公凭借 《心愿便利贴》拿下个人乘风值第一（926分），结果到了二公训练室，她竟一脸真诚地问队友：“我唱歌是不是特别难听？”这反差感直接冲上热搜。舞台“翻车”却拿第一一公舞台上，李小冉与王濛、唐艺昕合</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">手机新浪网</font>",
-      "source": "手机新浪网",
-      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5tQ212dmkzUEIzR2toQ1o4ZVJ6X1hqYkFEenBsTFFwbGNBakhDRDRFQk1XenFEdkU0Um5zSkhJVHYzTXdDNmpfODhaWEZXNWMyZWt2aTFSd05EdXU5dUFkZndnMA?oc=5",
-      "published_at": "2026-04-18T18:14:00+07:00",
-      "latest_published_at": "2026-04-18T18:14:00+07:00",
-      "league": "",
-      "query_name": "movie_tv_cn",
-      "keyword": "movie_tv_cn",
-      "query": "电影 OR 电视剧 OR 综艺 OR 定档 OR 票房 OR 上映 when:1d",
-      "topic": "entertainment",
-      "required_keywords": [
-        "电影",
-        "电视剧",
-        "综艺",
-        "定档",
-        "票房",
-        "上映"
-      ],
-      "sources": [
-        {
-          "name": "手机新浪网",
-          "url": "https://www.sina.cn"
-        }
-      ]
-    },
-    {
       "title": "炸场定档！比亚迪 “惊蛰无声” 3.5发布，5 分钟充电跑400km",
       "summary": "<a href=\"https://news.google.com/rss/articles/CBMiW0FVX3lxTE05N0lLMHBVRnVZaENULWk5aWR2OWY0TEIzdXo4VFNQcmpNMUxLTENSX1p2THVnVWg3SkNicGsxeEFfZkZCU0VmblNZbW56d1d0aVlNaHNzb2FLdDA?oc=5\" target=\"_blank\">炸场定档！比亚迪 “惊蛰无声” 3.5发布，5 分钟充电跑400km</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">车家号</font>",
       "source": "车家号",
@@ -10826,6 +10798,33 @@
         {
           "name": "车家号",
           "url": "https://chejiahao.autohome.com.cn"
+        }
+      ]
+    },
+    {
+      "title": "《乘风2026》最新剧情走向简直比电视剧还抓马！李小冉在一公凭借 《心愿便利贴》拿下个人乘风值第一（926分），结果到了二公训练室，她竟一脸真诚地问队友：“我唱歌是不是特别难听？”这反差感直接冲上热搜。舞台“翻车”却拿第一一公舞台上，李小冉与王濛、唐艺昕合",
+      "summary": "<a href=\"https://news.google.com/rss/articles/CBMiY0FVX3lxTE5tQ212dmkzUEIzR2toQ1o4ZVJ6X1hqYkFEenBsTFFwbGNBakhDRDRFQk1XenFEdkU0Um5zSkhJVHYzTXdDNmpfODhaWEZXNWMyZWt2aTFSd05EdXU5dUFkZndnMA?oc=5\" target=\"_blank\">《乘风2026》最新剧情走向简直比电视剧还抓马！李小冉在一公凭借 《心愿便利贴》拿下个人乘风值第一（926分），结果到了二公训练室，她竟一脸真诚地问队友：“我唱歌是不是特别难听？”这反差感直接冲上热搜。舞台“翻车”却拿第一一公舞台上，李小冉与王濛、唐艺昕合</a>&nbsp;&nbsp;<font color=\"#6f6f6f\">手机新浪网</font>",
+      "source": "手机新浪网",
+      "url": "https://news.google.com/rss/articles/CBMiY0FVX3lxTE5tQ212dmkzUEIzR2toQ1o4ZVJ6X1hqYkFEenBsTFFwbGNBakhDRDRFQk1XenFEdkU0Um5zSkhJVHYzTXdDNmpfODhaWEZXNWMyZWt2aTFSd05EdXU5dUFkZndnMA?oc=5",
+      "published_at": "2026-04-18T18:14:00+07:00",
+      "latest_published_at": "2026-04-18T18:14:00+07:00",
+      "league": "",
+      "query_name": "movie_tv_cn",
+      "keyword": "movie_tv_cn",
+      "query": "电影 OR 电视剧 OR 综艺 OR 定档 OR 票房 OR 上映 when:1d",
+      "topic": "entertainment",
+      "required_keywords": [
+        "电影",
+        "电视剧",
+        "综艺",
+        "定档",
+        "票房",
+        "上映"
+      ],
+      "sources": [
+        {
+          "name": "手机新浪网",
+          "url": "https://www.sina.cn"
         }
       ]
     },
