@@ -276,26 +276,60 @@ def infer_topic_type(topic, item):
     return infer_sports_type(title)
 
 
+def extract_sports_entities(title):
+    m = re.search(r"(.+?)\s*(?:vs|VS|Vs)\s*(.+?)(?:[，,。：:|｜]|$)", title)
+    if m:
+        return m.group(1).strip(), m.group(2).strip()
+    m = re.search(r"(.+?)\s*(?:对阵|大战)\s*(.+?)(?:[，,。：:|｜]|$)", title)
+    if m:
+        return m.group(1).strip(), m.group(2).strip()
+    return None, None
+
+
+def extract_ai_subject(title):
+    candidates = ["OpenAI", "ChatGPT", "Claude", "Gemini", "GitHub Copilot", "英伟达", "微软", "谷歌", "Meta", "阿里", "Qwen", "Sora", "Agent", "智能体", "Meoo"]
+    for c in candidates:
+        if c.lower() in title.lower():
+            return c
+    return ""
+
+
+def extract_entertainment_subject(title):
+    m = re.search(r"《([^》]{2,30})》", title)
+    if m:
+        return m.group(1).strip()
+    m = re.search(r"(?:主演|演员|歌手|导演|回应|致歉|翻车)[:：]?\s*([^，,。]{2,16})", title)
+    if m:
+        return m.group(1).strip()
+    return ""
+
+
 def sports_summary_hint(topic_type, title):
     if topic_type == "sports_preview":
+        a, b = extract_sports_entities(title)
         if contains_any(title, ["vs", "VS", "对阵", "大战"]):
-            return "双方关注度高，赛前热度集中在状态、阵容和临场变化。"
+            if a and b:
+                return f"{a}与{b}热度集中在交锋和赛前走势。"
+            return "双方热度集中在交锋和赛前走势。"
         if contains_any(title, ["伤停", "出战成疑", "复出", "缺阵"]):
             return "伤停变量会影响判断，临场名单比早盘信息更关键。"
         if contains_any(title, ["前瞻", "预测"]):
             return "赛前讨论空间大，可以从对位和节奏切入。"
         if contains_any(title, ["选秀", "新秀"]):
-            return "人物潜力话题更强，适合做长期观察型内容。"
-        return "赛前信息较集中，适合提炼一条明确判断。"
+            return "新秀话题偏长期，适合做潜力跟踪。"
+        return "标题信息偏结果流，需结合热度再筛选。"
     if topic_type == "sports_result":
-        if contains_any(title, ["晋级", "淘汰", "出局"]):
-            return "结果影响后续对阵，适合围绕晋级路径做复盘。"
+        if contains_any(title, ["晋级", "四强", "淘汰"]):
+            return "晋级线已经明朗，后续对阵成为核心。"
         if contains_any(title, ["大胜", "轻取"]):
-            return "强弱差距被拉开，重点看状态延续和对手短板。"
+            return "比分已拉开，结果会影响后续排名或晋级线。"
         if contains_any(title, ["绝平", "救主", "逆转"]):
-            return "比赛转折明显，关键节点很适合做复盘标题。"
+            return "比赛转折强，复盘点集中在最后阶段。"
         if contains_any(title, ["破门", "进球", "世界波"]):
-            return "个人表现突出，可围绕核心球员做切入。"
+            player = extract_player_from_sports(title)
+            if player:
+                return f"{player}表现突出，个人状态可单独成题。"
+            return "个人表现突出，适合围绕核心球员做切入。"
         return "赛果已落地，重点看结果对排名和走势的影响。"
     if topic_type == "sports_injury":
         return "伤情不确定，重点看能否出战和替代方案。"
@@ -305,38 +339,58 @@ def sports_summary_hint(topic_type, title):
         return "争议正在发酵，重点看官方回应和后续处罚。"
     if topic_type == "sports_star":
         return "人物热度突出，重点看个人表现和外溢话题。"
-    return "体育资讯热度一般，适合作为补充观察。"
+    return "标题信息偏结果流，需结合热度再筛选。"
+
+
+def extract_player_from_sports(title):
+    patterns = [
+        r"([\u4e00-\u9fff·]{2,8})\s*(?:破门|进球|世界波)",
+        r"(?:破门|进球|世界波)[^\u4e00-\u9fff]{0,4}([\u4e00-\u9fff·]{2,8})",
+        r"([A-Z][A-Za-z\-]{2,20})\s*(?:scores|goal|world class|worldie)",
+    ]
+    for pat in patterns:
+        m = re.search(pat, title)
+        if m:
+            return m.group(1).strip()
+    return ""
 
 
 def summary_hint(topic, topic_type, title):
     if topic == "sports":
         return sports_summary_hint(topic_type, title)
     if topic == "ai":
+        subj = extract_ai_subject(title)
+        low = title.lower()
         if topic_type == "ai_product":
-            if contains_any(title, ["OpenAI", "ChatGPT", "Claude", "Gemini"]):
-                return "大厂产品动作明显，重点看实际使用门槛和替代场景。"
+            if any(k.lower() in low for k in ["openai", "chatgpt"]):
+                return "OpenAI继续押注智能体，电脑操作是核心卖点。"
+            if any(k.lower() in low for k in ["claude", "gemini"]):
+                return f"{subj}产品动作明显，核心在实际使用门槛。" if subj else "产品动作明显，核心在实际使用门槛。"
             if contains_any(title, ["工具", "Agent", "智能体", "代码", "插件"]):
-                return "工具属性明确，适合评估能否直接接入日常工作流。"
-            return "产品化信号较强，重点看能否从概念走向实际使用。"
+                return "工具属性明确，适合评估能否直接接入工作流。"
+            return "产品化信号较强，偏向真实使用场景。"
         if topic_type == "ai_model":
-            return "模型能力变化是核心，重点看效果提升是否能落到具体场景。"
+            return "模型能力变化是核心，能否落到具体场景最关键。"
         if topic_type == "ai_controversy":
             return "争议会放大用户焦虑，重点看是否影响付费和使用信任。"
-        return "公司动作更偏行业信号，适合观察资本和生态变化。"
+        return "公司动作更偏行业信号，适合看生态和资本变化。"
     if topic == "entertainment":
-        if topic_type == "entertainment_controversy":
-            return "舆论冲突已经形成，重点看当事人回应和后续反转。"
-        if topic_type == "entertainment_movie":
-            return "电影信息明确，重点看阵容、档期和票房预期。"
-        if topic_type == "entertainment_tv":
-            return "剧综话题适合观察开播表现、嘉宾阵容和讨论度。"
-        if topic_type == "entertainment_star":
-            return "人物话题自带流量，重点看粉丝反应和舆论扩散。"
-        if topic_type == "entertainment_hotsearch":
+        subj = extract_entertainment_subject(title)
+        if contains_any(title, ["回应", "致歉", "翻车", "终止合作"]):
+            return "争议已经成型，后续看回应是否继续发酵。"
+        if contains_any(title, ["定档"]):
+            if subj:
+                return f"《{subj}》进入宣发期，阵容和档期是主要卖点。"
+            return "电影进入宣发期，阵容和档期是主要卖点。"
+        if contains_any(title, ["北影节", "电影节"]):
+            return "电影节话题偏行业向，适合筛明星和作品亮点。"
+        if contains_any(title, ["票房", "营收", "净利"]):
+            return "影视公司业绩承压，商业表现比话题更重要。"
+        if contains_any(title, ["乘风", "综艺"]):
+            return "综艺冲突和人设反差更容易带动热搜。"
+        if contains_any(title, ["热搜"]):
             return "热搜属性强，但要判断是否能延展成完整内容。"
-        if topic_type == "entertainment_low_value":
-            return "娱乐属性一般，适合作为补充观察。"
-        return "热搜事件适合观察传播速度和讨论点。"
+        return "娱乐信息偏资讯流，需要再筛人物和冲突点。"
     if topic == "github":
         if topic_type == "github_ai":
             return "AI/Agent 方向明确，适合关注模型生态和工作流接入。"
@@ -596,13 +650,9 @@ def build_ranked(items, top):
             out["language"] = item.get("language")
             out["latest_published_at"] = item.get("latest_published_at") or item.get("published_at")
             out["created_at"] = item.get("created_at") or item.get("published_at")
-            out["summary"] = item.get("summary") or ""
-            if item.get("summary"):
-                out["description"] = item.get("summary")
-            out["recommend_reason"] = build_github_recommend_reason(out)
-            out["zh_summary"] = build_github_zh_summary(out)
             out["raw_summary"] = item.get("summary") or item.get("description") or ""
-            out["summary"] = out["zh_summary"]
+            out["summary"] = build_github_zh_summary(out)
+            out["recommend_reason"] = build_github_recommend_reason(out)
         if topic == "entertainment" and topic_type == "entertainment_controversy":
             out["event_key"] = ent_event_key(item["title"])
         ranked.append(out)
@@ -644,35 +694,61 @@ def build_ranked(items, top):
 
 
 def build_github_recommend_reason(item):
-    parts = []
-    stars = int(item.get("stars") or 0)
+    repo = (item.get("repo") or "").lower()
+    title = (item.get("title") or "").lower()
+    raw = (item.get("raw_summary") or "").lower()
     topic_type = item.get("topic_type") or "github_other"
-    if stars >= 100000:
+    stars = int(item.get("stars") or 0)
+    pushed_at = parse_iso_datetime(item.get("latest_published_at"))
+    created_at = parse_iso_datetime(item.get("created_at"))
+    created_days = None
+    pushed_days = None
+    if created_at is not None:
+        created_days = (datetime.now(created_at.tzinfo) - created_at).days if created_at.tzinfo else (datetime.now() - created_at).days
+    if pushed_at is not None:
+        pushed_days = (datetime.now(pushed_at.tzinfo) - pushed_at).days if pushed_at.tzinfo else (datetime.now() - pushed_at).days
+
+    def recent_phrase():
+        if pushed_days is not None and pushed_days <= 7:
+            return "近期仍活跃"
+        if created_days is not None and created_days <= 30:
+            return "近期新项目"
+        if created_days is not None and created_days <= 90:
+            return "近期增长较快"
+        return ""
+
+    if any(k in repo for k in ["career-ops"]):
+        return "把求职流程做成自动化系统，适合拆成效率工具选题。"
+    if any(k in repo for k in ["everything-claude-code"]):
+        return "围绕 Claude Code 做工具集合，适合追踪开发者工作流。"
+    if any(k in repo for k in ["hermes-agent"]):
+        return "Agent长期记忆方向明确，可观察个人助手形态。"
+    if any(k in repo for k in ["openhands"]):
+        return "AI写代码和执行任务结合，适合看自动开发边界。"
+    if any(k in repo for k in ["chattts"]):
+        return "语音生成场景明确，适合关注内容生产应用。"
+    if any(k in repo for k in ["ragflow"]):
+        return "RAG和知识库结合紧密，适合企业文档问答场景。"
+    if any(k in repo for k in ["llamafactory"]):
+        return "微调门槛降低，适合追踪开源模型训练工具。"
+    if any(k in repo for k in ["huginn", "browser-use", "airflow", "n8n"]):
+        return "自动化流程价值明确，适合接入采集和发布链路。"
+
+    parts = []
+    if stars > 100000:
         parts.append("社区规模大")
-    elif stars >= 3000:
-        parts.append("已有稳定社区关注")
     if topic_type == "github_automation":
-        parts.append("自动化属性强")
+        parts.append("自动化流程价值明确")
     elif topic_type == "github_devtool":
         parts.append("开发效率导向明显")
     elif topic_type == "github_ai":
         parts.append("AI/Agent 方向明确")
     elif topic_type == "github_app":
-        parts.append("应用形态清晰")
-    if item.get("created_at"):
-        created_at = parse_iso_datetime(item.get("created_at"))
-        if created_at is not None:
-            created_age_days = (datetime.now(created_at.tzinfo) - created_at).days if created_at.tzinfo else (datetime.now() - created_at).days
-            if created_age_days <= 30:
-                parts.append("近期新项目")
-    if item.get("latest_published_at"):
-        pushed_at = parse_iso_datetime(item.get("latest_published_at"))
-        if pushed_at is not None:
-            pushed_age_days = (datetime.now(pushed_at.tzinfo) - pushed_at).days if pushed_at.tzinfo else (datetime.now() - pushed_at).days
-            if pushed_age_days <= 7:
-                parts.append("近期仍活跃")
+        parts.append("应用落地路径清晰")
+    if recent_phrase():
+        parts.append(recent_phrase())
     if not parts:
-        parts.append("值得继续观察")
+        parts.append("适合继续观察")
     reason = "，".join(parts) + "。"
     if len(reason) > 50:
         reason = reason[:50].rstrip("，。") + "。"
@@ -681,12 +757,10 @@ def build_github_recommend_reason(item):
 
 def build_github_zh_summary(item):
     repo = (item.get("repo") or "").lower()
-    text = " ".join([
-        repo,
-        (item.get("title") or "").lower(),
-        (item.get("raw_summary") or item.get("summary") or "").lower(),
-        (item.get("topic_type") or "").lower(),
-    ])
+    title = (item.get("title") or "").lower()
+    raw = (item.get("raw_summary") or "").lower()
+    topic_type = item.get("topic_type") or "github_other"
+    text = " ".join([repo, title, raw, topic_type.lower()])
 
     if any(k in text for k in ["langchain"]):
         return "Agent 和 LLM 应用开发框架，适合搭建复杂 AI 工作流。"
@@ -716,13 +790,13 @@ def build_github_zh_summary(item):
         return "Gemini 命令行工具，适合在终端中调用 AI 能力。"
     if any(k in text for k in ["qwen-code"]):
         return "通义千问代码 Agent，适合代码生成、重构和开发辅助。"
-    if item.get("topic_type") == "github_ai":
+    if topic_type == "github_ai":
         return "AI/Agent 相关项目，适合观察模型生态和应用落地。"
-    if item.get("topic_type") == "github_devtool":
+    if topic_type == "github_devtool":
         return "开发工具项目，适合评估是否能提升开发效率。"
-    if item.get("topic_type") == "github_automation":
+    if topic_type == "github_automation":
         return "自动化项目，适合评估是否能替代重复操作和流程编排。"
-    if item.get("topic_type") == "github_app":
+    if topic_type == "github_app":
         return "应用型项目，适合观察产品形态和部署方式。"
     return "开源项目热度上升，适合继续观察维护频率和社区反馈。"
 
