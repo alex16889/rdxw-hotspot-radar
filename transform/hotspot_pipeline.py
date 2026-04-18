@@ -69,6 +69,8 @@ SOURCE_SUFFIX_RE = re.compile(r"(?:\s*[-—|｜]\s*[^-—|｜]{2,24})+$")
 SPACE_RE = re.compile(r"\s+")
 NON_WORD_RE = re.compile(r"[^\w\u4e00-\u9fff]+", re.UNICODE)
 
+EDITOR_NOTE_BANNED = ["值得关注", "适合关注", "重点看", "可以观察", "临场变化", "核心卖点", "主要卖点", "宣发期", "信息明确", "已经成型"]
+
 
 def parse_args():
     ap = argparse.ArgumentParser()
@@ -304,6 +306,19 @@ def extract_entertainment_subject(title):
     return ""
 
 
+def extract_player_from_sports(title):
+    patterns = [
+        r"([\u4e00-\u9fff·]{2,8})\s*(?:破门|进球|世界波)",
+        r"(?:破门|进球|世界波)[^\u4e00-\u9fff]{0,4}([\u4e00-\u9fff·]{2,8})",
+        r"([A-Z][A-Za-z\-]{2,20})\s*(?:scores|goal|world class|worldie)",
+    ]
+    for pat in patterns:
+        m = re.search(pat, title)
+        if m:
+            return m.group(1).strip()
+    return ""
+
+
 def sports_summary_hint(topic_type, title):
     if topic_type == "sports_preview":
         a, b = extract_sports_entities(title)
@@ -340,19 +355,6 @@ def sports_summary_hint(topic_type, title):
     if topic_type == "sports_star":
         return "人物热度突出，重点看个人表现和外溢话题。"
     return "标题信息偏结果流，需结合热度再筛选。"
-
-
-def extract_player_from_sports(title):
-    patterns = [
-        r"([\u4e00-\u9fff·]{2,8})\s*(?:破门|进球|世界波)",
-        r"(?:破门|进球|世界波)[^\u4e00-\u9fff]{0,4}([\u4e00-\u9fff·]{2,8})",
-        r"([A-Z][A-Za-z\-]{2,20})\s*(?:scores|goal|world class|worldie)",
-    ]
-    for pat in patterns:
-        m = re.search(pat, title)
-        if m:
-            return m.group(1).strip()
-    return ""
 
 
 def summary_hint(topic, topic_type, title):
@@ -603,6 +605,108 @@ def ent_event_key(title):
     return ""
 
 
+def build_editor_note(topic, topic_type, title, item):
+    if topic == "sports":
+        if topic_type == "sports_preview":
+            a, b = extract_sports_entities(title)
+            if contains_any(title, ["vs", "VS", "对阵", "大战"]):
+                if a and b:
+                    return f"{a}与{b}热度集中在交锋和赛前走势。"
+                return "这组对决热度集中在交锋和赛前走势。"
+            if contains_any(title, ["伤停", "出战成疑", "复出", "缺阵"]):
+                return "伤停变量会改判断，临场名单更关键。"
+            if contains_any(title, ["前瞻", "预测"]):
+                return "赛前讨论空间大，可从对位和节奏切入。"
+            if contains_any(title, ["选秀", "新秀"]):
+                return "新秀话题偏长期，适合做潜力跟踪。"
+            return "标题信息偏结果流，需结合热度再筛选。"
+        if topic_type == "sports_result":
+            if contains_any(title, ["晋级", "四强", "淘汰"]):
+                return "晋级线已经出来，后续对阵更有话题。"
+            if contains_any(title, ["大胜", "轻取"]):
+                return "比分拉开了，强弱差距一眼能看出。"
+            if contains_any(title, ["绝平", "救主", "逆转"]):
+                return "比赛转折很强，复盘点集中在最后阶段。"
+            if contains_any(title, ["破门", "进球", "世界波"]):
+                player = extract_player_from_sports(title)
+                if player:
+                    return f"{player}表现够亮，适合单独成题。"
+                return "个人表现够亮，适合单独成题。"
+            return "赛果落地后，走势和排名变化更有看头。"
+        if topic_type == "sports_injury":
+            return "伤情不稳，出场名单会直接改判断。"
+        if topic_type == "sports_transfer":
+            return "转会信号已经放出来，阵容影响更直观。"
+        if topic_type == "sports_controversy":
+            return "争议正在发酵，官方回应很关键。"
+        if topic_type == "sports_star":
+            return "人物热度够强，个人发挥能独立成题。"
+        return "标题信息偏结果流，需结合热度再筛选。"
+    if topic == "ai":
+        subj = extract_ai_subject(title)
+        low = title.lower()
+        if topic_type == "ai_product":
+            if any(k.lower() in low for k in ["openai", "chatgpt"]):
+                return "OpenAI把 Agent 往电脑操作场景推。"
+            if any(k.lower() in low for k in ["claude", "gemini"]):
+                return f"{subj}产品动作明显，门槛和替代场景要看清。" if subj else "产品动作明显，门槛和替代场景要看清。"
+            if contains_any(title, ["工具", "Agent", "智能体", "代码", "插件"]):
+                return "工具属性明确，能否接入工作流是关键。"
+            return "产品化信号较强，离真实使用更近。"
+        if topic_type == "ai_model":
+            return "模型能力变化是核心，落地场景才算数。"
+        if topic_type == "ai_controversy":
+            return "争议会放大用户焦虑，付费和信任都受影响。"
+        return "公司动作更偏行业信号，生态和资本会先反应。"
+    if topic == "entertainment":
+        subj = extract_entertainment_subject(title)
+        if contains_any(title, ["回应", "致歉", "翻车", "终止合作"]):
+            return "争议冲突已经起来，后续看回应会不会再发酵。"
+        if contains_any(title, ["定档"]):
+            if subj:
+                return f"《{subj}》进入宣发，阵容和档期是亮点。"
+            return "电影进入宣发，阵容和档期是亮点。"
+        if contains_any(title, ["北影节", "电影节"]):
+            return "电影节更偏行业向，作品和明星亮点更集中。"
+        if contains_any(title, ["票房", "营收", "净利"]):
+            return "行业热闹之外，利润压力更刺眼。"
+        if contains_any(title, ["乘风", "综艺"]):
+            return "综艺反差和冲突感，最容易带动热搜。"
+        if contains_any(title, ["热搜"]):
+            return "热搜属性很强，但要看能不能写成完整内容。"
+        return "娱乐信息偏资讯流，需要再筛人物和冲突点。"
+    if topic == "github":
+        if topic_type == "github_ai":
+            return "AI/Agent 方向明确，适合看生态和落地。"
+        if topic_type == "github_devtool":
+            return "开发工具味道很重，能不能提效一眼就能试。"
+        if topic_type == "github_automation":
+            return "自动化链路清晰，适合接采集和发布流程。"
+        if topic_type == "github_app":
+            return "应用型项目更直观，能看出产品形态和部署。"
+        return "开源项目热度在起，维护节奏和社区反馈要盯住。"
+    return "热点可继续观察。"
+
+
+def editor_note(topic, topic_type, title, item):
+    note = build_editor_note(topic, topic_type, title, item)
+    for bad in EDITOR_NOTE_BANNED:
+        note = note.replace(bad, "")
+    note = re.sub(r"[，,。]{2,}", "。", note).strip("。 ，,")
+    if len(note) > 42:
+        note = note[:42]
+        note = note.rstrip("，。 ，,")
+    if len(note) < 18:
+        fallback = {
+            "sports": "标题信息偏结果流，需结合热度再筛选。",
+            "ai": "AI信息偏行业动态，需先看落地性。",
+            "entertainment": "娱乐信息偏资讯流，需要再筛人物。",
+            "github": "开源项目热度在起，维护节奏要盯住。",
+        }.get(topic, "热点还要结合热度再筛选。")
+        note = fallback
+    return note
+
+
 def build_ranked(items, top):
     normalized = [normalize_item(x) for x in items]
     ranked = []
@@ -628,6 +732,7 @@ def build_ranked(items, top):
         seen_by_topic[topic].append(item)
 
         score = score_item(topic, topic_type, item)
+        note = editor_note(topic, topic_type, item["title"], item)
         out = {
             "title": item["title"],
             "source": item["source"],
@@ -636,6 +741,7 @@ def build_ranked(items, top):
             "topic_type": topic_type,
             "score": score,
             "summary_hint": summary_hint(topic, topic_type, item["title"]),
+            "editor_note": note,
             "sources": [{
                 "source": item["source"],
                 "title": item["title"],
@@ -708,27 +814,18 @@ def build_github_recommend_reason(item):
     if pushed_at is not None:
         pushed_days = (datetime.now(pushed_at.tzinfo) - pushed_at).days if pushed_at.tzinfo else (datetime.now() - pushed_at).days
 
-    def recent_phrase():
-        if pushed_days is not None and pushed_days <= 7:
-            return "近期仍活跃"
-        if created_days is not None and created_days <= 30:
-            return "近期新项目"
-        if created_days is not None and created_days <= 90:
-            return "近期增长较快"
-        return ""
-
     if any(k in repo for k in ["career-ops"]):
-        return "把求职流程做成自动化系统，适合拆成效率工具选题。"
+        return "把求职流程自动化，适合拆成效率工具案例。"
     if any(k in repo for k in ["everything-claude-code"]):
-        return "围绕 Claude Code 做工具集合，适合追踪开发者工作流。"
+        return "围绕 Claude Code 堆工具，开发者味道很重。"
     if any(k in repo for k in ["hermes-agent"]):
-        return "Agent长期记忆方向明确，可观察个人助手形态。"
+        return "长期记忆 Agent 方向明确，适合继续跟踪。"
     if any(k in repo for k in ["openhands"]):
-        return "AI写代码和执行任务结合，适合看自动开发边界。"
+        return "AI接管开发任务，属于自动编程代表。"
     if any(k in repo for k in ["chattts"]):
-        return "语音生成场景明确，适合关注内容生产应用。"
+        return "语音生成场景明确，适合内容生产选题。"
     if any(k in repo for k in ["ragflow"]):
-        return "RAG和知识库结合紧密，适合企业文档问答场景。"
+        return "RAG和知识库结合紧，适合企业文档问答。"
     if any(k in repo for k in ["llamafactory"]):
         return "微调门槛降低，适合追踪开源模型训练工具。"
     if any(k in repo for k in ["huginn", "browser-use", "airflow", "n8n"]):
@@ -738,15 +835,17 @@ def build_github_recommend_reason(item):
     if stars > 100000:
         parts.append("社区规模大")
     if topic_type == "github_automation":
-        parts.append("自动化流程价值明确")
+        parts.append("自动化链路清晰")
     elif topic_type == "github_devtool":
         parts.append("开发效率导向明显")
     elif topic_type == "github_ai":
         parts.append("AI/Agent 方向明确")
     elif topic_type == "github_app":
         parts.append("应用落地路径清晰")
-    if recent_phrase():
-        parts.append(recent_phrase())
+    if created_days is not None and created_days <= 30:
+        parts.append("近期新项目")
+    if pushed_days is not None and pushed_days <= 7:
+        parts.append("近期仍活跃")
     if not parts:
         parts.append("适合继续观察")
     reason = "，".join(parts) + "。"
@@ -854,7 +953,7 @@ def render_markdown(items, markdown_top=10):
             lines.append(f"- topic：{item['topic']}")
             lines.append(f"- topic_type：{item['topic_type']}")
             lines.append(f"- score：{item['score']}")
-            lines.append(f"- 概述：{item['summary_hint']}")
+            lines.append(f"- 概述：{item['editor_note'] or item['summary_hint']}")
             if item.get("event_key"):
                 lines.append(f"- event_key：{item['event_key']}")
             lines.append("- 来源：")
