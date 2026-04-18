@@ -7,8 +7,8 @@ import argparse
 import json
 import re
 from collections import Counter, defaultdict
-from difflib import SequenceMatcher
 from datetime import datetime
+from difflib import SequenceMatcher
 from pathlib import Path
 from urllib.parse import urlparse
 
@@ -62,7 +62,6 @@ ENT_HIGH_VALUE_PATTERNS = ["明星", "回应", "争议", "道歉", "塌房", "�
 ENT_TITLE_BONUS_PATTERNS = ["票房", "定档", "上映", "电影节", "撤档", "改档", "开播", "官宣阵容", "主演", "导演", "回应", "争议", "道歉", "塌房", "翻车"]
 ENT_STAR_ALLOWED_RE = re.compile(r"(?:演员|艺人|歌手|导演|主持人|爱豆|偶像|男演员|女演员|综艺|电影|电视剧)")
 ENT_CONTROVERSY_RE = re.compile(r"(?:翻车|致歉|道歉|回应|终止合作|失责|开除|塌房|争议|被曝|封杀|下架)", re.IGNORECASE)
-ENT_CONFLICT_EVENT_RE = re.compile(r"(?:品牌翻车|终止合作|创始人致歉|男演员|女演员)")
 
 TITLE_PARTY_PATTERNS = ["终于", "炸了", "塌了", "全网热议", "太敢说", "万万没想到", "惊呆", "杀疯了"]
 
@@ -230,15 +229,18 @@ def infer_github_type(item):
         item.get("summary", ""),
         item.get("repo", ""),
         item.get("language", "") or "",
-    ])
-    if contains_any(text, ["ai", "llm", "agent", "chatgpt", "openai", "diffusion", "rag"]):
-        return "github_ai"
-    if contains_any(text, ["cli", "sdk", "framework", "developer", "code", "api", "tool"]):
-        return "github_devtool"
-    if contains_any(text, ["automation", "workflow", "bot", "scraper", "crawler"]):
+    ]).lower()
+    repo = (item.get("repo") or "").lower()
+    title = (item.get("title") or "").lower()
+
+    if any(x in repo or x in title or x in text for x in ["n8n", "workflow", "automation", "bot", "scraper", "crawler", "zapier", "make", "pipeline"]):
         return "github_automation"
-    if contains_any(text, ["app", "web", "ui", "dashboard"]):
+    if any(x in repo or x in title or x in text for x in ["sdk", "cli", "framework", "api", "developer", "code", "compiler", "database", "storage", "minio", "filesystem", "object storage", "rustfs"]):
+        return "github_devtool"
+    if any(x in repo or x in title or x in text for x in ["app", "web", "ui", "dashboard", "desktop", "mobile", "frontend"]):
         return "github_app"
+    if any(x in repo or x in title or x in text for x in ["llm", "agent", "openai", "chatgpt", "gemini", "claude", "rag", "diffusion", "model", "qwen", "autogpt", "langchain", "openhands", "hermes-agent"]):
+        return "github_ai"
     return "github_other"
 
 
