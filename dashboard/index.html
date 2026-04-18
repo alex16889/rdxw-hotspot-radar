@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>热点选题 Dashboard</title>
+  <style>
+    :root {
+      --bg: #0b1220;
+      --panel: #111a2e;
+      --panel-2: #0f1728;
+      --text: #e6eefc;
+      --muted: #8fa3c8;
+      --line: rgba(255,255,255,.08);
+      --sports: #5aa9ff;
+      --ai: #a26bff;
+      --ent: #ff8f5a;
+      --gh: #5fd18a;
+      --accent: #ffcf5a;
+      --chip: rgba(255,255,255,.08);
+    }
+
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif; }
+    a { color: inherit; }
+    button, input { font: inherit; }
+
+    .wrap { max-width: 1280px; margin: 0 auto; padding: 20px; }
+    .hero {
+      display: flex; flex-direction: column; gap: 14px;
+      padding: 18px 18px 16px; border: 1px solid var(--line); border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow: 0 12px 30px rgba(0,0,0,.22);
+    }
+    .title-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    h1 { margin: 0; font-size: 28px; letter-spacing: .5px; }
+    .sub { color: var(--muted); font-size: 13px; }
+
+    .stats { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+    .stat {
+      padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: rgba(255,255,255,.03);
+      min-height: 78px;
+    }
+    .stat .k { color: var(--muted); font-size: 12px; margin-bottom: 8px; }
+    .stat .v { font-size: 24px; font-weight: 700; }
+    .stat.sports .v { color: var(--sports); }
+    .stat.ai .v { color: var(--ai); }
+    .stat.ent .v { color: var(--ent); }
+    .stat.gh .v { color: var(--gh); }
+    .stat.total .v { color: var(--accent); }
+
+    .controls { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .search {
+      flex: 1; min-width: 240px;
+      background: var(--panel-2); color: var(--text);
+      border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px;
+      outline: none;
+    }
+    .search::placeholder { color: #7387ab; }
+    .meta { color: var(--muted); font-size: 12px; }
+
+    .tabs { display: flex; gap: 8px; flex-wrap: wrap; margin: 18px 0 14px; }
+    .tab {
+      border: 1px solid var(--line); background: rgba(255,255,255,.03); color: var(--text);
+      padding: 10px 14px; border-radius: 999px; cursor: pointer;
+    }
+    .tab.active { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.18); }
+    .tab[data-topic="sports"] { box-shadow: inset 0 0 0 1px rgba(90,169,255,.18); }
+    .tab[data-topic="ai"] { box-shadow: inset 0 0 0 1px rgba(162,107,255,.18); }
+    .tab[data-topic="entertainment"] { box-shadow: inset 0 0 0 1px rgba(255,143,90,.18); }
+    .tab[data-topic="github"] { box-shadow: inset 0 0 0 1px rgba(95,209,138,.18); }
+
+    .status { margin: 14px 0; padding: 14px; border: 1px dashed var(--line); color: var(--muted); border-radius: 14px; background: rgba(255,255,255,.02); }
+    .status.error { color: #ffb4b4; border-color: rgba(255,120,120,.35); }
+
+    .section { display: none; }
+    .section.active { display: block; }
+    .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .card {
+      background: rgba(255,255,255,.03); border: 1px solid var(--line);
+      border-radius: 16px; padding: 14px; box-shadow: 0 8px 18px rgba(0,0,0,.16);
+      border-left-width: 4px; overflow: hidden;
+    }
+    .card.sports { border-left-color: var(--sports); }
+    .card.ai { border-left-color: var(--ai); }
+    .card.entertainment { border-left-color: var(--ent); }
+    .card.github { border-left-color: var(--gh); }
+    .card-head { display: flex; justify-content: space-between; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+    .rank { color: var(--accent); font-weight: 800; font-size: 16px; margin-right: 8px; }
+    .card-title { font-size: 16px; line-height: 1.45; margin: 0; word-break: break-word; }
+    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin: 10px 0 12px; }
+    .pill { font-size: 12px; color: var(--muted); background: var(--chip); padding: 5px 9px; border-radius: 999px; border: 1px solid var(--line); }
+    .field { margin: 8px 0; color: var(--text); font-size: 13px; line-height: 1.6; }
+    .field .label { color: var(--muted); margin-right: 6px; }
+    .hint { color: #d9e5ff; }
+    .actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      border: 1px solid var(--line); background: rgba(255,255,255,.06); color: var(--text);
+      padding: 9px 12px; border-radius: 12px; cursor: pointer; text-decoration: none;
+    }
+    .btn:hover { background: rgba(255,255,255,.12); }
+    .btn.copy { color: #eaf3ff; }
+    .btn.link { color: #d6f7e2; }
+    .empty { color: var(--muted); padding: 16px 4px; }
+
+    .gh-meta { display: grid; grid-template-columns: 1fr; gap: 6px; }
+    .repo { font-size: 18px; font-weight: 700; word-break: break-word; }
+    .mono { font-variant-numeric: tabular-nums; }
+
+    @media (max-width: 980px) {
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 12px; }
+      h1 { font-size: 22px; }
+      .stats { grid-template-columns: 1fr 1fr; }
+      .card { padding: 12px; }
+      .repo, .card-title { font-size: 15px; }
+      .btn { width: 100%; }
+      .actions { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <div class="title-row">
+        <div>
+          <h1>热点选题 Dashboard</h1>
+          <div class="sub">本地读取 ../output/latest_hotspots_ranked.json</div>
+        </div>
+        <div class="meta" id="loadMeta">等待加载数据…</div>
+      </div>
+
+      <div class="stats" id="stats">
+        <div class="stat total"><div class="k">总数</div><div class="v mono" data-stat="total">0</div></div>
+        <div class="stat sports"><div class="k">sports</div><div class="v mono" data-stat="sports">0</div></div>
+        <div class="stat ai"><div class="k">ai</div><div class="v mono" data-stat="ai">0</div></div>
+        <div class="stat ent"><div class="k">entertainment</div><div class="v mono" data-stat="entertainment">0</div></div>
+        <div class="stat gh"><div class="k">github</div><div class="v mono" data-stat="github">0</div></div>
+      </div>
+
+      <div class="controls">
+        <input id="search" class="search" type="search" placeholder="按 title / source / repo / summary / summary_hint / topic_type 搜索…" />
+        <div class="meta" id="resultMeta">0 条</div>
+      </div>
+    </div>
+
+    <div class="tabs" id="tabs">
+      <button class="tab active" data-topic="sports">体育热点</button>
+      <button class="tab" data-topic="ai">AI科技热点</button>
+      <button class="tab" data-topic="entertainment">泛娱乐热点</button>
+      <button class="tab" data-topic="github">GitHub热点项目</button>
+    </div>
+
+    <div id="status" class="status">正在加载数据…</div>
+
+    <div id="sections">
+      <section class="section active" data-topic="sports"><div class="grid" id="sportsGrid"></div></section>
+      <section class="section" data-topic="ai"><div class="grid" id="aiGrid"></div></section>
+      <section class="section" data-topic="entertainment"><div class="grid" id="entGrid"></div></section>
+      <section class="section" data-topic="github"><div class="grid" id="ghGrid"></div></section>
+    </div>
+  </div>
+
+  <script>
+    const DATA_URL = '../output/latest_hotspots_ranked.json';
+    let allItems = [];
+    let activeTopic = 'sports';
+
+    const el = (sel) => document.querySelector(sel);
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+    const clip = (s, n=120) => {
+      s = String(s ?? '').trim();
+      return s.length > n ? s.slice(0, n) + '...' : s;
+    };
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const old = el('#loadMeta').textContent;
+        el('#loadMeta').textContent = '已复制';
+        setTimeout(() => el('#loadMeta').textContent = old, 1200);
+      }).catch(() => alert('复制失败'));
+    }
+
+    function setStatus(msg, isError=false) {
+      const s = el('#status');
+      s.textContent = msg;
+      s.classList.toggle('error', !!isError);
+      s.style.display = msg ? 'block' : 'none';
+    }
+
+    function updateStats(items) {
+      const counts = { total: items.length, sports: 0, ai: 0, entertainment: 0, github: 0 };
+      items.forEach(it => { if (counts[it.topic] !== undefined) counts[it.topic] += 1; });
+      document.querySelectorAll('[data-stat]').forEach(node => {
+        const key = node.getAttribute('data-stat');
+        node.textContent = counts[key] ?? 0;
+      });
+      el('#resultMeta').textContent = `${items.length} 条`;
+    }
+
+    function currentItems() {
+      const q = el('#search').value.trim().toLowerCase();
+      let items = allItems.filter(it => it.topic === activeTopic);
+      if (q) {
+        items = items.filter(it => {
+          const fields = [
+            it.title, it.source, it.repo, it.summary, it.description, it.summary_hint, it.topic_type, it.recommend_reason,
+            it.url, it.language, String(it.stars ?? ''), String(it.forks ?? '')
+          ].filter(Boolean).join(' ').toLowerCase();
+          return fields.includes(q);
+        });
+      }
+      return items;
+    }
+
+    function render() {
+      const items = currentItems();
+      const map = {
+        sports: el('#sportsGrid'),
+        ai: el('#aiGrid'),
+        entertainment: el('#entGrid'),
+        github: el('#ghGrid')
+      };
+      Object.values(map).forEach(node => node.innerHTML = '');
+      const target = map[activeTopic];
+      if (!items.length) {
+        target.innerHTML = '<div class="empty">暂无匹配结果</div>';
+        el('#resultMeta').textContent = '0 条';
+        return;
+      }
+
+      items.forEach((it, idx) => {
+        const card = document.createElement('article');
+        card.className = `card ${it.topic || activeTopic}`;
+        if (activeTopic === 'github') {
+          card.innerHTML = `
+            <div class="card-head">
+              <div>
+                <div class="repo">#${idx + 1} ${esc(it.repo || it.title || '')}</div>
+                <div class="pill-row">
+                  <span class="pill">${esc(it.topic_type || '')}</span>
+                  <span class="pill">${esc(it.language || '未知')}</span>
+                  <span class="pill mono">⭐ ${esc(it.stars ?? 0)}</span>
+                  <span class="pill mono">Forks ${esc(it.forks ?? 0)}</span>
+                </div>
+              </div>
+            </div>
+            <div class="gh-meta">
+              <div class="field"><span class="label">用途：</span>${esc(clip(it.summary || it.description || (it.title || '').split('｜').slice(1).join('｜') || '', 140))}</div>
+              <div class="field"><span class="label">推荐理由：</span><span class="hint">${esc(it.recommend_reason || '')}</span></div>
+              <div class="field"><span class="label">选题角度：</span>${esc(it.summary_hint || '')}</div>
+            </div>
+            <div class="actions">
+              <a class="btn link" href="${esc(it.url || '#')}" target="_blank" rel="noreferrer">打开链接</a>
+              <button class="btn copy" data-copy="repo">复制 repo</button>
+            </div>
+          `;
+          card.querySelector('[data-copy="repo"]').addEventListener('click', () => copyText(it.repo || ''));
+        } else {
+          card.innerHTML = `
+            <div class="card-head">
+              <div>
+                <div class="card-title"><span class="rank">#${idx + 1}</span>${esc(it.title || '')}</div>
+                <div class="pill-row">
+                  <span class="pill">${esc(it.topic_type || '')}</span>
+                  <span class="pill">${esc(it.source || '')}</span>
+                  <span class="pill mono">${esc(it.score ?? '')}</span>
+                </div>
+              </div>
+            </div>
+            <div class="field"><span class="label">选题角度：</span>${esc(it.summary_hint || '')}</div>
+            <div class="actions">
+              <a class="btn link" href="${esc(it.url || '#')}" target="_blank" rel="noreferrer">打开链接</a>
+              <button class="btn copy" data-copy="title">复制标题</button>
+            </div>
+          `;
+          card.querySelector('[data-copy="title"]').addEventListener('click', () => copyText(it.title || ''));
+        }
+        target.appendChild(card);
+      });
+      el('#resultMeta').textContent = `${items.length} 条`;
+    }
+
+    function setActive(topic) {
+      activeTopic = topic;
+      document.querySelectorAll('.tab').forEach(btn => btn.classList.toggle('active', btn.dataset.topic === topic));
+      document.querySelectorAll('.section').forEach(sec => sec.classList.toggle('active', sec.dataset.topic === topic));
+      render();
+    }
+
+    async function loadData() {
+      try {
+        const res = await fetch(DATA_URL, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        allItems = Array.isArray(data.items) ? data.items : [];
+        updateStats(allItems);
+        setStatus(`已加载 ${allItems.length} 条数据`);
+        render();
+        el('#loadMeta').textContent = `已加载：${DATA_URL}`;
+      } catch (err) {
+        console.error(err);
+        setStatus('请先运行：python3 run_daily_hotspots.py --date YYYYMMDD', true);
+        el('#loadMeta').textContent = '加载失败';
+      }
+    }
+
+    document.querySelectorAll('.tab').forEach(btn => btn.addEventListener('click', () => setActive(btn.dataset.topic)));
+    el('#search').addEventListener('input', render);
+    loadData();
+  </script>
+</body>
+</html>

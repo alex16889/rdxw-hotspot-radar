@@ -83,6 +83,32 @@ python3 /Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/transform/hots
   --reference-time 2026-04-18T18:00:00+07:00
 ```
 
+## Local Dashboard
+
+生成数据：
+
+```bash
+python3 run_daily_hotspots.py --date 20260418
+```
+
+打开 Dashboard：
+
+```bash
+open dashboard/index.html
+```
+
+或者：
+
+```bash
+python3 -m http.server 8787
+```
+
+浏览器访问：
+
+```text
+http://localhost:8787/dashboard/
+```
+
 ## Ranking Notes
 
 The scoring model is deliberately transparent:
