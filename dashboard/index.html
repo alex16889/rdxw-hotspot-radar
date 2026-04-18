@@ -144,7 +144,7 @@
       </div>
 
       <div class="controls">
-        <input id="search" class="search" type="search" placeholder="按 title / source / repo / summary / summary_hint / topic_type 搜索…" />
+        <input id="search" class="search" type="search" placeholder="搜索标题、来源、项目名、用途..." />
         <div class="meta" id="resultMeta">0 条</div>
       </div>
     </div>
@@ -177,6 +177,32 @@
       s = String(s ?? '').trim();
       return s.length > n ? s.slice(0, n) + '...' : s;
     };
+
+    const topicTypeZh = {
+      sports_preview: '赛前热点',
+      sports_result: '赛果热点',
+      sports_star: '球星/人物',
+      sports_low_value: '低优先级',
+      ai_product: 'AI产品/工具',
+      ai_model: 'AI模型',
+      ai_controversy: 'AI争议',
+      ai_company: 'AI公司动态',
+      entertainment_movie: '电影热点',
+      entertainment_tv: '剧集/综艺',
+      entertainment_star: '明星动态',
+      entertainment_controversy: '娱乐争议',
+      entertainment_hotsearch: '热搜话题',
+      entertainment_low_value: '低优先级',
+      github_ai: 'AI项目',
+      github_devtool: '开发工具',
+      github_automation: '自动化项目',
+      github_app: '应用项目',
+      github_other: '其他项目'
+    };
+
+    function typeLabel(t) {
+      return topicTypeZh[t] || t || '';
+    }
 
     function copyText(text) {
       navigator.clipboard.writeText(text).then(() => {
@@ -243,7 +269,7 @@
               <div>
                 <div class="repo">#${idx + 1} ${esc(it.repo || it.title || '')}</div>
                 <div class="pill-row">
-                  <span class="pill">${esc(it.topic_type || '')}</span>
+                  <span class="pill">${esc(typeLabel(it.topic_type))}</span>
                   <span class="pill">${esc(it.language || '未知')}</span>
                   <span class="pill mono">⭐ ${esc(it.stars ?? 0)}</span>
                   <span class="pill mono">Forks ${esc(it.forks ?? 0)}</span>
@@ -253,7 +279,6 @@
             <div class="gh-meta">
               <div class="field"><span class="label">用途：</span>${esc(clip(it.summary || it.description || (it.title || '').split('｜').slice(1).join('｜') || '', 140))}</div>
               <div class="field"><span class="label">推荐理由：</span><span class="hint">${esc(it.recommend_reason || '')}</span></div>
-              <div class="field"><span class="label">选题角度：</span>${esc(it.summary_hint || '')}</div>
             </div>
             <div class="actions">
               <a class="btn link" href="${esc(it.url || '#')}" target="_blank" rel="noreferrer">打开链接</a>
@@ -267,13 +292,13 @@
               <div>
                 <div class="card-title"><span class="rank">#${idx + 1}</span>${esc(it.title || '')}</div>
                 <div class="pill-row">
-                  <span class="pill">${esc(it.topic_type || '')}</span>
+                  <span class="pill">${esc(typeLabel(it.topic_type))}</span>
                   <span class="pill">${esc(it.source || '')}</span>
                   <span class="pill mono">${esc(it.score ?? '')}</span>
                 </div>
               </div>
             </div>
-            <div class="field"><span class="label">选题角度：</span>${esc(it.summary_hint || '')}</div>
+            <div class="field"><span class="label">概述：</span>${esc(it.summary_hint || '')}</div>
             <div class="actions">
               <a class="btn link" href="${esc(it.url || '#')}" target="_blank" rel="noreferrer">打开链接</a>
               <button class="btn copy" data-copy="title">复制标题</button>
