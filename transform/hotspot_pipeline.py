@@ -235,7 +235,26 @@ def infer_github_type(item):
     repo = (item.get("repo") or "").lower()
     title = (item.get("title") or "").lower()
 
-    if any(x in repo or x in title or x in text for x in ["n8n", "workflow", "automation", "bot", "scraper", "crawler", "zapier", "make", "pipeline"]):
+    if repo == "huginn/huginn":
+        return "github_automation"
+    if repo == "browser-use/browser-use":
+        return "github_automation"
+    if repo == "apache/airflow":
+        return "github_automation"
+    if repo == "n8n-io/n8n":
+        return "github_automation"
+    if repo == "puppeteer/puppeteer":
+        return "github_devtool"
+    if repo == "google-gemini/gemini-cli":
+        return "github_devtool"
+    if repo == "qwenlm/qwen-code":
+        return "github_ai"
+    if repo == "openhands/openhands":
+        return "github_ai"
+    if repo == "nousresearch/hermes-agent":
+        return "github_ai"
+
+    if any(x in repo or x in title or x in text for x in ["workflow", "automation", "bot", "scraper", "crawler", "browser-use", "browser automation", "agent that monitor", "scheduled", "trigger", "pipeline", "task runner", "orchestration", "airflow", "n8n", "huginn"]):
         return "github_automation"
     if any(x in repo or x in title or x in text for x in ["sdk", "cli", "framework", "api", "developer", "code", "compiler", "database", "storage", "minio", "filesystem", "object storage", "rustfs"]):
         return "github_devtool"
@@ -558,9 +577,11 @@ def build_ranked(items, top):
             out["forks"] = int(item.get("forks") or 0)
             out["language"] = item.get("language")
             out["latest_published_at"] = item.get("latest_published_at") or item.get("published_at")
+            out["created_at"] = item.get("created_at") or item.get("published_at")
             out["summary"] = item.get("summary") or ""
             if item.get("summary"):
                 out["description"] = item.get("summary")
+            out["recommend_reason"] = build_github_recommend_reason(out)
         if topic == "entertainment" and topic_type == "entertainment_controversy":
             out["event_key"] = ent_event_key(item["title"])
         ranked.append(out)
@@ -599,6 +620,44 @@ def build_ranked(items, top):
                 break
         final.extend(selected[:top])
     return final
+
+
+def build_github_recommend_reason(item):
+    parts = []
+    stars = int(item.get("stars") or 0)
+    topic_type = item.get("topic_type") or "github_other"
+    title = item.get("title") or ""
+
+    if stars >= 100000:
+        parts.append("高星成熟项目，社区验证强")
+    elif stars >= 3000:
+        parts.append("已有稳定社区关注")
+    if topic_type == "github_automation":
+        parts.append("自动化属性强")
+    elif topic_type == "github_devtool":
+        parts.append("开发工具属性强")
+    elif topic_type == "github_ai":
+        parts.append("AI/Agent 属性强")
+    elif topic_type == "github_app":
+        parts.append("应用形态清晰")
+    if item.get("created_at"):
+        created_at = parse_iso_datetime(item.get("created_at"))
+        if created_at is not None:
+            created_age_days = (datetime.now(created_at.tzinfo) - created_at).days if created_at.tzinfo else (datetime.now() - created_at).days
+            if created_age_days <= 30:
+                parts.append("近期新项目")
+    if item.get("latest_published_at"):
+        pushed_at = parse_iso_datetime(item.get("latest_published_at"))
+        if pushed_at is not None:
+            pushed_age_days = (datetime.now(pushed_at.tzinfo) - pushed_at).days if pushed_at.tzinfo else (datetime.now() - pushed_at).days
+            if pushed_age_days <= 7:
+                parts.append("近期仍活跃")
+    if not parts:
+        parts.append("适合继续观察")
+    reason = "，".join(parts) + "。"
+    if len(reason) > 50:
+        reason = reason[:50].rstrip("，。") + "。"
+    return reason
 
 
 def display_title(title, limit=60):
@@ -644,6 +703,7 @@ def render_markdown(items, markdown_top=10):
                 lines.append(f"- Stars：{item.get('stars', 0)}")
                 lines.append(f"- Forks：{item.get('forks', 0)}")
                 lines.append(f"- 用途：{github_display_usage(item)}")
+                lines.append(f"- 推荐理由：{item.get('recommend_reason', '')}")
                 lines.append(f"- 选题角度：{item.get('summary_hint', '')}")
                 lines.append(f"- 链接：{item.get('url', '')}")
                 lines.append("")
