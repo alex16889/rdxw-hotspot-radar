@@ -35,6 +35,8 @@ ENT_WORDS = [
 
 SPORTS_HIGH_VALUE_SOURCES = ["懂球帝", "直播吧", "体坛周报", "虎扑", "ESPN", "Sky Sports", "The Athletic", "Reuters", "AP"]
 SPORTS_LOW_VALUE_PATTERNS = ["集锦", "录像", "回放", "直播安排", "赛程表", "节目表"]
+SPORTS_PREVIEW_FORCE = ["前瞻", "赛前", "vs", "VS", "对阵", "天王山", "明晚打响", "今晚打响", "首发", "名单", "预测"]
+SPORTS_RESULT_EXPLICIT = ["战报", "已晋级", "已淘汰", "出局", "赛后"]
 
 AI_HIGH_VALUE_SOURCES = ["OpenAI Blog", "Google Blog", "Anthropic", "The Verge", "TechCrunch", "量子位", "机器之心", "36氪", "新智元"]
 AI_LOW_VALUE_SOURCES = ["美通社", "财富号", "车家号", "新浪财经", "搜狐", "手机新浪网"]
@@ -52,8 +54,9 @@ ENT_LOW_VALUE_PATTERNS = [
 ]
 ENT_HIGH_VALUE_PATTERNS = ["明星", "回应", "争议", "道歉", "塌房", "热搜", "票房破", "定档", "撤档", "开播", "爆了", "封神", "翻车"]
 ENT_TITLE_BONUS_PATTERNS = ["票房", "定档", "上映", "电影节", "撤档", "改档", "开播", "官宣阵容", "主演", "导演", "回应", "争议", "道歉", "塌房", "翻车"]
-ENT_STAR_ALLOWED_RE = re.compile(r"(?:演员|艺人|歌手|导演|主持人|爱豆|偶像|男演员|女演员|明星本人姓名|综艺|电影|电视剧)")
+ENT_STAR_ALLOWED_RE = re.compile(r"(?:演员|艺人|歌手|导演|主持人|爱豆|偶像|男演员|女演员|综艺|电影|电视剧)")
 ENT_CONTROVERSY_RE = re.compile(r"(?:翻车|致歉|道歉|回应|终止合作|失责|开除|塌房|争议|被曝|封杀|下架)", re.IGNORECASE)
+ENT_CONFLICT_EVENT_RE = re.compile(r"(?:品牌翻车|终止合作|创始人致歉|男演员|女演员)")
 
 TITLE_PARTY_PATTERNS = ["终于", "炸了", "塌了", "全网热议", "太敢说", "万万没想到", "惊呆", "杀疯了"]
 
@@ -137,6 +140,9 @@ def infer_topic(item):
 
 def infer_sports_type(title):
     t = title.lower()
+    if contains_any(title, SPORTS_PREVIEW_FORCE):
+        if not (re.search(r"\d+\s*[-:比]\s*\d+", title) or contains_any(title, SPORTS_RESULT_EXPLICIT) or contains_any(title, ["赛后"])):
+            return "sports_preview"
     if any(k.lower() in t for k in ["injury", "伤", "受伤", "复出", "leaves training", "提前离场"]):
         return "sports_injury"
     if any(k.lower() in t for k in ["refereeing", "争议", "处罚", "禁赛", "调查", "审查", "coach blast"]):
@@ -368,6 +374,20 @@ def normalize_title(title):
     return s[:80]
 
 
+def ent_event_key(title):
+    t = title.lower()
+    core = []
+    if contains_any(title, ["品牌翻车", "翻车", "终止合作", "创始人致歉", "致歉", "男演员", "女演员"]):
+        core.append("brand_flop")
+    if contains_any(title, ["回应", "道歉", "争议", "塌房", "被曝", "封杀", "下架"]):
+        core.append("controversy")
+    if not core:
+        return ""
+    if contains_any(title, ["品牌翻车", "终止合作", "创始人致歉", "男演员", "女演员"]):
+        return "ent_brand_flop"
+    return "ent_controversy_generic"
+
+
 def build_ranked(items, top):
     normalized = [normalize_item(x) for x in items]
     ranked = []
@@ -408,12 +428,27 @@ def build_ranked(items, top):
                 "domain": domain(item["url"]),
             }],
         }
+        if topic == "entertainment" and topic_type == "entertainment_controversy":
+            out["event_key"] = ent_event_key(item["title"])
         ranked.append(out)
 
-    ranked.sort(key=lambda x: x["score"], reverse=True)
+    # entertainment controversy 同事件去重：只保留分数最高一条
+    ent_best = {}
+    final_ranked = []
+    for item in ranked:
+        if item["topic"] == "entertainment" and item["topic_type"] == "entertainment_controversy":
+            key = item.get("event_key") or normalize_title(item["title"])
+            prev = ent_best.get(key)
+            if prev is None or item["score"] > prev["score"]:
+                ent_best[key] = item
+            continue
+        final_ranked.append(item)
+    final_ranked.extend(ent_best.values())
+
+    final_ranked.sort(key=lambda x: x["score"], reverse=True)
 
     grouped = defaultdict(list)
-    for item in ranked:
+    for item in final_ranked:
         grouped[item["topic"]].append(item)
 
     final = []
@@ -461,6 +496,8 @@ def render_markdown(items, markdown_top=10):
             lines.append(f"- topic_type：{item['topic_type']}")
             lines.append(f"- score：{item['score']}")
             lines.append(f"- 摘要：{item['summary_hint']}")
+            if item.get("event_key"):
+                lines.append(f"- event_key：{item['event_key']}")
             lines.append("- 来源：")
             for src in item.get("sources", [])[:3]:
                 src_title = display_title(src.get('title', ''))
