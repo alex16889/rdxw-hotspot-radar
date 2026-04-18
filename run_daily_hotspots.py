@@ -67,6 +67,36 @@ QUERY_SPECS = [
         "query": f"(绝杀 OR 逆转 OR 晋级 OR 出局 OR 无缘 OR 伤退 OR 复出 OR 官宣) {DOMESTIC_SITE_FILTER} -site:fans.sports.qq.com when:1d",
         "required_keywords": ["绝杀", "逆转", "晋级", "出局", "无缘", "伤退", "复出", "官宣"],
     },
+    {
+        "topic": "sports",
+        "name": "global_high_value_cn",
+        "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (懂球帝 OR 直播吧 OR 体坛周报 OR 虎扑 OR ESPN OR Sky Sports OR Reuters OR AP OR The Athletic) when:1d",
+        "required_keywords": ["NBA", "欧冠", "英超", "意甲", "德甲", "中超", "亚冠", "WTT", "斯诺克", "WCBA", "女篮"],
+    },
+    {
+        "topic": "sports",
+        "name": "global_star_cn",
+        "query": "(梅西 OR C罗 OR 东契奇 OR 约基奇 OR 姆巴佩 OR Ohtani OR 球星) (懂球帝 OR ESPN OR Reuters OR AP OR The Athletic) when:1d",
+        "required_keywords": ["梅西", "C罗", "东契奇", "约基奇", "姆巴佩", "Ohtani", "球星"],
+    },
+    {
+        "topic": "sports",
+        "name": "reuters_ap_cn",
+        "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:reuters.com OR site:apnews.com OR site:espn.com OR site:skysports.com OR site:theathletic.com) when:1d",
+        "required_keywords": ["NBA", "欧冠", "英超", "意甲", "德甲", "中超", "亚冠", "WTT", "斯诺克", "WCBA", "女篮"],
+    },
+    {
+        "topic": "sports",
+        "name": "domestic_alt_cn",
+        "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:dongqiudi.com OR site:zhibo8.cc OR site:hu扑.com OR site:titan24.com OR site:ppsports.com) when:1d",
+        "required_keywords": ["NBA", "欧冠", "英超", "意甲", "德甲", "中超", "亚冠", "WTT", "斯诺克", "WCBA", "女篮"],
+    },
+    {
+        "topic": "sports",
+        "name": "sports_media_cn",
+        "query": "(NBA OR 欧冠 OR 英超 OR 意甲 OR 德甲 OR 中超 OR 亚冠 OR WTT OR 斯诺克 OR WCBA OR 女篮) (site:ppsports.com OR site:zhibo8.cc OR site:titan24.com OR site:hupu.com OR site:dongqiudi.com) when:1d",
+        "required_keywords": ["NBA", "欧冠", "英超", "意甲", "德甲", "中超", "亚冠", "WTT", "斯诺克", "WCBA", "女篮"],
+    },
     # ai
     {
         "topic": "ai",
@@ -356,7 +386,6 @@ def main() -> int:
 
     merged_items = merge_items(all_items)
     ranked_items = rank_items(merged_items, args.top)
-    # keep per-topic ranked output; do not globally truncate after ranking
 
     output_dir = Path(args.output_dir)
     sources_dir = Path(args.sources_dir)
@@ -385,9 +414,9 @@ def main() -> int:
 
     write_json(raw_path, raw_payload)
     write_json(ranked_json_path, ranked_payload)
-    write_text(ranked_md_path, build_markdown(ranked_items))
+    write_text(ranked_md_path, build_markdown(ranked_items, markdown_top=10))
     write_json(latest_json_path, ranked_payload)
-    write_text(latest_md_path, build_markdown(ranked_items))
+    write_text(latest_md_path, build_markdown(ranked_items, markdown_top=10))
 
     print(
         json.dumps(

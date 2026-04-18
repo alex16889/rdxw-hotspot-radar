@@ -1,10 +1,13 @@
 #!/usr/bin/env python3
 # Hotspot ranking pipeline for sports / ai / entertainment.
 
+from __future__ import annotations
+
 import argparse
 import json
 import re
 from collections import Counter, defaultdict
+from difflib import SequenceMatcher
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlparse
@@ -14,7 +17,6 @@ TOPIC_LABELS = {
     "ai": "AI科技热点",
     "entertainment": "泛娱乐热点",
 }
-
 TOPIC_ORDER = ["sports", "ai", "entertainment"]
 
 SPORTS_WORDS = [
@@ -32,14 +34,37 @@ ENT_WORDS = [
     "热搜", "定档", "上映", "回应争议", "娱乐",
 ]
 
+SPORTS_HIGH_VALUE_SOURCES = ["懂球帝", "直播吧", "体坛周报", "虎扑", "ESPN", "Sky Sports", "The Athletic", "Reuters", "AP"]
+SPORTS_LOW_VALUE_PATTERNS = ["集锦", "录像", "回放", "直播安排", "赛程表", "节目表"]
+AI_HIGH_VALUE_SOURCES = ["OpenAI Blog", "Google Blog", "Anthropic", "The Verge", "TechCrunch", "量子位", "机器之心", "36氪", "新智元"]
+AI_LOW_VALUE_SOURCES = ["新浪财经", "手机新浪网", "搜狐"]
+AI_LOW_VALUE_PATTERNS = [
+    "Claude Design",
+    "Figma",
+    "Adobe",
+    "设计行业",
+    "Claude Opus 4.7",
+    "跑分",
+    "提示词曝光",
+    "GPT-Rosalind",
+    "药物研发",
+]
+ENT_LOW_VALUE_PATTERNS = ["明星回应", "热搜第一", "终于", "炸了", "塌了", "全网热议", "太敢说"]
+
+SOURCE_SUFFIX_RE = re.compile(r"(?:\s*[-—|｜]\s*[^-—|｜]{2,24})+$")
+SPACE_RE = re.compile(r"\s+")
+NON_WORD_RE = re.compile(r"[^\w\u4e00-\u9fff]+", re.UNICODE)
+
+
 def parse_args():
     ap = argparse.ArgumentParser()
     ap.add_argument("--input", required=True)
     ap.add_argument("--output-json", required=False)
     ap.add_argument("--output-markdown", required=False)
-    ap.add_argument("--top", type=int, default=10)
+    ap.add_argument("--top", type=int, default=20)
     ap.add_argument("--reference-time", required=False)
     return ap.parse_args()
+
 
 def load_json(path):
     p = Path(path)
@@ -52,12 +77,14 @@ def load_json(path):
                 return data[key]
     return []
 
+
 def pick(item, *names, default=""):
     for n in names:
         v = item.get(n)
         if v:
             return str(v)
     return default
+
 
 def normalize_item(item):
     title = pick(item, "title", "headline", "name")
@@ -78,13 +105,16 @@ def normalize_item(item):
         "raw": item,
     }
 
+
 def contains_any(text, words):
     lower = text.lower()
     return any(w.lower() in lower for w in words)
 
+
 def infer_topic(item):
-    if item.get("topic") in TOPIC_LABELS:
-        return item["topic"]
+    topic = item.get("topic")
+    if topic in TOPIC_LABELS:
+        return topic
     text = " ".join([
         item.get("title", ""),
         item.get("source", ""),
@@ -97,6 +127,7 @@ def infer_topic(item):
     if contains_any(text, SPORTS_WORDS):
         return "sports"
     return "sports"
+
 
 def infer_sports_type(title):
     t = title.lower()
@@ -114,6 +145,7 @@ def infer_sports_type(title):
         return "sports_star"
     return "sports_low_value"
 
+
 def infer_ai_type(title):
     if contains_any(title, ["模型", "model", "推理", "参数", "Gemini", "Claude", "GPT"]):
         return "ai_model"
@@ -122,6 +154,7 @@ def infer_ai_type(title):
     if contains_any(title, ["监管", "安全", "争议", "诉讼", "版权"]):
         return "ai_controversy"
     return "ai_company"
+
 
 def infer_ent_type(title):
     if contains_any(title, ["争议", "回应", "道歉", "塌房", "舆论"]):
@@ -134,12 +167,14 @@ def infer_ent_type(title):
         return "entertainment_star"
     return "entertainment_hotsearch"
 
+
 def infer_topic_type(topic, title):
     if topic == "ai":
         return infer_ai_type(title)
     if topic == "entertainment":
         return infer_ent_type(title)
     return infer_sports_type(title)
+
 
 def summary_hint(topic, topic_type, title):
     if topic == "sports":
@@ -176,6 +211,24 @@ def summary_hint(topic, topic_type, title):
         return "热搜事件适合观察传播速度和讨论点。"
     return "热点可继续观察。"
 
+
+def clean_title_for_match(title):
+    s = title.lower()
+    s = SOURCE_SUFFIX_RE.sub("", s)
+    s = SPACE_RE.sub("", s)
+    s = re.sub(r"[\-—_|｜:：,，。.!！？?（）()【】\[\]<>《》'\"“”]+", "", s)
+    s = s.replace("手机新浪网", "").replace("新浪网", "").replace("央视体育", "")
+    return s
+
+
+def title_similarity(a, b):
+    a_norm = clean_title_for_match(a)
+    b_norm = clean_title_for_match(b)
+    if not a_norm or not b_norm:
+        return 0.0
+    return SequenceMatcher(None, a_norm, b_norm).ratio()
+
+
 def score_item(topic, topic_type, title, source):
     score = 3.0
     if topic == "sports":
@@ -200,16 +253,30 @@ def score_item(topic, topic_type, title, source):
         }
     score += boost.get(topic_type, 1.0)
 
-    trusted = ["央视", "新华", "人民网", "ESPN", "BBC", "Reuters", "AP", "OpenAI", "Google", "TechCrunch", "The Verge"]
-    low = ["手机新浪", "新浪网", "搜狐"]
+    if topic == "sports":
+        if contains_any(source, SPORTS_HIGH_VALUE_SOURCES):
+            score += 1.0
+        if contains_any(title, SPORTS_LOW_VALUE_PATTERNS):
+            score -= 1.2
+    elif topic == "ai":
+        if contains_any(source, AI_HIGH_VALUE_SOURCES):
+            score += 1.2
+        if contains_any(source, AI_LOW_VALUE_SOURCES):
+            score -= 0.8
+        if contains_any(title, AI_LOW_VALUE_PATTERNS):
+            score -= 1.2
+    else:
+        if contains_any(title, ENT_LOW_VALUE_PATTERNS):
+            score -= 1.2
+
+    trusted = ["央视", "新华", "人民网", "ESPN", "BBC", "Reuters", "AP"]
     if contains_any(source, trusted):
-        score += 1.0
-    if contains_any(source, low):
-        score -= 0.3
+        score += 0.5
 
     if len(title) > 42:
         score -= 0.2
     return round(max(score, 0.1), 2)
+
 
 def domain(url):
     if not url:
@@ -219,26 +286,37 @@ def domain(url):
     except Exception:
         return url
 
+
 def normalize_title(title):
     s = re.sub(r"[^\w\u4e00-\u9fff]+", "", title.lower())
     for w in ["新浪网", "手机新浪网", "搜狐网", "央视体育"]:
         s = s.replace(w.lower(), "")
     return s[:80]
 
+
 def build_ranked(items, top):
     normalized = [normalize_item(x) for x in items]
     ranked = []
-    seen = set()
+    seen_by_topic = defaultdict(list)
 
     for item in normalized:
         if not item["title"]:
             continue
         topic = infer_topic(item)
         topic_type = infer_topic_type(topic, item["title"])
-        key = (topic, normalize_title(item["title"]))
-        if key in seen:
+
+        is_dup = False
+        dup_threshold = {"sports": 0.96, "ai": 0.88, "entertainment": 0.90}.get(topic, 0.90)
+        for prev in seen_by_topic[topic]:
+            if normalize_title(prev["title"]) == normalize_title(item["title"]):
+                is_dup = True
+                break
+            if title_similarity(prev["title"], item["title"]) >= dup_threshold:
+                is_dup = True
+                break
+        if is_dup:
             continue
-        seen.add(key)
+        seen_by_topic[topic].append(item)
 
         score = score_item(topic, topic_type, item["title"], item["source"])
         out = {
@@ -266,17 +344,28 @@ def build_ranked(items, top):
 
     final = []
     for topic in TOPIC_ORDER:
-        final.extend(grouped[topic][:top])
+        source_counts = Counter()
+        selected = []
+        for item in grouped[topic]:
+            source_name = item.get("source", "") or "未知来源"
+            if source_counts[source_name] >= 8:
+                continue
+            source_counts[source_name] += 1
+            selected.append(item)
+            if len(selected) >= top:
+                break
+        final.extend(selected[:top])
     return final
 
-def render_markdown(items):
+
+def render_markdown(items, markdown_top=10):
     lines = ["# 今日热点候选", ""]
     grouped = defaultdict(list)
     for item in items:
         grouped[item.get("topic", "sports")].append(item)
 
     for topic in TOPIC_ORDER:
-        arr = grouped.get(topic, [])
+        arr = grouped.get(topic, [])[:markdown_top]
         lines.append(f"## {TOPIC_LABELS[topic]}")
         lines.append("")
         if not arr:
@@ -297,6 +386,7 @@ def render_markdown(items):
             lines.append("")
     return "\n".join(lines)
 
+
 def main():
     args = parse_args()
     raw_items = load_json(args.input)
@@ -309,7 +399,7 @@ def main():
         Path(args.output_json).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
     if args.output_markdown:
         Path(args.output_markdown).parent.mkdir(parents=True, exist_ok=True)
-        Path(args.output_markdown).write_text(render_markdown(ranked), encoding="utf-8")
+        Path(args.output_markdown).write_text(render_markdown(ranked, markdown_top=10), encoding="utf-8")
 
     print(json.dumps({
         "ok": True,
@@ -319,26 +409,26 @@ def main():
         "output_markdown": args.output_markdown,
     }, ensure_ascii=False, indent=2))
 
-if __name__ == "__main__":
-    main()
 
-# Backward-compatible wrappers for run_daily_hotspots.py
-def rank_items(items, top=10, reference_time=None):
-    # 兼容旧 run_daily_hotspots.py:
-    # 旧调用是 rank_items(items, reference_time)
-    # 新调用是 rank_items(items, top=10)
+def rank_items(items, top=20, reference_time=None):
     if not isinstance(top, int):
-        reference_time = top
-        top = 10
+        top = 20
     return build_ranked(items, top)
 
-def build_markdown(items):
-    return render_markdown(items)
+
+def build_markdown(items, markdown_top=10):
+    return render_markdown(items, markdown_top=markdown_top)
+
 
 def write_json(path, payload):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(json.dumps(payload, ensure_ascii=False, indent=2), encoding="utf-8")
 
+
 def write_text(path, text):
     Path(path).parent.mkdir(parents=True, exist_ok=True)
     Path(path).write_text(text, encoding="utf-8")
+
+
+if __name__ == "__main__":
+    main()
