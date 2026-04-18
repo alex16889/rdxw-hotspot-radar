@@ -48,6 +48,7 @@ ENT_LOW_VALUE_PATTERNS = [
     "电影+消费", "消费市场", "市场活力", "经济图景", "集团战略", "产业发展", "多元体验", "新质赋能",
     "演唱会定档", "杏花节", "比亚迪", "充电", "续航", "km", "城市活动", "文旅活动", "消费节", "景区活动",
     "明星台企", "武术明星", "体育明星", "奥运冠军", "冠军家里", "明星大赛",
+    "携手", "品牌合作", "代言", "服饰", "启动仪式", "开幕式", "大赛开幕", "活动开幕", "战略合作", "商业合作", "新时代", "产业合作", "文旅", "景区", "消费节",
 ]
 ENT_HIGH_VALUE_PATTERNS = ["明星", "回应", "争议", "道歉", "塌房", "热搜", "票房破", "定档", "撤档", "开播", "爆了", "封神", "翻车"]
 ENT_TITLE_BONUS_PATTERNS = ["票房", "定档", "上映", "电影节", "撤档", "改档", "开播", "官宣阵容", "主演", "导演", "回应", "争议", "道歉", "塌房", "翻车"]
@@ -144,7 +145,7 @@ def infer_sports_type(title):
         return "sports_transfer"
     if re.search(r"\d+\s*[-:比]\s*\d+", title) or contains_any(title, ["晋级", "出局", "逆转", "爆冷", "大胜", "绝杀", "夺冠", "领跑", "淘汰", "冠军", "eliminate", "eliminates", "clinch", "clinches", "comeback win"]):
         return "sports_result"
-    if contains_any(title, ["lineups", "赛前", "名单", "抽签", "分档", "前瞻", "预测", "vs", "VS"]):
+    if contains_any(title, ["lineups", "赛前", "名单", "抽签", "分档", "前瞻", "预测", "vs", "VS", "天王山"]):
         return "sports_preview"
     if contains_any(title, ["梅西", "C罗", "Mbappe", "Ohtani", "球星"]):
         return "sports_star"
@@ -162,17 +163,14 @@ def infer_ai_type(title):
 
 
 def infer_ent_type(title):
-    # 先拦截明显误伤
     if contains_any(title, ENT_LOW_VALUE_PATTERNS):
         if "定档" in title and not contains_any(title, ["电影", "影片", "剧集", "电视剧", "综艺", "上映", "北影节"]):
             return "entertainment_low_value"
         return "entertainment_low_value"
 
-    # 争议优先级高于 star
     if ENT_CONTROVERSY_RE.search(title):
         return "entertainment_controversy"
 
-    # 电影类：不能只靠“定档”
     movie_signal = contains_any(title, ["电影", "影片", "院线", "票房", "主演", "导演", "北影节", "上映", "预告片", "撤档", "改档"])
     quoted_title = "《" in title and "》" in title
     if movie_signal and (quoted_title or contains_any(title, ["电影", "影片", "主演", "导演", "上映", "票房", "预告片", "院线", "北影节", "撤档", "改档"])):
@@ -181,7 +179,6 @@ def infer_ent_type(title):
     if contains_any(title, ["电视剧", "剧集", "开播"]):
         return "entertainment_tv"
 
-    # 明星类必须更严格：不能只靠“明星”二字
     star_context = contains_any(title, ["演员", "艺人", "歌手", "导演", "主持人", "爱豆", "偶像", "男演员", "女演员", "综艺", "电影", "电视剧"])
     bad_star_context = contains_any(title, ["明星台企", "武术明星", "体育明星", "奥运冠军", "冠军家里", "明星大赛"])
     if star_context and not bad_star_context:
@@ -209,8 +206,16 @@ def infer_topic_type(topic, title):
 def summary_hint(topic, topic_type, title):
     if topic == "sports":
         if topic_type == "sports_preview":
-            return "赛前看点更强，重点看首发、对位和临场变化。"
+            return "赛前对位明确，阵容、盘口和临场变化更值得关注。"
         if topic_type == "sports_result":
+            if contains_any(title, ["积分榜", "领跑", "前四", "排名"]):
+                return "排名变化是主要看点，后续争冠/争四/保级走势值得跟进。"
+            if contains_any(title, ["晋级", "淘汰", "出局", "四强"]):
+                return "晋级结果明确，下一轮对阵和淘汰赛走势是传播点。"
+            if contains_any(title, ["逆转", "绝平", "制胜", "救主"]):
+                return "比赛转折明显，关键球员和临场节点适合复盘。"
+            if contains_any(title, ["大胜", "轻取"]):
+                return "胜负差距拉开，强弱对比和状态延续是重点。"
             return "赛果和关键回合值得继续复盘。"
         if topic_type == "sports_injury":
             return "伤情不确定，重点看能否出战和替代方案。"
@@ -428,6 +433,13 @@ def build_ranked(items, top):
     return final
 
 
+def display_title(title, limit=60):
+    text = str(title or "")
+    if len(text) > limit:
+        return text[:limit] + "..."
+    return text
+
+
 def render_markdown(items, markdown_top=10):
     lines = ["# 今日热点候选", ""]
     grouped = defaultdict(list)
@@ -443,14 +455,16 @@ def render_markdown(items, markdown_top=10):
             lines.append("")
             continue
         for i, item in enumerate(arr, 1):
-            lines.append(f"### {i}. {item['title']}")
+            title = display_title(item['title'])
+            lines.append(f"### {i}. {title}")
             lines.append(f"- topic：{item['topic']}")
             lines.append(f"- topic_type：{item['topic_type']}")
             lines.append(f"- score：{item['score']}")
             lines.append(f"- 摘要：{item['summary_hint']}")
             lines.append("- 来源：")
             for src in item.get("sources", [])[:3]:
-                lines.append(f"  - {src.get('source','')}｜{src.get('title','')}")
+                src_title = display_title(src.get('title', ''))
+                lines.append(f"  - {src.get('source','')}｜{src_title}")
                 if src.get("domain"):
                     lines.append(f"    链接：{src.get('domain')}")
             lines.append("")
