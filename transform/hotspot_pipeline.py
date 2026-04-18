@@ -47,9 +47,12 @@ AI_LOW_VALUE_PATTERNS = ["Claude Design", "Figma", "Adobe", "设计行业", "Cla
 ENT_LOW_VALUE_PATTERNS = [
     "电影+消费", "消费市场", "市场活力", "经济图景", "集团战略", "产业发展", "多元体验", "新质赋能",
     "演唱会定档", "杏花节", "比亚迪", "充电", "续航", "km", "城市活动", "文旅活动", "消费节", "景区活动",
+    "明星台企", "武术明星", "体育明星", "奥运冠军", "冠军家里", "明星大赛",
 ]
 ENT_HIGH_VALUE_PATTERNS = ["明星", "回应", "争议", "道歉", "塌房", "热搜", "票房破", "定档", "撤档", "开播", "爆了", "封神", "翻车"]
 ENT_TITLE_BONUS_PATTERNS = ["票房", "定档", "上映", "电影节", "撤档", "改档", "开播", "官宣阵容", "主演", "导演", "回应", "争议", "道歉", "塌房", "翻车"]
+ENT_STAR_ALLOWED_RE = re.compile(r"(?:演员|艺人|歌手|导演|主持人|爱豆|偶像|男演员|女演员|明星本人姓名|综艺|电影|电视剧)")
+ENT_CONTROVERSY_RE = re.compile(r"(?:翻车|致歉|道歉|回应|终止合作|失责|开除|塌房|争议|被曝|封杀|下架)", re.IGNORECASE)
 
 TITLE_PARTY_PATTERNS = ["终于", "炸了", "塌了", "全网热议", "太敢说", "万万没想到", "惊呆", "杀疯了"]
 
@@ -159,15 +162,17 @@ def infer_ai_type(title):
 
 
 def infer_ent_type(title):
-    # 低质/误伤先拦截
+    # 先拦截明显误伤
     if contains_any(title, ENT_LOW_VALUE_PATTERNS):
-        # 如果是“定档”但不是电影/剧集/综艺/电影节，默认低价值
-        if "定档" in title and not contains_any(title, ["电影", "影片", "剧集", "电视剧", "综艺", "上映", "电影节"]):
+        if "定档" in title and not contains_any(title, ["电影", "影片", "剧集", "电视剧", "综艺", "上映", "北影节"]):
             return "entertainment_low_value"
-        # 演唱会/城市活动/文旅/车企发布等都直接低价值
         return "entertainment_low_value"
 
-    # 真正的电影类：不能只靠“定档”判断，必须有更明确电影信号
+    # 争议优先级高于 star
+    if ENT_CONTROVERSY_RE.search(title):
+        return "entertainment_controversy"
+
+    # 电影类：不能只靠“定档”
     movie_signal = contains_any(title, ["电影", "影片", "院线", "票房", "主演", "导演", "北影节", "上映", "预告片", "撤档", "改档"])
     quoted_title = "《" in title and "》" in title
     if movie_signal and (quoted_title or contains_any(title, ["电影", "影片", "主演", "导演", "上映", "票房", "预告片", "院线", "北影节", "撤档", "改档"])):
@@ -175,15 +180,21 @@ def infer_ent_type(title):
 
     if contains_any(title, ["电视剧", "剧集", "开播"]):
         return "entertainment_tv"
-    if contains_any(title, ["明星", "演员", "艺人"]):
+
+    # 明星类必须更严格：不能只靠“明星”二字
+    star_context = contains_any(title, ["演员", "艺人", "歌手", "导演", "主持人", "爱豆", "偶像", "男演员", "女演员", "综艺", "电影", "电视剧"])
+    bad_star_context = contains_any(title, ["明星台企", "武术明星", "体育明星", "奥运冠军", "冠军家里", "明星大赛"])
+    if star_context and not bad_star_context:
         return "entertainment_star"
-    if contains_any(title, ["回应", "争议", "道歉", "塌房", "翻车", "热搜"]):
-        return "entertainment_controversy"
+
     if "定档" in title:
-        # 不是明确电影/剧集/综艺的一律低价值
         if not contains_any(title, ["电影", "影片", "电视剧", "剧集", "综艺", "上映", "北影节"]):
             return "entertainment_low_value"
         return "entertainment_movie"
+
+    if contains_any(title, ["热搜", "回应", "争议", "道歉", "塌房", "翻车"]):
+        return "entertainment_controversy"
+
     return "entertainment_hotsearch"
 
 
@@ -294,12 +305,12 @@ def score_item(topic, topic_type, title, source):
         boost = {"ai_product": 3.3, "ai_model": 2.6, "ai_company": 1.6, "ai_controversy": 2.5}
     else:
         boost = {
-            "entertainment_controversy": 3.0,
+            "entertainment_controversy": 3.4,
             "entertainment_movie": 2.8,
             "entertainment_tv": 2.5,
-            "entertainment_star": 2.4,
+            "entertainment_star": 2.2,
             "entertainment_hotsearch": 2.0,
-            "entertainment_low_value": 0.3,
+            "entertainment_low_value": 0.2,
         }
     score += boost.get(topic_type, 1.0)
 
@@ -319,11 +330,11 @@ def score_item(topic, topic_type, title, source):
             score -= 1.0
     else:
         if contains_any(title, ENT_LOW_VALUE_PATTERNS):
-            score -= 2.5
+            score -= 2.8
         if contains_any(title, ENT_HIGH_VALUE_PATTERNS):
-            score += 1.2
-        if "定档" in title and topic_type == "entertainment_low_value":
-            score -= 2.0
+            score += 1.0
+        if topic_type == "entertainment_low_value":
+            score -= 2.2
 
     trusted = ["央视", "新华", "人民网", "ESPN", "BBC", "Reuters", "AP"]
     if contains_any(source, trusted):
