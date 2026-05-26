@@ -1,0 +1,60 @@
+.DS_Store
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+dist/
+OPEN_SOURCE_MANIFEST.json
+
+# local environment / secrets
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# generated outputs
+output/
+logs/
+hot/
+daily/
+weekly/
+topics/
+embed/
+sources/*_google_news_raw.json
+sources/*/google_news_raw.json
+sources/snapshots/
+sources/source_radar_cache/
+sources/llm_editorial_cache.json
+sources/translation_cache.json
+indexnow-key.txt
+
+# generated static site files at repo root
+/*.html
+/feed.xml
+/sitemap*.xml
+/sitemap.txt
+/robots.txt
+/llms.txt
+/ai-context.txt
+/search-console-priority-urls.txt
+/site.webmanifest
+/sw.js
+
+# private operator / deployment materials
+AGENTS.md
+distribution/
+deploy/*.conf
+deploy/*.service
+!deploy/*.example
+/run_hotspot_cron.sh
+/run_daily_hotspots_server.sh
+
+# local backups
+*.bak
+*.bak_*
+*.old
+*.old_*
+transform/*.bak*
+transform/*.old*

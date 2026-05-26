@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="RDXW 热点雷达">
+  <defs>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#eef3f9"/>
+    </linearGradient>
+    <linearGradient id="blue" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#4ea6ff"/>
+      <stop offset="100%" stop-color="#0071e3"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1080" cy="110" r="170" fill="#dcecff"/>
+  <circle cx="140" cy="560" r="210" fill="#eef4ff"/>
+  <rect x="72" y="72" width="1056" height="486" rx="42" fill="#ffffff" opacity="0.92" stroke="#e8edf3"/>
+  <circle cx="124" cy="128" r="14" fill="url(#blue)"/>
+  <text x="154" y="135" font-size="28" fill="#111114" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700">RDXW 热点雷达</text>
+  <text x="96" y="250" font-size="86" fill="#111114" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700">把更值得写的热点</text>
+  <text x="96" y="340" font-size="86" fill="#111114" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif" font-weight="700">留在前面</text>
+  <text x="96" y="430" font-size="34" fill="#6e6e73" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif">体育、电竞优先，也覆盖 AI、娱乐、平台热议与 GitHub</text>
+  <text x="96" y="486" font-size="30" fill="#6e6e73" font-family="Arial, PingFang SC, Microsoft YaHei, sans-serif">24小时 / 3天 / 7天 · 更适合自媒体和编辑的选题雷达</text>
+</svg>

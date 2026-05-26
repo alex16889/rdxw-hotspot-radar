@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "rules": [],
+  "examples": [
+    {
+      "name": "隐藏指定来源",
+      "match": {
+        "topic": "platform",
+        "source_contains": "某来源名"
+      },
+      "actions": {
+        "hide": true
+      }
+    },
+    {
+      "name": "手工置顶体育题",
+      "match": {
+        "topic": "sports",
+        "title_contains": "总决赛"
+      },
+      "actions": {
+        "pin_rank": 1,
+        "score_delta": 0.4,
+        "add_why_hot": [
+          "手工置顶"
+        ]
+      }
+    },
+    {
+      "name": "改标题和编辑注记",
+      "match": {
+        "topic": "ai",
+        "title_contains": "某个标题片段"
+      },
+      "actions": {
+        "title": "你想手改成的新标题",
+        "summary_hint": "你想手改的一句话摘要",
+        "editor_note": "你想给自己的编辑备注"
+      }
+    }
+  ]
+}

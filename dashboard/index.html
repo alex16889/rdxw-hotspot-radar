@@ -1,0 +1,1694 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>热点雷达 | 体育、电竞、AI 热点</title>
+  <meta name="description" content="热点雷达聚合体育、电竞、AI、娱乐、平台热议与 GitHub 热点，支持 24 小时、3 天、7 天窗口查看。" />
+  <meta name="robots" content="index,follow,max-image-preview:large" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="热点雷达" />
+  <link rel="icon" href="../og-preview.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="../og-preview.svg" />
+  <link rel="manifest" href="../site.webmanifest" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="热点雷达" />
+  <meta property="og:description" content="多频道热点聚合，覆盖体育、电竞、AI、娱乐、平台热议与 GitHub 项目。" />
+  <meta property="og:image" content="../og-preview.svg" />
+  <meta property="og:site_name" content="热点雷达" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="热点雷达" />
+  <meta name="twitter:description" content="按时间窗口查看多频道热点。" />
+  <meta name="twitter:image" content="../og-preview.svg" />
+  <style>
+    :root {
+      --bg: #f4f5f7;
+      --bg-soft: #fafbfc;
+      --panel: rgba(255,255,255,.74);
+      --panel-strong: rgba(255,255,255,.9);
+      --line: rgba(15,23,42,.08);
+      --line-strong: rgba(15,23,42,.14);
+      --text: #111114;
+      --muted: #6e6e73;
+      --blue: #0071e3;
+      --blue-soft: rgba(0,113,227,.12);
+      --sports: #0a84ff;
+      --esports: #12a886;
+      --ai: #635bff;
+      --ent: #ff6a3d;
+      --platform: #111827;
+      --github: #34a853;
+      --shadow: 0 24px 80px rgba(15,23,42,.08);
+      --shadow-soft: 0 14px 42px rgba(15,23,42,.06);
+      --radius-xl: 38px;
+      --radius-lg: 28px;
+      --radius-md: 20px;
+      --radius-pill: 999px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(10,132,255,.14), transparent 26%),
+        radial-gradient(circle at top right, rgba(99,91,255,.10), transparent 22%),
+        linear-gradient(180deg, #ffffff 0%, var(--bg) 36%, #edf1f5 100%);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "PingFang SC", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input { font: inherit; }
+
+    .shell {
+      width: min(1440px, calc(100vw - 28px));
+      margin: 0 auto;
+      padding: 18px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 0 8px 18px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.84);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .brand-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #61b2ff, #0071e3);
+      box-shadow: 0 0 0 8px rgba(0,113,227,.08);
+    }
+
+    .brand-name {
+      margin: 0;
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: -.01em;
+    }
+
+    .brand-sub {
+      margin: 2px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .top-links {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .top-link,
+    .load-meta {
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.66);
+      border: 1px solid rgba(255,255,255,.8);
+      box-shadow: var(--shadow-soft);
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(320px, .95fr);
+      gap: 18px;
+      padding: 30px 36px;
+      border-radius: 34px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.94), rgba(248,249,251,.82)),
+        rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 32px 100px rgba(15,23,42,.12);
+    }
+
+    .hero::before,
+    .hero::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero::before {
+      top: -140px;
+      right: -70px;
+      width: 380px;
+      height: 380px;
+      background: radial-gradient(circle, rgba(10,132,255,.16), rgba(10,132,255,0));
+    }
+
+    .hero::after {
+      bottom: -160px;
+      left: -50px;
+      width: 420px;
+      height: 420px;
+      background: radial-gradient(circle, rgba(99,91,255,.1), rgba(99,91,255,0));
+    }
+
+    .hero-copy,
+    .hero-side {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      margin: 0 0 16px;
+      color: rgba(17,17,20,.52);
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      max-width: 10ch;
+      margin: 0;
+      font-size: clamp(38px, 4.8vw, 64px);
+      line-height: .96;
+      letter-spacing: -.05em;
+      font-weight: 700;
+    }
+
+    .hero-side {
+      display: grid;
+      gap: 14px;
+      align-content: end;
+    }
+
+    .panel {
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      backdrop-filter: blur(22px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.88);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .panel.emphasis {
+      background:
+        linear-gradient(135deg, rgba(0,113,227,.12), rgba(255,255,255,.76)),
+        rgba(255,255,255,.9);
+    }
+
+    .panel-label {
+      margin: 0;
+      color: rgba(17,17,20,.52);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .panel-value {
+      margin: 14px 0 8px;
+      font-size: clamp(28px, 3.2vw, 42px);
+      line-height: 1;
+      letter-spacing: -.05em;
+      font-weight: 700;
+    }
+
+    .panel-caption {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .control-stage {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      margin-top: -28px;
+      padding: 0 18px;
+    }
+
+    .control {
+      padding: 18px;
+      border-radius: 32px;
+      background: rgba(255,255,255,.76);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 18px 46px rgba(15,23,42,.1);
+    }
+
+    .control-top {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .segment {
+      display: inline-flex;
+      gap: 6px;
+      padding: 6px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(15,23,42,.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .segment::-webkit-scrollbar { display: none; }
+
+    .segment button {
+      border: 0;
+      background: transparent;
+      padding: 11px 16px;
+      border-radius: var(--radius-pill);
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background .22s ease, color .22s ease, transform .22s ease;
+    }
+
+    .segment button.active {
+      color: var(--text);
+      background: #fff;
+      box-shadow: 0 10px 24px rgba(15,23,42,.08);
+      transform: translateY(-1px);
+    }
+
+    .search-shell {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: min(100%, 340px);
+      padding: 0 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.86);
+      border: 1px solid rgba(15,23,42,.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+    }
+
+    .search-shell svg {
+      width: 18px;
+      height: 18px;
+      color: rgba(17,17,20,.42);
+      flex: 0 0 auto;
+    }
+
+    .search {
+      width: 100%;
+      padding: 14px 0;
+      border: 0;
+      background: transparent;
+      color: var(--text);
+      outline: none;
+    }
+
+    .story {
+      margin-top: 32px;
+      padding: 0 8px;
+    }
+
+    .story-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 16px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .story-title {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 54px);
+      line-height: 1.04;
+      letter-spacing: -.04em;
+    }
+
+    .story-meta,
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.88);
+      box-shadow: var(--shadow-soft);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .status {
+      margin-top: 14px;
+    }
+
+    .status::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #4cd964;
+      box-shadow: 0 0 0 6px rgba(76,217,100,.12);
+    }
+
+    .status.error {
+      color: #b42318;
+      background: rgba(255,255,255,.78);
+      border-color: rgba(180,35,24,.12);
+    }
+
+    .status.error::before {
+      background: #ff3b30;
+      box-shadow: 0 0 0 6px rgba(255,59,48,.12);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      min-height: 330px;
+      padding: 24px;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 18px 46px rgba(15,23,42,.08);
+      transition: transform .24s ease, box-shadow .24s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 24px 60px rgba(15,23,42,.12);
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 24px;
+      right: 24px;
+      height: 3px;
+      border-radius: 999px;
+      background: rgba(15,23,42,.08);
+    }
+
+    .card.sports::after { background: linear-gradient(90deg, var(--sports), rgba(10,132,255,.12)); }
+    .card.esports::after { background: linear-gradient(90deg, var(--esports), rgba(18,168,134,.12)); }
+    .card.ai::after { background: linear-gradient(90deg, var(--ai), rgba(99,91,255,.12)); }
+    .card.entertainment::after { background: linear-gradient(90deg, var(--ent), rgba(255,106,61,.12)); }
+    .card.platform::after { background: linear-gradient(90deg, var(--platform), rgba(17,24,39,.12)); }
+    .card.github::after { background: linear-gradient(90deg, var(--github), rgba(52,168,83,.12)); }
+
+    .card-top,
+    .card-body,
+    .card-actions {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .card-rank,
+    .card-score {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 58px;
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.84);
+      border: 1px solid rgba(15,23,42,.06);
+      font-weight: 700;
+      font-size: 13px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+    }
+
+    .card-score {
+      color: #005bb8;
+      background: rgba(0,113,227,.08);
+    }
+
+    .card-title,
+    .repo {
+      margin: 18px 0 0;
+      font-size: clamp(24px, 2vw, 31px);
+      line-height: 1.14;
+      letter-spacing: -.03em;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .card-body {
+      margin-top: 18px;
+      display: grid;
+      gap: 12px;
+      flex: 1;
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(15,23,42,.06);
+      color: rgba(17,17,20,.68);
+      font-size: 12px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+    }
+
+    .field {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .field .label {
+      display: inline-block;
+      min-width: 60px;
+      color: rgba(17,17,20,.5);
+    }
+
+    .hint { color: var(--text); }
+
+    .card-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      border: 1px solid rgba(15,23,42,.08);
+      background: rgba(255,255,255,.86);
+      color: var(--text);
+      cursor: pointer;
+      box-shadow: 0 10px 26px rgba(15,23,42,.06);
+    }
+
+    .btn.link {
+      background: linear-gradient(180deg, #0a84ff, #0071e3);
+      border-color: transparent;
+      color: #fff;
+      box-shadow: 0 14px 30px rgba(0,113,227,.22);
+    }
+
+    .empty {
+      padding: 40px 24px;
+      border-radius: var(--radius-xl);
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(255,255,255,.86);
+      box-shadow: var(--shadow-soft);
+      color: var(--muted);
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      margin-top: 36px;
+      padding: 0 8px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: inline-flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a {
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.68);
+      border: 1px solid rgba(255,255,255,.82);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .floating-ad {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      z-index: 80;
+      width: 132px;
+      animation: adFloat 5.8s ease-in-out infinite;
+      filter: drop-shadow(0 16px 34px rgba(15,23,42,.18));
+    }
+
+    .floating-ad.is-hidden {
+      display: none;
+    }
+
+    .floating-ad-link {
+      position: relative;
+      display: grid;
+      min-height: 78px;
+      padding: 12px;
+      border-radius: 22px;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,.34), transparent 26%),
+        linear-gradient(145deg, #ff7a18 0%, #ff3b30 54%, #a600ff 100%);
+      border: 1px solid rgba(255,255,255,.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.28);
+    }
+
+    .floating-ad-link::after {
+      content: "";
+      position: absolute;
+      inset: auto -18px -26px auto;
+      width: 86px;
+      height: 86px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.18);
+    }
+
+    .floating-ad-tag,
+    .floating-ad-title {
+      position: relative;
+      z-index: 1;
+    }
+
+    .floating-ad-tag {
+      width: fit-content;
+      padding: 3px 7px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      font-size: 11px;
+      line-height: 1;
+    }
+
+    .floating-ad-title {
+      align-self: end;
+      font-size: 28px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.05em;
+    }
+
+    .floating-ad-close {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      z-index: 2;
+      width: 24px;
+      height: 24px;
+      border: 0;
+      border-radius: 50%;
+      cursor: pointer;
+      color: rgba(17,17,20,.72);
+      background: rgba(255,255,255,.9);
+      box-shadow: 0 8px 18px rgba(15,23,42,.16);
+    }
+
+    .desktop-sponsor {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 18px 8px 0;
+      padding: 16px 18px;
+      border-radius: 26px;
+      color: #fff;
+      background:
+        radial-gradient(circle at 8% 0%, rgba(255,255,255,.36), transparent 24%),
+        linear-gradient(120deg, #ff7a18 0%, #ff3b30 48%, #a600ff 100%);
+      border: 1px solid rgba(255,255,255,.48);
+      box-shadow: 0 18px 46px rgba(255,59,48,.16);
+    }
+
+    .desktop-sponsor-copy {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .desktop-sponsor-badge {
+      flex: 0 0 auto;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.2);
+      font-size: 12px;
+    }
+
+    .desktop-sponsor-title {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -.04em;
+    }
+
+    .desktop-sponsor-link {
+      flex: 0 0 auto;
+      padding: 10px 15px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.92);
+      color: #111114;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 10px 24px rgba(15,23,42,.12);
+    }
+
+    .source-radar {
+      margin: 24px 8px 0;
+      padding: 24px;
+      border-radius: 34px;
+      background:
+        radial-gradient(circle at 6% 0%, rgba(0,113,227,.09), transparent 28%),
+        rgba(255,255,255,.76);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.9);
+      box-shadow: 0 18px 54px rgba(15,23,42,.08);
+    }
+
+    .source-radar-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .source-radar-title {
+      margin: 0;
+      font-size: clamp(26px, 3vw, 42px);
+      line-height: 1.02;
+      letter-spacing: -.04em;
+    }
+
+    .source-radar-copy {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .source-radar-meta {
+      flex: 0 0 auto;
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(15,23,42,.06);
+      color: var(--muted);
+      font-size: 13px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+    }
+
+    .source-toolbar {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 10px;
+    }
+
+    .source-filter {
+      display: inline-flex;
+      gap: 6px;
+      padding: 5px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(15,23,42,.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+    }
+
+    .source-filter button,
+    .source-focus-btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: var(--radius-pill);
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .source-filter button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .source-filter button.active {
+      color: var(--text);
+      background: #fff;
+      box-shadow: 0 8px 18px rgba(15,23,42,.08);
+    }
+
+    .source-focus-btn {
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      background: rgba(255,255,255,.72);
+      border: 1px solid rgba(15,23,42,.06);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.86);
+      font-size: 16px;
+    }
+
+    .source-focus-btn.active {
+      color: #ff9f0a;
+      background: rgba(255,159,10,.12);
+    }
+
+    .source-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .source-card {
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 392px;
+      padding: 18px;
+      border-radius: 26px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(255,255,255,.92);
+      box-shadow: 0 12px 34px rgba(15,23,42,.06);
+    }
+
+    .source-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 3px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--source-color, var(--blue)), rgba(0,113,227,.12));
+    }
+
+    .source-card.sports::before { background: linear-gradient(90deg, var(--sports), rgba(10,132,255,.12)); }
+    .source-card.esports::before { background: linear-gradient(90deg, var(--esports), rgba(18,168,134,.12)); }
+    .source-card.ai::before { background: linear-gradient(90deg, var(--ai), rgba(99,91,255,.12)); }
+    .source-card.entertainment::before { background: linear-gradient(90deg, var(--ent), rgba(255,106,61,.12)); }
+    .source-card.platform::before { background: linear-gradient(90deg, var(--platform), rgba(17,24,39,.12)); }
+    .source-card.github::before { background: linear-gradient(90deg, var(--github), rgba(52,168,83,.12)); }
+
+    .source-card-top {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .source-name {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.2;
+      letter-spacing: -.02em;
+      font-weight: 700;
+    }
+
+    .source-sub {
+      margin: 4px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .source-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .source-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(17,17,20,.05);
+      color: rgba(17,17,20,.56);
+      font-size: 11px;
+    }
+
+    .source-status::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #8e8e93;
+    }
+
+    .source-status.success::before,
+    .source-status.cache::before {
+      background: #34c759;
+    }
+
+    .source-status.error::before {
+      background: #ff3b30;
+    }
+
+    .source-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0 6px 0 0;
+      list-style: none;
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overscroll-behavior: contain;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(17,17,20,.22) transparent;
+    }
+
+    .source-list::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    .source-list::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .source-list::-webkit-scrollbar-thumb {
+      background: rgba(17,17,20,.18);
+      border-radius: 999px;
+    }
+
+    .source-list a {
+      display: grid;
+      grid-template-columns: 24px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      color: var(--text);
+    }
+
+    .source-rank {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: rgba(17,17,20,.06);
+      color: rgba(17,17,20,.56);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .source-item-title {
+      display: block;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .source-item-hot {
+      display: block;
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .source-scroll-hint {
+      margin-top: 10px;
+      padding-top: 10px;
+      border-top: 1px solid rgba(15,23,42,.06);
+      color: rgba(17,17,20,.46);
+      font-size: 11px;
+    }
+
+    .source-empty {
+      grid-column: 1 / -1;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    @keyframes adFloat {
+      0%, 100% { transform: translate3d(0, 0, 0) rotate(-1deg); }
+      50% { transform: translate3d(0, -10px, 0) rotate(1.5deg); }
+    }
+
+    @media (max-width: 1180px) {
+      .hero { grid-template-columns: 1fr; }
+      .control-top { grid-template-columns: 1fr; }
+      .story-head { grid-template-columns: 1fr; }
+      .source-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      .shell { width: min(100vw - 20px, 1440px); }
+      .hero { padding: 28px 24px; border-radius: 34px; }
+      .panel-grid,
+      .grid { grid-template-columns: 1fr; }
+      .control-stage { padding: 0 10px; }
+      .card { min-height: auto; }
+      .desktop-sponsor { display: none; }
+      .source-radar-head { display: block; }
+      .source-toolbar { align-items: flex-start; margin-top: 12px; }
+    }
+
+    @media (max-width: 640px) {
+      .shell { width: min(100vw - 16px, 1440px); padding-top: 12px; }
+      .topbar { flex-direction: column; align-items: stretch; padding: 0 0 14px; }
+      .top-links { justify-content: flex-start; }
+      .hero-title { max-width: none; }
+      .card-actions { flex-direction: column; }
+      .btn { width: 100%; }
+      .source-radar { padding: 18px; border-radius: 28px; }
+      .source-grid { grid-template-columns: 1fr; }
+      .source-card { height: 420px; }
+      .floating-ad {
+        width: 138px;
+        right: max(10px, env(safe-area-inset-right));
+        bottom: max(12px, env(safe-area-inset-bottom));
+      }
+      .floating-ad-link { min-height: 66px; border-radius: 18px; padding: 10px; }
+      .floating-ad-title { font-size: 21px; letter-spacing: -.06em; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-dot" aria-hidden="true"></span>
+        <div>
+          <p class="brand-name">热点雷达</p>
+          <p class="brand-sub">多频道热点聚合</p>
+        </div>
+      </div>
+      <div class="top-links">
+        <span class="load-meta" id="loadMeta">等待加载数据…</span>
+        <a class="top-link" href="../topics/index.html">专题</a>
+        <a class="top-link" href="../feedback.html">反馈</a>
+        <a class="top-link" href="../about.html">关于</a>
+        <a class="top-link" href="../contact.html">联系</a>
+        <a class="top-link" href="../privacy.html">隐私</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow" id="heroEyebrow">热点雷达</p>
+        <h1 class="hero-title" id="heroTitle">体育热点</h1>
+      </div>
+      <div class="hero-side">
+        <article class="panel emphasis">
+          <p class="panel-label">当前窗口</p>
+          <div class="panel-value" id="heroWindowValue">7天</div>
+          <p class="panel-caption" id="heroTopicValue">体育热点</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="control-stage">
+      <section class="control">
+        <div class="control-top">
+          <div class="segment" id="topicTabs">
+            <button class="topic-tab active" data-topic="sports">体育</button>
+            <button class="topic-tab" data-topic="esports">电竞</button>
+            <button class="topic-tab" data-topic="ai">AI</button>
+            <button class="topic-tab" data-topic="entertainment">娱乐</button>
+            <button class="topic-tab" data-topic="platform">平台热议</button>
+            <button class="topic-tab" data-topic="github">GitHub</button>
+          </div>
+          <div class="segment" id="windowTabs">
+            <button class="window-tab" data-window="1d">24小时</button>
+            <button class="window-tab" data-window="3d">3天</button>
+            <button class="window-tab active" data-window="7d">7天</button>
+          </div>
+          <label class="search-shell" aria-label="搜索热点">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M10.5 18a7.5 7.5 0 1 1 5.52-2.42L21 20.56l-1.44 1.44-4.98-4.98A7.47 7.47 0 0 1 10.5 18Zm0-2a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11Z" fill="currentColor"/>
+            </svg>
+            <input id="search" class="search" type="search" placeholder="搜索标题、来源、标签、项目名…" />
+          </label>
+        </div>
+      </section>
+    </div>
+
+    <aside class="desktop-sponsor" aria-label="合作推广" data-nosnippet>
+      <div class="desktop-sponsor-copy">
+        <span class="desktop-sponsor-badge">合作推广</span>
+        <p class="desktop-sponsor-title">世界杯直播观看，体育电竞福利，注册即送100</p>
+      </div>
+      <a class="desktop-sponsor-link" href="https://80818.my/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-track="sponsor-desktop">立即查看</a>
+    </aside>
+
+    <section class="source-radar" aria-labelledby="sourceRadarTitle">
+      <div class="source-radar-head">
+        <div>
+          <p class="eyebrow">来源雷达</p>
+          <h2 class="source-radar-title" id="sourceRadarTitle">全站来源雷达</h2>
+          <p class="source-radar-copy">这里展示微博、抖音、B站、虎扑、知乎、百度热搜、IT之家、36氪、GitHub、Product Hunt、豆瓣和腾讯视频的全站热榜，不随上方频道切换；点击上方频道标签后会自动滑到下方对应频道热点列表。</p>
+        </div>
+        <div class="source-toolbar">
+          <div class="source-radar-meta" id="sourceRadarMeta">正在加载来源…</div>
+          <div class="source-filter" id="sourceFilter" aria-label="来源筛选">
+            <button type="button" class="source-filter-tab active" data-source-filter="all">全部来源</button>
+            <button type="button" class="source-filter-tab" data-source-filter="focus">关注源</button>
+          </div>
+        </div>
+      </div>
+      <div class="source-grid" id="sourceCards"></div>
+    </section>
+
+    <section class="story" id="storySection" tabindex="-1">
+      <div class="story-head">
+        <div>
+          <p class="eyebrow">当前频道热点</p>
+          <h2 class="story-title" id="sectionTitle">体育热点</h2>
+          <div class="status" id="status">正在连接热点数据…</div>
+        </div>
+        <div class="story-meta" id="sectionMeta">7天窗口 · 0 条</div>
+      </div>
+      <div class="grid" id="cards"></div>
+    </section>
+
+    <footer class="footer">
+      <div>热点雷达</div>
+      <div class="footer-links">
+        <a href="../about.html">关于</a>
+        <a href="../feedback.html">反馈</a>
+        <a href="../privacy.html">隐私</a>
+        <a href="../terms.html">条款</a>
+        <a href="../contact.html">联系</a>
+      </div>
+    </footer>
+  </div>
+
+  <aside class="floating-ad" id="floatingAd" aria-label="广告" data-nosnippet>
+    <button class="floating-ad-close" type="button" aria-label="关闭广告">×</button>
+    <a class="floating-ad-link" href="https://80818.my/" target="_blank" rel="nofollow sponsored noopener noreferrer">
+      <span class="floating-ad-tag">广告</span>
+      <span class="floating-ad-title">世界杯直播观看</span>
+    </a>
+  </aside>
+
+  <script>
+    const MANIFEST_URL = "../output/latest_hotspots_manifest.json";
+    const SOURCE_RADAR_URL = "../output/source_radar.json";
+    const topicDataCache = {};
+    let manifest = null;
+    let sourceRadar = null;
+    let activeTopic = "sports";
+    let activeWindow = "7d";
+    let activeSourceFilter = "all";
+    let activeItems = [];
+    const SOURCE_FOCUS_KEY = "rdxw_focus_sources";
+
+    const TOPIC_META = {
+      sports: {
+        label: "体育热点",
+        heroTitle: "体育热点"
+      },
+      esports: {
+        label: "电竞热点",
+        heroTitle: "电竞热点"
+      },
+      ai: {
+        label: "AI 科技热点",
+        heroTitle: "AI 科技热点"
+      },
+      entertainment: {
+        label: "泛娱乐热点",
+        heroTitle: "泛娱乐热点"
+      },
+      platform: {
+        label: "平台热议",
+        heroTitle: "平台热议"
+      },
+      github: {
+        label: "GitHub 热门项目",
+        heroTitle: "GitHub 热门项目"
+      }
+    };
+
+    const TOPIC_TYPE_ZH = {
+      sports_preview: "赛前热点",
+      sports_result: "赛果热点",
+      sports_injury: "伤病热点",
+      sports_transfer: "转会热点",
+      sports_controversy: "争议热点",
+      sports_star: "球星/人物",
+      sports_low_value: "其他",
+      esports_preview: "赛前热点",
+      esports_result: "赛果热点",
+      esports_business: "商业/联赛",
+      esports_controversy: "争议",
+      esports_star: "明星选手",
+      esports_hotsearch: "热搜话题",
+      esports_low_value: "其他",
+      ai_product: "AI产品/工具",
+      ai_model: "AI模型",
+      ai_controversy: "AI争议",
+      ai_company: "AI公司动态",
+      ai_low_value: "其他",
+      entertainment_movie: "电影热点",
+      entertainment_tv: "剧集/综艺",
+      entertainment_star: "明星动态",
+      entertainment_controversy: "娱乐争议",
+      entertainment_hotsearch: "热搜话题",
+      entertainment_low_value: "其他",
+      x_post: "平台帖子",
+      x_thread: "平台长帖",
+      x_official: "官方动态",
+      x_reaction: "观点热议",
+      x_low_value: "其他",
+      youtube_video: "平台视频",
+      youtube_live: "平台直播",
+      youtube_short: "短视频",
+      youtube_interview: "访谈/解读",
+      youtube_trailer: "预告/片段",
+      youtube_low_value: "其他",
+      github_ai: "AI项目",
+      github_devtool: "开发工具",
+      github_automation: "自动化项目",
+      github_app: "应用项目",
+      github_other: "其他项目"
+    };
+
+    const el = (selector) => document.querySelector(selector);
+    const esc = (value) => String(value ?? "").replace(/[&<>"']/g, (m) => ({
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      "\"": "&quot;",
+      "'": "&#39;"
+    }[m]));
+
+    const clip = (value, n = 120) => {
+      const text = String(value ?? "").trim();
+      return text.length > n ? text.slice(0, n) + "..." : text;
+    };
+
+    const arrayText = (value) => Array.isArray(value) ? value.join("、") : String(value ?? "");
+    const typeLabel = (topicType) => TOPIC_TYPE_ZH[topicType] || topicType || "";
+    const clipDate = (value) => String(value ?? "").replace("T", " ").slice(0, 16);
+    const statusLabel = (value) => ({
+      success: "成功",
+      cache: "缓存",
+      error: "失败"
+    }[String(value || "").toLowerCase()] || String(value || "未知"));
+
+    function defaultFocusedSourceIds() {
+      const sources = Array.isArray(sourceRadar?.sources) ? sourceRadar.sources : [];
+      return sources.filter((source) => source.focus_default).map((source) => String(source.id));
+    }
+
+    function focusedSourceIds() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(SOURCE_FOCUS_KEY) || "[]");
+        if (Array.isArray(saved) && saved.length) return saved.map(String);
+      } catch (_) {}
+      return defaultFocusedSourceIds();
+    }
+
+    function setFocusedSourceIds(ids) {
+      localStorage.setItem(SOURCE_FOCUS_KEY, JSON.stringify(Array.from(new Set(ids.map(String)))));
+    }
+
+    function sourceIsFocused(id) {
+      return focusedSourceIds().includes(String(id));
+    }
+
+    function toggleFocusedSource(id) {
+      const current = focusedSourceIds();
+      const key = String(id);
+      const next = current.includes(key) ? current.filter((value) => value !== key) : [...current, key];
+      setFocusedSourceIds(next);
+      renderSourceRadar();
+    }
+
+    function windowInfo(windowKey) {
+      return manifest?.windows?.[windowKey] || null;
+    }
+
+    function topicCount(windowKey, topic) {
+      const counts = windowInfo(windowKey)?.topic_counts || {};
+      return Number(counts[topic] || 0);
+    }
+
+    function totalCount(windowKey) {
+      const counts = windowInfo(windowKey)?.topic_counts || {};
+      return Object.values(counts).reduce((sum, value) => sum + Number(value || 0), 0);
+    }
+
+    function displayScore(item) {
+      const value = item.window_score ?? item.total_score ?? item.score;
+      return value === undefined || value === null || value === "" ? "--" : Number(value).toFixed(2);
+    }
+
+    function noteText(item) {
+      return item.summary || item.recommend_reason || item.summary_hint || item.editor_note || "";
+    }
+
+    function sourceDomain(item) {
+      if (item.source_domain) return item.source_domain;
+      const rows = Array.isArray(item.sources) ? item.sources : [];
+      const row = rows.find((entry) => entry?.domain);
+      return row?.domain || "";
+    }
+
+    async function loadSourceRadar() {
+      const meta = el("#sourceRadarMeta");
+      const cards = el("#sourceCards");
+      if (!meta || !cards) return;
+      try {
+        const res = await fetch(SOURCE_RADAR_URL, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        sourceRadar = await res.json();
+        renderSourceRadar();
+      } catch (error) {
+        console.warn("source radar unavailable", error);
+        meta.textContent = "来源暂不可用";
+        cards.innerHTML = '<div class="source-empty">多源热榜暂时没有加载成功，不影响下方热点列表。</div>';
+      }
+    }
+
+    function renderSourceRadar() {
+      const meta = el("#sourceRadarMeta");
+      const cards = el("#sourceCards");
+      if (!meta || !cards) return;
+      const sources = Array.isArray(sourceRadar?.sources) ? sourceRadar.sources : [];
+      const focused = focusedSourceIds();
+      let available = sources.filter((source) => Array.isArray(source.items) && source.items.length);
+      if (activeSourceFilter === "focus") {
+        available = available.filter((source) => focused.includes(String(source.id)));
+      }
+      const generatedAt = sourceRadar?.generated_at ? clipDate(sourceRadar.generated_at) : "未知时间";
+      document.querySelectorAll(".source-filter-tab").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.sourceFilter === activeSourceFilter);
+      });
+      meta.textContent = available.length
+        ? `${available.length}/${sources.length || available.length} 个来源 · ${generatedAt}${sourceRadar?.stale ? " · 快照" : ""}`
+        : "暂无来源数据";
+
+      if (!available.length) {
+        cards.innerHTML = '<div class="source-empty">来源榜单暂时为空，主热点列表仍可正常使用。</div>';
+        return;
+      }
+
+      cards.innerHTML = available.map((source) => {
+        const sourceItems = (source.items || []).slice(0, 20);
+        const total = Number(source.item_count || sourceItems.length || 0);
+        const focused = sourceIsFocused(source.id);
+        const status = String(source.status || "unknown").toLowerCase();
+        const statusClass = status === "success" || status === "cache" ? status : "error";
+        const items = sourceItems.map((item) => {
+          const title = clip(item.title, 56);
+          const hot = item.hot_value || item.summary || "";
+          const href = item.url || "#";
+          return `
+            <li>
+              <a href="${esc(href)}" target="_blank" rel="noreferrer" data-track-source="${esc(source.id)}">
+                <span class="source-rank">${esc(item.rank || "")}</span>
+                <span>
+                  <span class="source-item-title">${esc(title)}</span>
+                  ${hot ? `<span class="source-item-hot">${esc(clip(hot, 38))}</span>` : ""}
+                </span>
+              </a>
+            </li>
+          `;
+        }).join("");
+        return `
+          <article class="source-card ${esc(source.topic || "")}" style="--source-color:${esc(source.color || "")}">
+            <div class="source-card-top">
+              <div>
+                <h3 class="source-name">${esc(source.label || source.id || "")}</h3>
+                <p class="source-sub">${esc(source.title || source.group || "")} · ${esc(source.updated_at ? clipDate(source.updated_at) : "未标记时间")} · ${esc(sourceItems.length)}/${esc(total)}条</p>
+                <div class="source-card-meta">
+                  <span class="source-status ${esc(statusClass)}">${esc(statusLabel(status))}</span>
+                  ${source.interval ? `<span class="source-status">${esc(source.interval)}</span>` : ""}
+                  ${source.quality_tier ? `<span class="source-status">${esc(source.quality_tier)}</span>` : ""}
+                </div>
+              </div>
+              <button class="source-focus-btn ${focused ? "active" : ""}" type="button" data-source-focus="${esc(source.id || "")}" aria-label="关注 ${esc(source.label || source.id || "")}">${focused ? "★" : "☆"}</button>
+            </div>
+            <ul class="source-list">${items}</ul>
+            ${sourceItems.length > 6 ? '<div class="source-scroll-hint">向下滚动查看更多</div>' : ""}
+          </article>
+        `;
+      }).join("");
+
+      cards.querySelectorAll("[data-track-source]").forEach((link) => {
+        link.addEventListener("click", () => {
+          trackEvent("source_link_open", { source: link.dataset.trackSource || "" });
+        });
+      });
+      cards.querySelectorAll("[data-source-focus]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          toggleFocusedSource(btn.dataset.sourceFocus || "");
+          trackEvent("source_focus_toggle", { source: btn.dataset.sourceFocus || "" });
+        });
+      });
+    }
+
+    function trackEvent(action, params = {}) {
+      try {
+        if (window.LA && typeof window.LA.track === "function") {
+          window.LA.track(action, params);
+        }
+      } catch (_) {}
+    }
+
+    function setStatus(message, isError = false) {
+      const node = el("#status");
+      node.textContent = message;
+      node.classList.toggle("error", !!isError);
+    }
+
+    function copyText(text) {
+      navigator.clipboard.writeText(text).then(() => {
+        const old = el("#loadMeta").textContent;
+        el("#loadMeta").textContent = "已复制";
+        setTimeout(() => {
+          el("#loadMeta").textContent = old;
+        }, 1200);
+      }).catch(() => {
+        window.alert("复制失败");
+      });
+    }
+
+    function syncHero() {
+      const meta = TOPIC_META[activeTopic] || TOPIC_META.sports;
+      const win = manifest?.windows?.[activeWindow];
+      const label = win?.label || "7天";
+      const currentCount = topicCount(activeWindow, activeTopic);
+
+      el("#heroEyebrow").textContent = `热点雷达 · ${label}`;
+      el("#heroTitle").textContent = meta.heroTitle;
+      el("#heroWindowValue").textContent = label;
+      el("#heroTopicValue").textContent = meta.label;
+      el("#sectionTitle").textContent = meta.label;
+      el("#sectionMeta").textContent = `${label}窗口 · ${currentCount} 条`;
+    }
+
+    function scrollToStory() {
+      const story = el("#storySection");
+      if (!story) return;
+      requestAnimationFrame(() => {
+        story.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    }
+
+    function filteredItems() {
+      const q = el("#search").value.trim().toLowerCase();
+      if (!q) return activeItems;
+      return activeItems.filter((item) => {
+        const fields = [
+          item.title,
+          item.original_title,
+          item.source,
+          item.summary,
+          item.original_summary,
+          item.editorial_summary,
+          item.summary_hint,
+          item.editor_note,
+          item.topic_type,
+          item.source_signal,
+          item.repo,
+          item.platform_label,
+          item.platform_source,
+          arrayText(item.storyline_tags),
+          arrayText(item.keyword_hits),
+          arrayText(item.entity_tags),
+          arrayText(item.content_angles),
+          arrayText(item.discussion_focus),
+          arrayText(item.why_hot)
+        ].filter(Boolean).join(" ").toLowerCase();
+        return fields.includes(q);
+      });
+    }
+
+    function buildStandardCard(item, idx) {
+      const sourceName = item.topic === "platform" ? "平台来源" : (item.source || "");
+      const domain = sourceDomain(item);
+      return `
+        <div class="card-top">
+          <span class="card-rank">#${idx + 1}</span>
+          <span class="card-score">${esc(displayScore(item))}</span>
+        </div>
+        <h3 class="card-title">${esc(item.title || "")}</h3>
+        <div class="card-body">
+          <div class="pill-row">
+            <span class="pill">${esc(typeLabel(item.topic_type))}</span>
+            ${sourceName ? `<span class="pill">${esc(sourceName)}</span>` : ""}
+            ${domain ? `<span class="pill">${esc(domain)}</span>` : ""}
+            ${item.source_count ? `<span class="pill">来源 ${esc(item.source_count)}</span>` : ""}
+            ${item.appearance_count ? `<span class="pill">出现 ${esc(item.appearance_count)} 次</span>` : ""}
+          </div>
+          <p class="field"><span class="label">概述</span><span class="hint">${esc(clip(noteText(item), 138))}</span></p>
+          ${item.editorial_summary ? `<p class="field"><span class="label">编辑</span><span class="hint">${esc(clip(item.editorial_summary, 138))}</span></p>` : ""}
+          ${item.original_title ? `<p class="field"><span class="label">原文</span><span class="hint">${esc(clip(item.original_title, 120))}</span></p>` : ""}
+          ${item.storyline_tags?.length ? `<p class="field"><span class="label">标签</span><span class="hint">${esc(arrayText(item.storyline_tags))}</span></p>` : ""}
+          ${item.why_hot?.length ? `<p class="field"><span class="label">上榜</span><span class="hint">${esc(clip(arrayText(item.why_hot), 126))}</span></p>` : ""}
+          ${item.last_seen_at ? `<p class="field"><span class="label">最近</span><span class="hint">${esc(clipDate(item.last_seen_at))}</span></p>` : ""}
+        </div>
+        <div class="card-actions">
+          ${item.detail_url ? `<a class="btn link" href="${esc(item.detail_url)}" target="_blank" rel="noreferrer" data-track="open-detail">详情</a>` : ""}
+          <a class="btn link" href="${esc(item.reference_url || item.url || "#")}" target="_blank" rel="noreferrer" data-track="open-link">打开链接</a>
+          <button class="btn copy" data-copy="title">复制标题</button>
+        </div>
+      `;
+    }
+
+    function buildGithubCard(item, idx) {
+      return `
+        <div class="card-top">
+          <span class="card-rank">#${idx + 1}</span>
+          <span class="card-score">${esc(displayScore(item))}</span>
+        </div>
+        <h3 class="repo">${esc(item.repo || item.title || "")}</h3>
+        <div class="card-body">
+          <div class="pill-row">
+            <span class="pill">${esc(typeLabel(item.topic_type))}</span>
+            <span class="pill">${esc(item.language || "未知")}</span>
+            <span class="pill">⭐ ${esc(item.stars ?? 0)}</span>
+            <span class="pill">Forks ${esc(item.forks ?? 0)}</span>
+          </div>
+          <p class="field"><span class="label">概述</span><span class="hint">${esc(clip(noteText(item), 136))}</span></p>
+          ${item.editorial_summary ? `<p class="field"><span class="label">编辑</span><span class="hint">${esc(clip(item.editorial_summary, 136))}</span></p>` : ""}
+          ${item.recommend_reason ? `<p class="field"><span class="label">推荐</span><span class="hint">${esc(clip(item.recommend_reason, 120))}</span></p>` : ""}
+          ${item.last_seen_at ? `<p class="field"><span class="label">最近</span><span class="hint">${esc(clipDate(item.last_seen_at))}</span></p>` : ""}
+        </div>
+        <div class="card-actions">
+          ${item.detail_url ? `<a class="btn link" href="${esc(item.detail_url)}" target="_blank" rel="noreferrer" data-track="open-detail">详情</a>` : ""}
+          <a class="btn link" href="${esc(item.reference_url || item.url || "#")}" target="_blank" rel="noreferrer" data-track="open-project">打开项目</a>
+          <button class="btn copy" data-copy="repo">复制 repo</button>
+        </div>
+      `;
+    }
+
+    function renderCards() {
+      const node = el("#cards");
+      const items = filteredItems();
+      node.innerHTML = "";
+
+      if (!items.length) {
+        node.innerHTML = '<div class="empty">当前筛选下没有匹配结果，换个关键词或时间窗口再看。</div>';
+        syncHero();
+        return;
+      }
+
+      items.forEach((item, idx) => {
+        const card = document.createElement("article");
+        card.className = `card ${item.topic || activeTopic}`;
+        card.innerHTML = activeTopic === "github" ? buildGithubCard(item, idx) : buildStandardCard(item, idx);
+
+        const titleCopy = card.querySelector('[data-copy="title"]');
+        if (titleCopy) {
+          titleCopy.addEventListener("click", () => {
+            trackEvent("copy_title", { topic: activeTopic, window: activeWindow });
+            copyText(item.title || "");
+          });
+        }
+
+        const repoCopy = card.querySelector('[data-copy="repo"]');
+        if (repoCopy) {
+          repoCopy.addEventListener("click", () => {
+            trackEvent("copy_repo", { topic: activeTopic, window: activeWindow });
+            copyText(item.repo || "");
+          });
+        }
+
+        card.querySelectorAll("[data-track]").forEach((openLink) => {
+          openLink.addEventListener("click", () => {
+            trackEvent(openLink.dataset.track, { topic: activeTopic, window: activeWindow });
+          });
+        });
+
+        node.appendChild(card);
+      });
+      syncHero();
+    }
+
+    async function loadTopicData(windowKey, topic) {
+      const cacheKey = `${windowKey}:${topic}`;
+      if (topicDataCache[cacheKey]) {
+        return topicDataCache[cacheKey];
+      }
+      const relPath = manifest?.windows?.[windowKey]?.files?.[topic];
+      if (!relPath) {
+        return [];
+      }
+      const res = await fetch(`../output/${relPath}`, { cache: "no-store" });
+      if (!res.ok) {
+        throw new Error(`HTTP ${res.status}`);
+      }
+      const payload = await res.json();
+      const items = Array.isArray(payload.items) ? payload.items : [];
+      topicDataCache[cacheKey] = items;
+      return items;
+    }
+
+    async function refreshView({ scrollToResults = false } = {}) {
+      syncHero();
+      document.querySelectorAll(".topic-tab").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.topic === activeTopic);
+      });
+      document.querySelectorAll(".window-tab").forEach((btn) => {
+        btn.classList.toggle("active", btn.dataset.window === activeWindow);
+      });
+      try {
+        activeItems = await loadTopicData(activeWindow, activeTopic);
+        const generatedAt = manifest?.generated_at ? clipDate(manifest.generated_at) : "未知时间";
+        setStatus(`已加载 ${activeItems.length} 条数据，生成于 ${generatedAt}`);
+        el("#loadMeta").textContent = `已连接数据 · ${generatedAt}`;
+        renderCards();
+        renderSourceRadar();
+        if (scrollToResults) scrollToStory();
+      } catch (error) {
+        console.error(error);
+        setStatus("数据加载失败，请稍后重试。", true);
+        el("#loadMeta").textContent = "加载失败";
+      }
+    }
+
+    async function bootstrap() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const query = params.get("q");
+        if (query) el("#search").value = query;
+        const res = await fetch(MANIFEST_URL, { cache: "no-store" });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        manifest = await res.json();
+        if (!manifest?.windows?.[activeWindow]) {
+          activeWindow = manifest?.default_window || Object.keys(manifest?.windows || {})[0] || "7d";
+        }
+        if (!manifest?.windows?.[activeWindow]?.files?.[activeTopic]) {
+          activeTopic = manifest?.default_topic || "sports";
+        }
+        await Promise.allSettled([loadSourceRadar(), refreshView()]);
+      } catch (error) {
+        console.error(error);
+        setStatus("热点数据还没准备好，请先运行采集脚本。", true);
+        el("#loadMeta").textContent = "加载失败";
+      }
+    }
+
+    document.querySelectorAll(".topic-tab").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        activeTopic = btn.dataset.topic;
+        trackEvent("switch_topic", { topic: activeTopic, window: activeWindow });
+        await refreshView({ scrollToResults: true });
+      });
+    });
+
+    document.querySelectorAll(".window-tab").forEach((btn) => {
+      btn.addEventListener("click", async () => {
+        activeWindow = btn.dataset.window;
+        trackEvent("switch_window", { topic: activeTopic, window: activeWindow });
+        await refreshView({ scrollToResults: true });
+      });
+    });
+
+    document.querySelectorAll(".source-filter-tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        activeSourceFilter = btn.dataset.sourceFilter || "all";
+        trackEvent("switch_source_filter", { filter: activeSourceFilter });
+        renderSourceRadar();
+      });
+    });
+
+    el("#search").addEventListener("input", renderCards);
+    el("#search").addEventListener("change", () => {
+      const q = el("#search").value.trim();
+      if (q) trackEvent("search", { topic: activeTopic, window: activeWindow, length: q.length });
+    });
+    document.querySelector('[data-track="sponsor-desktop"]')?.addEventListener("click", () => {
+      trackEvent("sponsor_desktop_click", { target: "80818.my" });
+    });
+    bootstrap();
+
+    const floatingAd = el("#floatingAd");
+    if (floatingAd) {
+      const adCloseKey = "rdxw_ad_closed_until";
+      const adClosedUntil = Number(localStorage.getItem(adCloseKey) || 0);
+      if (adClosedUntil > Date.now()) floatingAd.classList.add("is-hidden");
+      floatingAd.querySelector(".floating-ad-close")?.addEventListener("click", () => {
+        localStorage.setItem(adCloseKey, String(Date.now() + 12 * 60 * 60 * 1000));
+        floatingAd.classList.add("is-hidden");
+        trackEvent("ad_close", { target: "80818.my" });
+      });
+      floatingAd.querySelector(".floating-ad-link")?.addEventListener("click", () => {
+        trackEvent("ad_click", { target: "80818.my" });
+      });
+    }
+  </script>
+  <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
+  <script>LA.init({id:"L6V4CYa27UR83MWj",ck:"L6V4CYa27UR83MWj"})</script>
+</body>
+</html>
