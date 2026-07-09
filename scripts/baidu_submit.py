@@ -15,6 +15,7 @@ import os
 import time
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.error import HTTPError
 from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 from xml.etree import ElementTree as ET
@@ -147,14 +148,19 @@ def submit_baidu(endpoint: str, site: str, token: str, urls: list[str], timeout:
         headers={"Content-Type": "text/plain", "User-Agent": "RDXW-BaiduSubmit/1.0"},
         method="POST",
     )
-    with urlopen(request, timeout=timeout) as response:
-        raw = response.read().decode("utf-8", "ignore")
-        try:
-            payload = json.loads(raw)
-        except Exception:
-            payload = {"raw": raw}
-        payload["http_status"] = int(response.status)
-        return payload
+    try:
+        with urlopen(request, timeout=timeout) as response:
+            raw = response.read().decode("utf-8", "ignore")
+            status = int(response.status)
+    except HTTPError as exc:
+        raw = exc.read().decode("utf-8", "ignore")
+        status = int(exc.code)
+    try:
+        payload = json.loads(raw)
+    except Exception:
+        payload = {"raw": raw}
+    payload["http_status"] = status
+    return payload
 
 
 def main() -> int:
@@ -175,8 +181,19 @@ def main() -> int:
         print(json.dumps({"dry_run": True, "candidate_count": len(candidates), "urls": candidates}, ensure_ascii=False, indent=2))
         return 0
     if not args.token:
-        save_json(state_path, {"updated_at": datetime.now(timezone.utc).isoformat(), "urls": current, "last_result": "skip_missing_token"})
-        print("skip: missing BAIDU_PUSH_TOKEN")
+        save_json(
+            state_path,
+            {
+                "updated_at": datetime.now(timezone.utc).isoformat(),
+                "site": args.site,
+                "urls": current,
+                "candidate_count": len(candidates),
+                "candidate_urls": candidates,
+                "last_result": "skip_missing_token",
+                "setup_hint": "Configure BAIDU_PUSH_TOKEN or HOTSPOT_BAIDU_PUSH_TOKEN in your private runtime environment after Baidu Search Resource Platform verification.",
+            },
+        )
+        print(json.dumps({"skip": "missing BAIDU_PUSH_TOKEN", "candidate_count": len(candidates), "urls": candidates}, ensure_ascii=False))
         return 0
     if not candidates:
         save_json(state_path, {"updated_at": datetime.now(timezone.utc).isoformat(), "urls": current, "last_result": "skip_no_candidates"})
@@ -190,6 +207,11 @@ def main() -> int:
         row["submitted_hash"] = row.get("seen_hash") or ""
         row["last_submitted_at"] = now
         row["last_status"] = result.get("http_status")
+    if success <= 0:
+        for url in candidates:
+            row = current.setdefault(url, {})
+            row["last_status"] = result.get("http_status")
+            row["last_error"] = result.get("message") or result.get("error") or result.get("raw") or "submit_failed"
     save_json(
         state_path,
         {

@@ -3,7 +3,10 @@ __pycache__/
 *.pyc
 .pytest_cache/
 .mypy_cache/
+.seo-cache/
 dist/
+audits/
+docs/superpowers/
 OPEN_SOURCE_MANIFEST.json
 
 # local environment / secrets
@@ -15,12 +18,15 @@ OPEN_SOURCE_MANIFEST.json
 *.crt
 
 # generated outputs
+assets/og/
 output/
 logs/
 hot/
 daily/
 weekly/
 topics/
+analysis/
+sports-profiles/
 embed/
 sources/*_google_news_raw.json
 sources/*/google_news_raw.json
@@ -41,6 +47,8 @@ indexnow-key.txt
 /search-console-priority-urls.txt
 /site.webmanifest
 /sw.js
+/health.json
+/og-preview.svg
 
 # private operator / deployment materials
 AGENTS.md

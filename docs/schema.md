@@ -30,8 +30,43 @@
 - `output/latest_hotspots_ranked.json`
 - `output/latest_hotspots_windows.json`
 - `output/latest_hotspots_manifest.json`
+- `output/heat-index.json`
+- `output/interpretation_candidates.json`
 - `output/topics/{window}_{topic}.json`
 - `output/source_radar.json`
+
+## Heat Index Payload
+
+`output/heat-index.json` 是 RDXW 的专有热度指数数据，用于 `/heat-index.html` 工具页和每日人工解读候选。它不代表搜索量、阅读量或官方热度，只代表 RDXW 根据本轮采集和窗口数据计算出的站内热点信号。
+
+```json
+{
+  "version": "heat-score-v1",
+  "generated_at": "2026-04-24T12:00:00+07:00",
+  "run_date": "2026-04-24",
+  "methodology": {
+    "base_score_weight": 0.42,
+    "velocity_score_weight": 0.25,
+    "source_diversity_score_weight": 0.2,
+    "freshness_score_weight": 0.13
+  },
+  "items": []
+}
+```
+
+热度项主要字段：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `heat_score` | number | 综合热度指数，0-100。 |
+| `base_score` | number | 来自主榜/窗口/编辑价值分的基础热度。 |
+| `velocity_score` | number | 根据突然升温、今日可跟、反复出现、12/24 小时信号计算的加速度。 |
+| `source_diversity_score` | number | 来源数量和来源域名多样性。 |
+| `freshness_score` | number | 最近发布时间或观察时间的新鲜度。 |
+| `recency_hours` | number/null | 距离最近观察时间的小时数。 |
+| `score_explain` | string[] | 面向页面展示的可解释分项。 |
+
+`output/interpretation_candidates.json` 从热度指数里挑每天 1-2 条人工深挖候选，默认 `noindex,follow`，只在人工补充时间线、跨源核对和 RDXW 热度轨迹后才建议发布为可索引解读页。
 
 ## Ranked Item
 

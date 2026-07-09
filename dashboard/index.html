@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>热点雷达 | 体育、电竞、AI 热点</title>
   <meta name="description" content="热点雷达聚合体育、电竞、AI、娱乐、平台热议与 GitHub 热点，支持 24 小时、3 天、7 天窗口查看。" />
+  <meta name="baidu-site-verification" content="codeva-0XIERiefgx" />
   <meta name="robots" content="index,follow,max-image-preview:large" />
   <meta name="theme-color" content="#f5f5f7" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -581,133 +582,6 @@
       box-shadow: var(--shadow-soft);
     }
 
-    .floating-ad {
-      position: fixed;
-      right: max(14px, env(safe-area-inset-right));
-      bottom: max(16px, env(safe-area-inset-bottom));
-      z-index: 80;
-      width: 132px;
-      animation: adFloat 5.8s ease-in-out infinite;
-      filter: drop-shadow(0 16px 34px rgba(15,23,42,.18));
-    }
-
-    .floating-ad.is-hidden {
-      display: none;
-    }
-
-    .floating-ad-link {
-      position: relative;
-      display: grid;
-      min-height: 78px;
-      padding: 12px;
-      border-radius: 22px;
-      overflow: hidden;
-      color: #fff;
-      background:
-        radial-gradient(circle at 20% 15%, rgba(255,255,255,.34), transparent 26%),
-        linear-gradient(145deg, #ff7a18 0%, #ff3b30 54%, #a600ff 100%);
-      border: 1px solid rgba(255,255,255,.45);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.28);
-    }
-
-    .floating-ad-link::after {
-      content: "";
-      position: absolute;
-      inset: auto -18px -26px auto;
-      width: 86px;
-      height: 86px;
-      border-radius: 50%;
-      background: rgba(255,255,255,.18);
-    }
-
-    .floating-ad-tag,
-    .floating-ad-title {
-      position: relative;
-      z-index: 1;
-    }
-
-    .floating-ad-tag {
-      width: fit-content;
-      padding: 3px 7px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.22);
-      font-size: 11px;
-      line-height: 1;
-    }
-
-    .floating-ad-title {
-      align-self: end;
-      font-size: 28px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -.05em;
-    }
-
-    .floating-ad-close {
-      position: absolute;
-      top: -7px;
-      right: -7px;
-      z-index: 2;
-      width: 24px;
-      height: 24px;
-      border: 0;
-      border-radius: 50%;
-      cursor: pointer;
-      color: rgba(17,17,20,.72);
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 8px 18px rgba(15,23,42,.16);
-    }
-
-    .desktop-sponsor {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin: 18px 8px 0;
-      padding: 16px 18px;
-      border-radius: 26px;
-      color: #fff;
-      background:
-        radial-gradient(circle at 8% 0%, rgba(255,255,255,.36), transparent 24%),
-        linear-gradient(120deg, #ff7a18 0%, #ff3b30 48%, #a600ff 100%);
-      border: 1px solid rgba(255,255,255,.48);
-      box-shadow: 0 18px 46px rgba(255,59,48,.16);
-    }
-
-    .desktop-sponsor-copy {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      min-width: 0;
-    }
-
-    .desktop-sponsor-badge {
-      flex: 0 0 auto;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.2);
-      font-size: 12px;
-    }
-
-    .desktop-sponsor-title {
-      margin: 0;
-      font-size: 24px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -.04em;
-    }
-
-    .desktop-sponsor-link {
-      flex: 0 0 auto;
-      padding: 10px 15px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.92);
-      color: #111114;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 10px 24px rgba(15,23,42,.12);
-    }
-
     .source-radar {
       margin: 24px 8px 0;
       padding: 24px;
@@ -994,7 +868,6 @@
       .grid { grid-template-columns: 1fr; }
       .control-stage { padding: 0 10px; }
       .card { min-height: auto; }
-      .desktop-sponsor { display: none; }
       .source-radar-head { display: block; }
       .source-toolbar { align-items: flex-start; margin-top: 12px; }
     }
@@ -1009,13 +882,6 @@
       .source-radar { padding: 18px; border-radius: 28px; }
       .source-grid { grid-template-columns: 1fr; }
       .source-card { height: 420px; }
-      .floating-ad {
-        width: 138px;
-        right: max(10px, env(safe-area-inset-right));
-        bottom: max(12px, env(safe-area-inset-bottom));
-      }
-      .floating-ad-link { min-height: 66px; border-radius: 18px; padding: 10px; }
-      .floating-ad-title { font-size: 21px; letter-spacing: -.06em; }
     }
   </style>
 </head>
@@ -1079,14 +945,6 @@
       </section>
     </div>
 
-    <aside class="desktop-sponsor" aria-label="合作推广" data-nosnippet>
-      <div class="desktop-sponsor-copy">
-        <span class="desktop-sponsor-badge">合作推广</span>
-        <p class="desktop-sponsor-title">世界杯直播观看，体育电竞福利，注册即送100</p>
-      </div>
-      <a class="desktop-sponsor-link" href="https://80818.my/" target="_blank" rel="nofollow sponsored noopener noreferrer" data-track="sponsor-desktop">立即查看</a>
-    </aside>
-
     <section class="source-radar" aria-labelledby="sourceRadarTitle">
       <div class="source-radar-head">
         <div>
@@ -1128,14 +986,6 @@
       </div>
     </footer>
   </div>
-
-  <aside class="floating-ad" id="floatingAd" aria-label="广告" data-nosnippet>
-    <button class="floating-ad-close" type="button" aria-label="关闭广告">×</button>
-    <a class="floating-ad-link" href="https://80818.my/" target="_blank" rel="nofollow sponsored noopener noreferrer">
-      <span class="floating-ad-tag">广告</span>
-      <span class="floating-ad-title">世界杯直播观看</span>
-    </a>
-  </aside>
 
   <script>
     const MANIFEST_URL = "../output/latest_hotspots_manifest.json";
@@ -1668,27 +1518,16 @@
       const q = el("#search").value.trim();
       if (q) trackEvent("search", { topic: activeTopic, window: activeWindow, length: q.length });
     });
-    document.querySelector('[data-track="sponsor-desktop"]')?.addEventListener("click", () => {
-      trackEvent("sponsor_desktop_click", { target: "80818.my" });
-    });
     bootstrap();
-
-    const floatingAd = el("#floatingAd");
-    if (floatingAd) {
-      const adCloseKey = "rdxw_ad_closed_until";
-      const adClosedUntil = Number(localStorage.getItem(adCloseKey) || 0);
-      if (adClosedUntil > Date.now()) floatingAd.classList.add("is-hidden");
-      floatingAd.querySelector(".floating-ad-close")?.addEventListener("click", () => {
-        localStorage.setItem(adCloseKey, String(Date.now() + 12 * 60 * 60 * 1000));
-        floatingAd.classList.add("is-hidden");
-        trackEvent("ad_close", { target: "80818.my" });
-      });
-      floatingAd.querySelector(".floating-ad-link")?.addEventListener("click", () => {
-        trackEvent("ad_click", { target: "80818.my" });
-      });
-    }
   </script>
   <script charset="UTF-8" id="LA_COLLECT" src="//sdk.51.la/js-sdk-pro.min.js"></script>
   <script>LA.init({id:"L6V4CYa27UR83MWj",ck:"L6V4CYa27UR83MWj"})</script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-EXHHJ7PVXT"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag("js", new Date());
+    gtag("config", "G-EXHHJ7PVXT");
+  </script>
 </body>
 </html>

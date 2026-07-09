@@ -64,7 +64,7 @@ SPORTS_RESULT_EXPLICIT = ["战报", "已晋级", "已淘汰", "出局", "赛后"
 SPORTS_RESULT_STRICT = ["晋级", "淘汰", "出局", "大胜", "轻取", "逆转", "绝平", "制胜", "破门", "领跑", "锁定", "战报"]
 SPORTS_COMMENTARY_LOW = ["此前三次", "历史第", "是否", "希望", "可能性", "观点", "认为", "专注于", "完美结局", "真正重创"]
 
-AI_HIGH_VALUE_SOURCES = ["OpenAI Blog", "Google Blog", "Anthropic", "The Verge", "TechCrunch", "量子位", "机器之心", "36氪", "新智元"]
+AI_HIGH_VALUE_SOURCES = ["OpenAI Blog", "Google Blog", "Anthropic", "The Verge", "TechCrunch", "Hacker News", "Techmeme", "量子位", "机器之心", "36氪", "新智元"]
 AI_LOW_VALUE_SOURCES = ["美通社", "财富号", "车家号", "新浪财经", "搜狐", "手机新浪网"]
 AI_HASH_LOW_RE = re.compile(r"^(?:#.*#){2,}.*$|^#")
 AI_PRODUCT_RE = re.compile(r"(?:工具|上线|发布|推出|开发工具|智能体|agent|零代码|应用|平台|产品|助手|插件|开源|框架|代码)", re.IGNORECASE)

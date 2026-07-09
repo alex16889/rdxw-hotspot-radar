@@ -29,6 +29,8 @@ GENERATED_PREFIXES = (
     "daily/",
     "weekly/",
     "topics/",
+    "analysis/",
+    "sports-profiles/",
     "embed/",
     "logs/",
     "distribution/",

@@ -1,8 +1,11 @@
 import json
+import sys
 import tempfile
 import unittest
+from io import BytesIO
 from pathlib import Path
 from unittest.mock import patch
+from urllib.error import HTTPError
 import importlib.util
 
 
@@ -78,6 +81,60 @@ class BaiduSubmitTests(unittest.TestCase):
         self.assertEqual(captured["url"], "http://data.zz.baidu.com/urls?site=rdxw.cc&token=test-token")
         self.assertEqual(captured["body"], "https://rdxw.cc/\nhttps://rdxw.cc/sports.html")
         self.assertEqual(captured["content_type"], "text/plain")
+
+    def test_submit_baidu_returns_baidu_error_payload(self):
+        def fake_urlopen(request, timeout):
+            raise HTTPError(
+                request.full_url,
+                400,
+                "Bad Request",
+                hdrs=None,
+                fp=BytesIO(b'{"error":400,"message":"over quota"}'),
+            )
+
+        with patch.object(baidu_submit, "urlopen", fake_urlopen):
+            result = baidu_submit.submit_baidu(
+                "http://data.zz.baidu.com/urls",
+                "rdxw.cc",
+                "test-token",
+                ["https://rdxw.cc/"],
+                1,
+            )
+
+        self.assertEqual(result["http_status"], 400)
+        self.assertEqual(result["message"], "over quota")
+
+    def test_missing_token_writes_candidates_and_setup_hint(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "index.html").write_text("home", encoding="utf-8")
+            (root / "sitemap.xml").write_text(
+                """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://rdxw.cc/</loc></url>
+</urlset>""",
+                encoding="utf-8",
+            )
+            state_path = root / "logs" / "baidu_submit_state.json"
+            argv = [
+                "baidu_submit.py",
+                "--site-root",
+                str(root),
+                "--sitemap",
+                "sitemap.xml",
+                "--state",
+                str(state_path),
+            ]
+            with patch.object(sys, "argv", argv), patch("builtins.print") as fake_print:
+                self.assertEqual(baidu_submit.main(), 0)
+
+            payload = json.loads(state_path.read_text(encoding="utf-8"))
+            self.assertEqual(payload["last_result"], "skip_missing_token")
+            self.assertEqual(payload["candidate_urls"], ["https://rdxw.cc/"])
+            self.assertIn("BAIDU_PUSH_TOKEN", payload["setup_hint"])
+            printed = json.loads(fake_print.call_args.args[0])
+            self.assertEqual(printed["skip"], "missing BAIDU_PUSH_TOKEN")
+            self.assertEqual(printed["candidate_count"], 1)
 
 
 if __name__ == "__main__":
