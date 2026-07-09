@@ -6,7 +6,7 @@ const DOMESTIC_SITE_FILTER =
 const HOTSPOT_CONFIG = {
   targetSheetName: '工作表1',
   topN: 20,
-  minScore: 5.0,
+  minScore: 5.8,
   dailyHour: 8,
   querySpecs: [
     {
@@ -234,7 +234,7 @@ const HOTSPOT_DOMESTIC_PRIORITY_ENTITIES = new Set([
   '周跃龙', '庞俊旭', '冉珂嘉', '王楚钦', '孙颖莎', '郑钦文', '张帅', '陈雨菲',
 ]);
 
-const HOTSPOT_BLOCKED_SOURCES = new Set(['facebook', '腾讯体育社区', '新浪网']);
+const HOTSPOT_BLOCKED_SOURCES = ['facebook', '腾讯体育社区', '新浪', '手机新浪'];
 const HOTSPOT_BLOCKED_TITLE_PATTERNS = [
   /^(NBA|CBA|WCBA|WTT|中超)$/i,
   /看NBA足球网球赛车NFL/,
@@ -255,6 +255,9 @@ const HOTSPOT_BLOCKED_TITLE_PATTERNS = [
   /比赛回顾/,
   /回放/,
   /录像/,
+  /官方网站/,
+  /官方平台/,
+  /官方入口/,
   /图集/,
   /门票/,
   /赔率/,
@@ -400,7 +403,10 @@ function shouldSkip_(title, sourceName) {
     return true;
   }
   const loweredSource = String(sourceName || '').trim().toLowerCase();
-  if (loweredSource && HOTSPOT_BLOCKED_SOURCES.has(loweredSource)) {
+  if (loweredSource && HOTSPOT_BLOCKED_SOURCES.some((pattern) => loweredSource.indexOf(pattern.toLowerCase()) >= 0)) {
+    return true;
+  }
+  if (String(title || '').toLowerCase().indexOf('_新浪新闻') >= 0) {
     return true;
   }
   return HOTSPOT_BLOCKED_TITLE_PATTERNS.some((pattern) => pattern.test(title));

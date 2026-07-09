@@ -1,103 +1,260 @@
 # Schema
 
-## Raw Input
+## Ranked Payload
 
-Each raw item is a single object.
+`run_daily_hotspots.py` 会输出：
 
-| Field | Type | Required | Notes |
-| --- | --- | --- | --- |
-| `title` | string | yes | Primary headline. |
-| `summary` | string | no | Short body or dek. |
-| `source` | string | no | Publisher or reporter name. |
-| `url` | string | no | Reference URL. |
-| `published_at` | string | no | ISO-8601 timestamp. |
-| `league` | string or array | no | Optional league hints. |
-| `entities` | array | no | Optional player, club, or competition names. |
-| `tags` | array | no | Extra source-side hints. |
+```json
+{
+  "date": "20260424",
+  "run_date": "2026-04-24",
+  "reference_time": "2026-04-24T13:51:14+07:00",
+  "items": [],
+  "topic_counts": {
+    "sports": 15,
+    "esports": 16,
+    "ai": 20,
+    "entertainment": 20,
+    "platform": 8,
+    "github": 20
+  },
+  "topic_labels": {
+    "sports": "体育热点",
+    "platform": "平台热议"
+  }
+}
+```
 
-## Enriched Output
+主要文件：
 
-The pipeline emits a sorted array of enriched hotspot objects.
+- `output/latest_hotspots_ranked.json`
+- `output/latest_hotspots_windows.json`
+- `output/latest_hotspots_manifest.json`
+- `output/heat-index.json`
+- `output/interpretation_candidates.json`
+- `output/topics/{window}_{topic}.json`
+- `output/source_radar.json`
 
-| Field | Type | Notes |
+## Heat Index Payload
+
+`output/heat-index.json` 是 RDXW 的专有热度指数数据，用于 `/heat-index.html` 工具页和每日人工解读候选。它不代表搜索量、阅读量或官方热度，只代表 RDXW 根据本轮采集和窗口数据计算出的站内热点信号。
+
+```json
+{
+  "version": "heat-score-v1",
+  "generated_at": "2026-04-24T12:00:00+07:00",
+  "run_date": "2026-04-24",
+  "methodology": {
+    "base_score_weight": 0.42,
+    "velocity_score_weight": 0.25,
+    "source_diversity_score_weight": 0.2,
+    "freshness_score_weight": 0.13
+  },
+  "items": []
+}
+```
+
+热度项主要字段：
+
+| 字段 | 类型 | 说明 |
 | --- | --- | --- |
-| `item_id` | string | Stable slug derived from the title. |
-| `title` | string | Original title. |
-| `summary` | string | Original summary. |
-| `source` | string | Original source name. |
-| `source_count` | number | Number of distinct sources attached to the item. |
-| `reference_url` | string or null | Normalized URL field. |
-| `published_at` | string or null | Original timestamp. |
-| `latest_published_at` | string or null | Latest known timestamp across all merged sources. |
-| `topic_type` | string | One of `sports_result`, `sports_preview`, `sports_star`, `sports_business`, `sports_low_value`. |
-| `storyline_tags` | array | Secondary story angles such as `transfer`, `injury`, `controversy`, `lineup`, `result`, `business`, `star`. |
-| `summary_hint` | string | Chinese one-line hook suitable for downstream copy generation. |
-| `keyword_hits` | array | Matched keywords contributing to the score. |
-| `league_tags` | array | Detected league or competition tags. |
-| `entity_tags` | array | Player, club, or country entities found in the text. |
-| `score_breakdown` | object | Transparent sub-scores. |
-| `total_score` | number | Sum of all score components. |
-| `why_hot` | array | Human-readable reasons for ranking. |
-| `raw` | object | Original input object for debugging and traceability. |
+| `heat_score` | number | 综合热度指数，0-100。 |
+| `base_score` | number | 来自主榜/窗口/编辑价值分的基础热度。 |
+| `velocity_score` | number | 根据突然升温、今日可跟、反复出现、12/24 小时信号计算的加速度。 |
+| `source_diversity_score` | number | 来源数量和来源域名多样性。 |
+| `freshness_score` | number | 最近发布时间或观察时间的新鲜度。 |
+| `recency_hours` | number/null | 距离最近观察时间的小时数。 |
+| `score_explain` | string[] | 面向页面展示的可解释分项。 |
+
+`output/interpretation_candidates.json` 从热度指数里挑每天 1-2 条人工深挖候选，默认 `noindex,follow`，只在人工补充时间线、跨源核对和 RDXW 热度轨迹后才建议发布为可索引解读页。
+
+## Ranked Item
+
+`items[]` 中每条记录的主要字段：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `title` | string | 对外展示标题。 |
+| `summary` | string | 清洗后的纯文本摘要。 |
+| `source` | string | 主来源。 |
+| `url` | string | 原始链接。 |
+| `reference_url` | string | 前端跳转使用的链接。 |
+| `topic` | string | `sports` / `esports` / `ai` / `entertainment` / `platform` / `github` |
+| `source_topic` | string | 原始来源话题，平台项会保留 `x` 或 `youtube`。 |
+| `topic_type` | string | 细分类型，例如 `sports_result`、`youtube_live`。 |
+| `topic_label` | string | 中文频道名。 |
+| `summary_hint` | string | 一句话摘要钩子。 |
+| `editor_note` | string | 面向编辑的简短备注。 |
+| `sources` | object[] | 多来源合并后的证据行。 |
+| `source_count` | number | 来源数。 |
+| `storyline_tags` | string[] | 中文标签，例如 `赛果`、`赛前`、`争议`。 |
+| `keyword_hits` | string[] | 命中的关键词标签。 |
+| `league_tags` | string[] | 联赛或赛事标签。 |
+| `entity_tags` | string[] | 队伍、球员、主体或仓库名。 |
+| `score_breakdown` | object | 透明子分数。 |
+| `total_score` | number | 最终总分。 |
+| `score` | number | 兼容别名。 |
+| `why_hot` | string[] | 中文上榜原因。 |
+| `editorial_value_score` | number | 规则二段筛选后的选题价值分。 |
+| `editorial_value_level` | string | `强选题` / `可跟进` / `观察` / `降噪`。 |
+| `editorial_value_reason` | string | 选题价值判断依据。 |
+| `publication_briefing` | object | 详情页和推送共用的结构化解读。 |
+| `published_at` | string | 发布时间。 |
+| `latest_published_at` | string | 多来源合并后的最新时间。 |
+| `pin_rank` | number | 手工置顶顺序，仅在命中编辑规则时出现。 |
+
+平台项额外字段：
+
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `platform_source` | string | `x` 或 `youtube` |
+| `platform_label` | string | `X` 或 `YouTube` |
+
+GitHub 项额外字段：
+
+- `repo`
+- `stars`
+- `forks`
+- `language`
+- `created_at`
+- `recommend_reason`
 
 ## Score Breakdown
 
 ```json
 {
-  "hotness_score": 8.6,
-  "topic_fit_score": 9.2,
-  "source_score": 6.0,
-  "keyword_score": 6.4,
-  "title_quality_score": 9.0
-}
+  "hotness_score": 8.9,
+  "topic_fit_score": 8.4,
+  "source_score": 7.3,
+  "keyword_score": 6.8,
+  "title_quality_score": 4.1
+	}
+	```
+
+`publication_briefing` 字段：
+
+| 字段 | 说明 |
+| --- | --- |
+| `what_happened` | 发生了什么。 |
+| `why_it_matters` | 为什么值得看。 |
+| `what_to_watch_next` | 后续看什么。 |
+| `controversy_point` | 争议点或评论区观察方向。 |
+
+总分计算：
+
+```text
+hotness_score * 0.35
++ topic_fit_score * 0.25
++ source_score * 0.20
++ keyword_score * 0.15
++ title_quality_score * 0.05
 ```
 
-## Example Output
+## Window Payload
+
+`latest_hotspots_windows.json` 是兼容保留的轻量窗口摘要文件；公开页不依赖它加载列表，列表数据以 `manifest + topics/{window}_{topic}.json` 为准：
 
 ```json
 {
-  "item_id": "warriors-eliminate-rockets-to-clinch-west-semifinal-spot",
-  "title": "Warriors eliminate Rockets to clinch West semifinal spot",
-  "summary": "Stephen Curry scored 38 and Golden State closed the series 4-2.",
-  "source": "ESPN",
-  "source_count": 1,
-  "reference_url": "https://example.com/warriors-rockets",
-  "published_at": "2026-04-18T16:30:00+07:00",
-  "latest_published_at": "2026-04-18T16:30:00+07:00",
-  "topic_type": "sports_result",
-  "storyline_tags": ["result", "star"],
-  "summary_hint": "Warriors赛果已定，适合强调关键节点和后续走势影响。",
-  "keyword_hits": ["eliminate", "clinch", "semifinal"],
-  "league_tags": ["nba"],
-  "entity_tags": ["warriors", "rockets", "stephen curry"],
-  "score_breakdown": {
-    "hotness_score": 8.58,
-    "topic_fit_score": 9.8,
-    "source_score": 5.9,
-    "keyword_score": 6.62,
-    "title_quality_score": 9.5
-  },
-  "total_score": 8.1,
-  "why_hot": [
-    "recent update within 2h",
-    "result-driven storyline",
-    "high-interest keywords: eliminate, clinch, semifinal",
-    "major entities: warriors, rockets, stephen curry",
-    "story signals: result, star",
-    "trusted source: ESPN"
-  ]
+  "generated_at": "2026-04-24T13:51:14+07:00",
+  "available_windows": [
+    {"key": "1d", "label": "24小时", "days": 1},
+    {"key": "3d", "label": "3天", "days": 3},
+    {"key": "7d", "label": "7天", "days": 7}
+  ],
+  "windows": {
+    "1d": {
+      "topic_counts": {},
+      "item_count": 0
+    }
+  }
 }
 ```
 
-## Intended Next Step
+窗口项会在 ranked item 基础上增加：
 
-The schema is designed so a future ingest layer can stay simple:
+| 字段 | 类型 | 说明 |
+| --- | --- | --- |
+| `window_days` | number | 窗口天数。 |
+| `appearance_count` | number | 在窗口内出现的次数。 |
+| `first_seen_at` | string | 第一次出现时间。 |
+| `last_seen_at` | string | 最近一次出现时间。 |
+| `history_dates` | string[] | 出现时间简表。 |
+| `window_score` | number | 窗口聚合分数。 |
 
-1. scrape or import raw items
-2. normalize into the raw input contract
-3. run the local enrichment pipeline
-4. feed the ranked output into a dashboard, export, or LLM summarizer
+## Manifest Payload
 
-## Current Design Choice
+公开页优先读取 `latest_hotspots_manifest.json`：
 
-`topic_type` stays stable and coarse so downstream ranking and UI buckets do not churn. More specific angles are pushed into `storyline_tags`.
+```json
+{
+  "generated_at": "2026-04-24T13:51:14+07:00",
+  "run_date": "2026-04-24",
+  "default_window": "7d",
+  "default_topic": "sports",
+  "available_windows": [],
+  "topics": [
+    {"key": "sports", "label": "体育热点"},
+    {"key": "platform", "label": "平台热议"}
+  ],
+  "windows": {
+    "7d": {
+      "label": "7天",
+      "days": 7,
+      "topic_counts": {
+        "sports": 20,
+        "platform": 18
+      },
+      "files": {
+        "sports": "topics/7d_sports.json",
+        "platform": "topics/7d_platform.json"
+      }
+    }
+  }
+}
+```
+
+页面根据这个 manifest 再按需读取对应频道文件，避免首屏直接拉完整窗口大 JSON。
+
+## Source Radar Payload
+
+`output/source_radar.json` 是首页“多源热榜”的旁路来源层，不参与主热点排序。每个来源最多保留 20 条，首页始终展示全部来源；频道分类只作用于下方热点列表。来源清单由 `config/source_radar_sources.json` 控制。
+
+```json
+{
+  "generated_at": "2026-05-05T16:41:31+07:00",
+  "provider": "https://newsnow.busiyi.world",
+  "source_count": 13,
+  "ok_count": 13,
+  "item_count": 255,
+  "topic_counts": {
+    "sports": 20,
+    "esports": 20,
+    "platform": 120
+  },
+  "sources": [
+    {
+      "id": "hupu",
+      "label": "虎扑",
+      "title": "主干道热帖",
+      "topic": "sports",
+	      "group": "体育",
+	      "column": "sports",
+	      "feed_type": "hottest",
+	      "interval": "10m",
+	      "quality_tier": "high",
+	      "focus_default": true,
+	      "updated_at": "2026-05-05T16:40:00+07:00",
+      "item_count": 30,
+      "items": [
+        {
+          "rank": 1,
+          "title": "示例标题",
+          "url": "https://example.com",
+          "hot_value": "热度信息"
+        }
+      ]
+    }
+  ]
+}
+```

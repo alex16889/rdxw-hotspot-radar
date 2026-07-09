@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Export sports-only context from latest_hotspots_ranked.json.
+"""Export sports context from the current ranked payload.
 
 Reads:
   output/latest_hotspots_ranked.json
@@ -10,10 +10,12 @@ Writes:
 from __future__ import annotations
 
 import json
+import os
 import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
+SITE_BASE_URL = os.environ.get("HOTSPOT_SITE_URL", "https://rdxw.cc").rstrip("/")
 INPUT_PATH = ROOT / "output" / "latest_hotspots_ranked.json"
 OUTPUT_PATH = ROOT / "output" / "latest_sports_context.json"
 
@@ -113,21 +115,33 @@ def build_item(item):
     editor_note = item.get("editor_note") or ""
     source = item.get("source") or ""
     url = item.get("url") or ""
+    original_url = item.get("reference_url") or url
+    detail_url = item.get("detail_url") or ""
+    if not detail_url and item.get("detail_path"):
+        detail_url = f"{SITE_BASE_URL}/{str(item.get('detail_path')).lstrip('/')}"
 
     out = {
         "title": title,
         "source": source,
-        "url": url,
+        "url": detail_url or original_url,
+        "detail_url": detail_url,
+        "original_url": original_url,
         "topic_type": topic_type,
-        "score": item.get("score"),
+        "score": item.get("total_score", item.get("score")),
+        "total_score": item.get("total_score", item.get("score")),
         "editor_note": editor_note,
         "wechat_use": make_wechat_use(topic_type, title),
         "betting_angle": make_betting_angle(title),
         "match_keywords": extract_match_keywords(title),
+        "summary_hint": item.get("summary_hint") or "",
+        "storyline_tags": item.get("storyline_tags") or [],
+        "source_count": item.get("source_count") or len(item.get("sources") or []),
+        "latest_published_at": item.get("latest_published_at") or item.get("published_at"),
+        "why_hot": item.get("why_hot") or [],
     }
 
     # Keep commonly useful fields if present, but do not depend on them.
-    for key in ("summary_hint", "topic", "repo", "stars", "forks", "language", "recommend_reason"):
+    for key in ("topic", "repo", "stars", "forks", "language", "recommend_reason"):
         if key in item:
             out[key] = item.get(key)
 
@@ -140,7 +154,11 @@ def main() -> int:
 
     items = load_ranked_items(INPUT_PATH)
     sports_items = [item for item in items if item.get("topic") == "sports"]
-    payload_items = [build_item(item) for item in sports_items]
+    payload_items = []
+    for idx, item in enumerate(sports_items, 1):
+        row = build_item(item)
+        row["rank"] = idx
+        payload_items.append(row)
 
     payload = {
         "ok": True,

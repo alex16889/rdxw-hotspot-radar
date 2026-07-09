@@ -1,0 +1,20 @@
+[Unit]
+Description=Hotspot feedback receiver
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/hotspot-radar
+EnvironmentFile=-/etc/hotspot-radar.env
+ExecStart=/usr/bin/python3 /var/www/hotspot-radar/scripts/feedback_server.py --host 127.0.0.1 --port 18088 --store /var/lib/hotspot-radar/feedback.jsonl
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ReadWritePaths=/var/lib/hotspot-radar
+
+[Install]
+WantedBy=multi-user.target

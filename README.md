@@ -1,148 +1,153 @@
-# Sports Hotspot Dashboard
+# RDXW Hotspot Radar
 
-Rule-based tooling for turning raw sports news items into a ranked hotspot list with:
+RDXW Hotspot Radar is a lightweight news and trend collection pipeline for
+publisher-style sites, creator topic discovery, and SEO/GEO experiments.
 
-- normalized metadata
-- stable `topic_type` classification
-- fine-grained `storyline_tags`
-- Chinese `summary_hint` generation
-- transparent 0-10 score breakdowns for hotness, topic fit, source strength, keywords, and title quality
+It fetches public trend/news sources, ranks and deduplicates topics, generates a
+static dashboard and landing pages, exports machine-readable JSON/RSS/sitemaps,
+and can optionally push a private daily digest to Telegram.
 
-The current project state was an empty scaffold. This version makes the folder runnable without external services so the schema and ranking rules can be iterated locally first.
+## What It Does
 
-## Project Layout
+- Collects sports, esports, AI, entertainment, platform-discussion, and GitHub signals.
+- Builds 24-hour, 3-day, and 7-day trend windows.
+- Merges duplicate stories and adds editorial ranking fields.
+- Generates static HTML, RSS, sitemap files, JSON feeds, and an embeddable widget.
+- Supports manual editorial overrides through JSON config.
+- Adds optional IndexNow and Baidu URL submission.
+- Provides an optional feedback receiver and daily digest sender.
+
+The project is designed to run without a database. Static files can be served by
+Nginx, Caddy, GitHub Pages, Cloudflare Pages, or any ordinary static host.
+
+## Repository Layout
 
 ```text
-sports-hotspot-dashboard/
+.
+├── config/
+│   ├── editorial_overrides.json
+│   └── source_radar_sources.json
+├── dashboard/
+│   └── index.html
 ├── docs/
 │   └── schema.md
-├── output/
-│   ├── sample_ranked.json
-│   └── sample_ranked.md
+├── scripts/
+│   ├── baidu_submit.py
+│   ├── feedback_server.py
+│   ├── hotspot_health_alert.py
+│   ├── indexnow_notify.py
+│   ├── open_source_audit.py
+│   └── send_hermes_daily_digest.py
 ├── sources/
 │   └── sample_items.json
-└── transform/
-    └── hotspot_pipeline.py
+├── tests/
+├── transform/
+│   └── hotspot_pipeline.py
+├── run_daily_hotspots.py
+├── export_wechat_context.py
+├── requirements.txt
+└── .env.example
 ```
 
-## Input Model
+Generated pages, caches, logs, and historical outputs are intentionally ignored
+by Git. See `OPEN_SOURCE_RELEASE.md` for the publish boundary.
 
-The pipeline accepts either:
-
-- a JSON array of objects
-- JSONL with one object per line
-
-Minimum useful fields:
-
-```json
-{
-  "title": "Warriors eliminate Rockets to clinch West semifinal spot",
-  "summary": "Stephen Curry scored 38 and Golden State closed the series 4-2.",
-  "source": "ESPN",
-  "url": "https://example.com/warriors-rockets",
-  "published_at": "2026-04-18T16:30:00+07:00"
-}
-```
-
-Optional inputs such as `league`, `entities`, or `tags` are preserved and used when ranking.
-
-## Output Model
-
-Each ranked item includes:
-
-- `topic_type`
-- `storyline_tags`
-- `summary_hint`
-- `keyword_hits`
-- `league_tags`
-- `entity_tags`
-- `source_count`
-- `latest_published_at`
-- `score_breakdown`
-- `total_score`
-- `why_hot`
-
-See [schema.md](/Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/docs/schema.md) for the full contract.
-
-## Run
-
-Use the bundled sample data:
+## Quick Start
 
 ```bash
-python3 /Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/transform/hotspot_pipeline.py \
-  --input /Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/sources/sample_items.json \
-  --output-json /Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/output/sample_ranked.json \
-  --output-markdown /Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/output/sample_ranked.md
+python3 -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+
+python3 run_daily_hotspots.py \
+  --date "$(date +%Y%m%d)" \
+  --output-dir output \
+  --sources-dir sources \
+  --top 20 \
+  --min-score 5.8
 ```
 
-You can also point `--input` at your own file and optionally override `--reference-time` for reproducible scoring:
+Open the generated static site from `index.html` or serve the repository root
+with any static file server.
+
+## Configuration
+
+Core environment variables:
+
+- `HOTSPOT_SITE_URL`: public canonical site URL used in generated links.
+- `GITHUB_TOKEN`: optional, raises GitHub Search API rate limits.
+- `BAIDU_PUSH_TOKEN` or `HOTSPOT_BAIDU_PUSH_TOKEN`: optional Baidu URL push token.
+- `TELEGRAM_BOT_TOKEN` and `TELEGRAM_HOME_CHANNEL`: optional private Telegram digest/alerts.
+- `HOTSPOT_DAILY_DIGEST_MIN_HOUR`: earliest local hour to send the daily digest.
+
+Source radar entries live in `config/source_radar_sources.json`.
+Manual editorial rules live in `config/editorial_overrides.json`.
+
+## Useful Commands
+
+Run the full generator:
 
 ```bash
-python3 /Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/transform/hotspot_pipeline.py \
-  --input /path/to/items.json \
-  --reference-time 2026-04-18T18:00:00+07:00
+python3 run_daily_hotspots.py --date "$(date +%Y%m%d)" --output-dir output --sources-dir sources
 ```
 
-## Local Dashboard
-
-生成数据：
+Export a compact sports context file:
 
 ```bash
-python3 run_daily_hotspots.py --date 20260418
+python3 export_wechat_context.py
 ```
 
-打开 Dashboard：
+Preview the daily digest without sending:
 
 ```bash
-open dashboard/index.html
+python3 scripts/send_hermes_daily_digest.py --dry-run
 ```
 
-或者：
+Submit changed URLs to IndexNow:
 
 ```bash
-python3 -m http.server 8787
+python3 scripts/indexnow_notify.py --site-root . --sitemap sitemap.xml --state logs/indexnow_state.json
 ```
 
-浏览器访问：
+Run tests:
 
-```text
-http://localhost:8787/dashboard/
+```bash
+python3 -m unittest discover -s tests
 ```
 
-## Ranking Notes
+Run the open-source preflight:
 
-The scoring model is deliberately transparent:
+```bash
+python3 scripts/open_source_audit.py
+python3 scripts/build_open_source_release.py --dry-run
+```
 
-- freshness rewards recent updates
-- topic score captures whether the item is a result, preview, star angle, injury, transfer, or controversy
-- source weight differentiates aggregators from primary or high-trust reporters
-- keyword score rewards playoff, title-race, injury, transfer, scandal, and national-team triggers
-- entity score rewards dense items involving major teams, players, or competitions
+## Deployment Notes
 
-The scoring now follows a Hermes-aligned weighted model:
+For a server cron job, use `run_hotspot_cron.example.sh` as a starting point.
+Point it at your own project directory and environment file.
 
-- `hotness_score * 0.35`
-- `topic_fit_score * 0.25`
-- `source_score * 0.20`
-- `keyword_score * 0.15`
-- `title_quality_score * 0.05`
+The feedback receiver listens on localhost and is intended to sit behind a
+reverse proxy:
 
-This keeps the total score on a 0-10 scale and makes it easier to compare items across different ingest sources.
+```bash
+python3 scripts/feedback_server.py --host 127.0.0.1 --port 18088 --store /var/lib/hotspot-radar/feedback.jsonl
+```
 
-## Google Sheets Daily Sync
+A generic systemd example is available at `deploy/feedback.service.example`.
 
-The repo now also includes a bound Google Apps Script version at [google_apps_script/hotspot_sheet.gs](/Users/alexhemsworth/hermes-work/sports-hotspot-dashboard/google_apps_script/hotspot_sheet.gs).
+## Data And Legal Notes
 
-That script is intended to live inside a Google Sheet and can:
+This project stores and renders public headlines, URLs, snippets, and derived
+editorial metadata. Before publishing a hosted instance, review the terms of the
+sources you enable, keep original-source links visible, and avoid republishing
+full copyrighted articles.
 
-- fetch multiple Google News RSS sports queries
-- filter low-value service-style headlines
-- merge duplicate headlines across feed queries
-- score and rank hotspot candidates with the same transparent dimensions used locally
-- write the final rows into a target worksheet
-- install a once-per-day refresh trigger
+The repository should contain code, configuration examples, and minimal sample
+data only. Do not commit generated news caches, private logs, API keys, cookies,
+or production deployment files.
 
-This gives the project two runtimes:
+## License
 
-- local Python for development and file exports
-- Google Apps Script for a sheet-native daily refresh workflow
+MIT. See `LICENSE`.
